@@ -1,19 +1,9 @@
 {
-    "name": "zendframework/zend-expressive-skeleton",
-    "description": "Zend expressive skeleton. Begin developing PSR-7 middleware applications in seconds!",
+    "name": "swissbib/pura-backend",
+    "description": "to be done",
     "type": "project",
-    "homepage": "https://github.com/zendframework/zend-expressive-skeleton",
+    "homepage": "http://www.swissbib.org",
     "license": "BSD-3-Clause",
-    "keywords": [
-        "skeleton",
-        "middleware",
-        "psr",
-        "psr-7",
-        "psr-11",
-        "zf",
-        "zendframework",
-        "zend-expressive"
-    ],
     "config": {
         "sort-packages": true
     },
@@ -28,13 +18,7 @@
             ]
         }
     },
-    "support": {
-        "issues": "https://github.com/zendframework/zend-expressive-skeleton/issues",
-        "source": "https://github.com/zendframework/zend-expressive-skeleton",
-        "rss": "https://github.com/zendframework/zend-expressive-skeleton/releases.atom",
-        "slack": "https://zendframework-slack.herokuapp.com",
-        "forum": "https://discourse.zendframework.com/c/questions/expressive"
-    },
+
     "minimum-stability": "alpha",
     "prefer-stable": true,
     "require": {
@@ -63,7 +47,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "AppTest\\": "test/AppTest/"
+            "AppTest\\": "module/App/test/AppTest/"
         }
     },
     "scripts": {

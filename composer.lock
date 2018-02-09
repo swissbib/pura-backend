@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "09fcd08c0018846a9bbed96cc394d218",
+    "content-hash": "af455e2f0f8dba2495ab61a302051519",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -3727,6 +3727,8 @@
         "roave/security-advisories": 20,
         "zendframework/zend-expressive": 15,
         "zendframework/zend-expressive-helpers": 15,
+        "zendframework/zend-expressive-zendrouter": 15,
+        "zendframework/zend-expressive-zendviewrenderer": 15,
         "zendframework/zend-expressive-tooling": 15
     },
     "prefer-stable": true,
