@@ -32,4 +32,17 @@ return [
             'ajax_only'  => true,
         ],
     ],
+
+   'authentication' => [
+        'pdo' => [
+            'dsn'   => 'mysql:host=localhost;dbname=puralogin;user=pura;password=pura',
+            'table' => 'users',
+            'field' => [
+                'identity' => 'username',
+                'password' => 'password',
+            ],
+        ],
+        'username' => 'username',
+        'password' => 'password',
+    ],
 ];
