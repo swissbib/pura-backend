@@ -1,8 +1,13 @@
 <?php
 
 namespace User;
+use User\Handler\LoginFactory;
 use User\Handler\LoginHandler;
+use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
+use Zend\Expressive\Authentication\UserRepositoryInterface;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Expressive\Authentication\AuthenticationInterface;
+use Zend\Expressive\Authentication\Session\PhpSessionFactory;
 
 /**
  * The configuration provider for the User module
@@ -36,7 +41,12 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                LoginHandler::class => InvokableFactory::class,
+                LoginHandler::class => LoginFactory::class,
+                AuthenticationInterface::class => PhpSessionFactory::class,
+            ],
+            'aliases' => [
+                // ...
+                UserRepositoryInterface::class => PdoDatabase::class
             ],
         ];
     }

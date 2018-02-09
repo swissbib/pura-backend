@@ -13,6 +13,7 @@ use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundMiddleware;
 use Zend\Expressive\Middleware\RouteMiddleware;
 use Zend\Stratigility\Middleware\ErrorHandler;
+use Zend\Expressive\Session\SessionMiddleware;
 
 /**
  * Setup middleware pipeline:
@@ -41,6 +42,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - $app->pipe('/files', $filesMiddleware);
 
     // Register the routing middleware in the middleware pipeline
+    $app->pipe(SessionMiddleware::class);
     $app->pipe(RouteMiddleware::class);
     $app->pipe(ImplicitHeadMiddleware::class);
     $app->pipe(ImplicitOptionsMiddleware::class);

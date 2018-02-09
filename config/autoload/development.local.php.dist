@@ -9,7 +9,7 @@
  * `composer development-enable`.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use Zend\Expressive\Container;
 use Zend\Expressive\Middleware\ErrorResponseGenerator;
@@ -18,24 +18,26 @@ return [
     'dependencies' => [
         'invokables' => [
         ],
-        'factories'  => [
-            ErrorResponseGenerator::class       => Container\WhoopsErrorResponseGeneratorFactory::class,
-            'Zend\Expressive\Whoops'            => Container\WhoopsFactory::class,
+        'factories' => [
+            ErrorResponseGenerator::class => Container\WhoopsErrorResponseGeneratorFactory::class,
+            'Zend\Expressive\Whoops' => Container\WhoopsFactory::class,
             'Zend\Expressive\WhoopsPageHandler' => Container\WhoopsPageHandlerFactory::class,
         ],
     ],
 
     'whoops' => [
         'json_exceptions' => [
-            'display'    => true,
+            'display' => true,
             'show_trace' => true,
-            'ajax_only'  => true,
+            'ajax_only' => true,
         ],
     ],
 
-   'authentication' => [
+    'authentication' => [
         'pdo' => [
-            'dsn'   => 'mysql:host=localhost;dbname=puralogin;user=pura;password=pura',
+            'dsn' => 'mysql:host=localhost;dbname=puralogin',
+            'user' => 'lionel',
+            'pass' => 'XXXXXXXXXXXXXX',
             'table' => 'users',
             'field' => [
                 'identity' => 'username',

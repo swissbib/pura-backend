@@ -20,6 +20,7 @@ $aggregator = new ConfigAggregator([
     \Zend\Hydrator\ConfigProvider::class,
     \Zend\Expressive\Session\Ext\ConfigProvider::class,
     \Zend\Expressive\Authentication\Session\ConfigProvider::class,
+    \Zend\Expressive\Authentication\ConfigProvider::class,
     \Zend\Expressive\Session\ConfigProvider::class,
     \Zend\Expressive\ZendView\ConfigProvider::class,
     \Zend\Expressive\Router\ZendRouter\ConfigProvider::class,
