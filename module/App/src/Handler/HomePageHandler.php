@@ -8,57 +8,41 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\JsonResponse;
-use Zend\Expressive\Plates\PlatesRenderer;
-use Zend\Expressive\Router;
-use Zend\Expressive\Template;
-use Zend\Expressive\Twig\TwigRenderer;
-use Zend\Expressive\ZendView\ZendViewRenderer;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
+/**
+ * HomePageHandler
+ *
+ * @category Swissbib_VuFind2
+ * @package  ${PACKAGE}
+ * @author   ${AUTHOR}
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     http://vufind.org
+ * @link     http://www.swissbib.ch
+ */
 class HomePageHandler implements RequestHandlerInterface
 {
-    private $router;
 
+    /** @var TemplateRendererInterface  */
     private $template;
 
-    public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null)
+    /**
+     * HomePageHandler constructor.
+     * @param TemplateRendererInterface|null $template
+     */
+    public function __construct(TemplateRendererInterface $template = null)
     {
-        $this->router   = $router;
         $this->template = $template;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     */
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-        if (! $this->template) {
-            return new JsonResponse([
-                'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
-                'docsUrl' => 'https://docs.zendframework.com/zend-expressive/',
-            ]);
-        }
 
         $data = [];
-
-        if ($this->router instanceof Router\AuraRouter) {
-            $data['routerName'] = 'Aura.Router';
-            $data['routerDocs'] = 'http://auraphp.com/packages/2.x/Router.html';
-        } elseif ($this->router instanceof Router\FastRouteRouter) {
-            $data['routerName'] = 'FastRoute';
-            $data['routerDocs'] = 'https://github.com/nikic/FastRoute';
-        } elseif ($this->router instanceof Router\ZendRouter) {
-            $data['routerName'] = 'Zend Router';
-            $data['routerDocs'] = 'https://docs.zendframework.com/zend-router/';
-        }
-
-        if ($this->template instanceof PlatesRenderer) {
-            $data['templateName'] = 'Plates';
-            $data['templateDocs'] = 'http://platesphp.com/';
-        } elseif ($this->template instanceof TwigRenderer) {
-            $data['templateName'] = 'Twig';
-            $data['templateDocs'] = 'http://twig.sensiolabs.org/documentation';
-        } elseif ($this->template instanceof ZendViewRenderer) {
-            $data['templateName'] = 'Zend View';
-            $data['templateDocs'] = 'https://docs.zendframework.com/zend-view/';
-        }
 
         return new HtmlResponse($this->template->render('app::home-page', $data));
     }

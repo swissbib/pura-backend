@@ -18,11 +18,12 @@ $aggregator = new ConfigAggregator([
     \Zend\Router\ConfigProvider::class,
     \Zend\Validator\ConfigProvider::class,
     \Zend\HttpHandlerRunner\ConfigProvider::class,
+    \Zend\Expressive\Helper\ConfigProvider::class,
+    \Zend\Expressive\ConfigProvider::class,
+
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 
-    \Zend\Expressive\Helper\ConfigProvider::class,
-    \Zend\Expressive\ConfigProvider::class,
 
     // Default App module config
     App\ConfigProvider::class,
