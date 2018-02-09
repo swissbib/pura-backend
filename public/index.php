@@ -23,4 +23,5 @@ require 'vendor/autoload.php';
     (require 'config/routes.php')($app, $factory, $container);
 
     $app->run();
+
 })();
