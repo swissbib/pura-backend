@@ -36,8 +36,8 @@ return [
     'authentication' => [
         'pdo' => [
             'dsn' => 'mysql:host=localhost;dbname=puralogin',
-            'user' => 'lionel',
-            'pass' => 'XXXXXXXXXXXXXX',
+            'username' => 'XXXXXXXXXXXXXX',
+            'password' => 'XXXXXXXXXXXXXX',
             'table' => 'users',
             'field' => [
                 'identity' => 'username',

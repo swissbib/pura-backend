@@ -3,6 +3,7 @@
 namespace User;
 use User\Handler\LoginFactory;
 use User\Handler\LoginHandler;
+use User\Handler\LogoutHandler;
 use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -42,6 +43,7 @@ class ConfigProvider
         return [
             'factories'  => [
                 LoginHandler::class => LoginFactory::class,
+                LogoutHandler::class => InvokableFactory::class,
                 AuthenticationInterface::class => PhpSessionFactory::class,
             ],
             'aliases' => [

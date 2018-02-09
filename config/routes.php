@@ -44,4 +44,5 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         ['GET', 'POST'],
         'user.login'
     );
+    $app->get('/logout', User\Handler\LogoutHandler::class, 'user.logout');
 };
