@@ -62,8 +62,14 @@ class LoginHandler implements MiddlewareInterface
 
         $error = '';
         if ($request->getMethod() === 'POST') {
-            $this->loginForm->setData($request->getParsedBody());
-            if ($this->loginForm->isValid()) {
+            $inputFilter = $this->loginForm->getInputFilter();
+
+
+            $inputFilter->setData($request->getParsedBody());
+            if ($inputFilter->isValid()) {
+                $request = $request->withAttribute('username', $inputFilter->getValue('username'));
+                $request = $request->withAttribute('password', $inputFilter->getValue('password'));
+
                 $response = $handler->handle($request);
                 if ($response->getStatusCode() !== 301) {
                     return new RedirectResponse('/');

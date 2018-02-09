@@ -8,15 +8,11 @@ use Zend\Form\Element\Text;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-class LoginForm extends Form implements InputFilterProviderInterface
+class LoginForm extends Form
 {
-    public function __construct()
-    {
-        parent::__construct('login-form');
-    }
-
     public function init()
     {
+        $this->setName('login-form');
         $this->add([
             'type' => Text::class,
             'name' => 'username',
@@ -40,28 +36,5 @@ class LoginForm extends Form implements InputFilterProviderInterface
                 'value' => 'Login',
             ],
         ]);
-    }
-
-    public function getInputFilterSpecification()
-    {
-        return [
-            [
-                'name' => 'username',
-                'required' => true,
-                'filters' => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
-                ],
-            ],
-
-            [
-                'name' => 'password',
-                'required' => true,
-                'filters' => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
-                ],
-            ],
-        ];
     }
 }

@@ -1,9 +1,12 @@
 <?php
 
 namespace User;
+use User\Form\LoginForm;
+use User\Form\LoginFormFactory;
 use User\Handler\LoginFactory;
 use User\Handler\LoginHandler;
 use User\Handler\LogoutHandler;
+use User\InputFilter\LoginInputFilter;
 use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -28,8 +31,10 @@ class ConfigProvider
     public function __invoke()
     {
         return [
-            'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
+            'dependencies'  => $this->getDependencies(),
+            'templates'     => $this->getTemplates(),
+            'input_filters' => $this->getInputFilters(),
+            'form_elements' => $this->getFormElements(),
         ];
     }
 
@@ -64,6 +69,24 @@ class ConfigProvider
             'paths' => [
                 'user'    => [__DIR__ . '/../templates/user'],
             ],
+        ];
+    }
+
+    private function getInputFilters()
+    {
+        return [
+            'factories'  => [
+                LoginInputFilter::class => InvokableFactory::class,
+            ]
+        ];
+    }
+
+    private function getFormElements()
+    {
+        return [
+            'factories'  => [
+                LoginForm::class => LoginFormFactory::class,
+            ]
         ];
     }
 }
