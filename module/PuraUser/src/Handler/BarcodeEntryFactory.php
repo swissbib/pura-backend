@@ -36,6 +36,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\Form\FormElementManager;
 
 /**
  * BarcodeEntryFactory
