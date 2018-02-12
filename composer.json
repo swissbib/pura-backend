@@ -48,7 +48,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "module/App/src/",
-            "User\\": "module/User/src/"
+            "User\\": "module/User/src/",
+            "PuraUser\\": "module/PuraUser/src/"
         }
     },
     "autoload-dev": {

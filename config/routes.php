@@ -32,7 +32,11 @@ use Zend\Expressive\MiddlewareFactory;
  *     'contact'
  * );
  */
-return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+return function (
+                    Application $app,
+                    MiddlewareFactory $factory,
+                    ContainerInterface $container
+                ) : void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
     $app->route(
@@ -45,4 +49,14 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         'user.login'
     );
     $app->get('/logout', User\Handler\LogoutHandler::class, 'user.logout');
+    $app->get(
+        '/purauserbarcodeentry',
+        PuraUser\Handler\BarcodeEntryHandler::class,
+        'purauser.barcodeentry'
+    );
+    $app->get(
+        '/purauseralephnrentry',
+        PuraUser\Handler\BarcodeEntryHandler::class,
+        'purauser.alephnrentry'
+    );
 };
