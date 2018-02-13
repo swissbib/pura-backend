@@ -40,14 +40,9 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         $select = $this->tableGateway->getSql()->select();
         $data = [];
 
-        $data = $this->tableGateway->selectWith($select);
-
-        //var_dump($data);exit();
-        /*
         foreach ($this->tableGateway->selectWith($select) as $row) {
             $data[] = $row;
         }
-        */
 
         return $data;
     }
