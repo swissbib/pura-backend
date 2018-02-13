@@ -75,7 +75,7 @@ class LoginHandler implements MiddlewareInterface
 
                 $response = $handler->handle($request);
                 if ($response->getStatusCode() !== 301) {
-                    return new RedirectResponse('/purauserbarcodeentry');
+                    return new RedirectResponse('/purauser/barcodeentry');
                 }
 
                 $error = 'Login Failure, please try again';

@@ -59,7 +59,7 @@ class BarcodeEntryHandler implements MiddlewareInterface
         /*
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         if ($session->has(UserInterface::class)) {
-            return new RedirectResponse('/purauserbarcodeentry');
+            return new RedirectResponse('/purauser/barcodeentry');
         }
         */
 
@@ -88,7 +88,7 @@ class BarcodeEntryHandler implements MiddlewareInterface
                 $error = 'Login Failure, please try again';
             }
             */
-            return new RedirectResponse('/purauseralephnrentry');
+            return new RedirectResponse('/purauser/alephnrentry');
         }
 
         return new HtmlResponse(

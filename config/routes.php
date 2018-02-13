@@ -50,12 +50,12 @@ return function (
     );
     $app->get('/logout', User\Handler\LogoutHandler::class, 'user.logout');
     $app->get(
-        '/purauserbarcodeentry',
+        '/purauser/barcodeentry',
         PuraUser\Handler\BarcodeEntryHandler::class,
         'purauser.barcodeentry'
     );
     $app->get(
-        '/purauseralephnrentry',
+        '/purauser/alephnrentry',
         PuraUser\Handler\BarcodeEntryHandler::class,
         'purauser.alephnrentry'
     );
