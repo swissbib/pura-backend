@@ -59,4 +59,7 @@ return function (
         PuraUser\Handler\BarcodeEntryHandler::class,
         'purauser.alephnrentry'
     );
+    $app->get('/publisher', Publisher\Handler\PublisherHandler::class, 'publisher');
+    $app->get('/publisher/activate', Publisher\Handler\ActivatePublisherHandler::class, 'publisher.activate');
+    $app->get('/publisher/deactivate', Publisher\Handler\DeactivatePublisherHandler::class, 'publisher.deactivate');
 };
