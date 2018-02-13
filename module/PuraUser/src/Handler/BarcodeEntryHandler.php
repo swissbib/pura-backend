@@ -6,10 +6,10 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use PuraUser\Form\BarcodeEntryForm;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\Form\Form;
 
 /**
  * BarcodeEntryHandler
@@ -27,18 +27,18 @@ class BarcodeEntryHandler implements MiddlewareInterface
      */
     private $template;
     /**
-     * @var BarcodeEntryForm
+     * @var Form
      */
     private $barcodeEntryForm;
 
     /**
      * BarcodeEntryHandler constructor.
      * @param TemplateRendererInterface $template
-     * @param BarcodeEntryForm $barcodeEntryForm
+     * @param Form $barcodeEntryForm
      */
     public function __construct(
         TemplateRendererInterface $template,
-        BarcodeEntryForm          $barcodeEntryForm
+        Form                      $barcodeEntryForm
     ) {
         $this->template         = $template;
         $this->barcodeEntryForm = $barcodeEntryForm;

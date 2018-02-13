@@ -1,14 +1,14 @@
 <?php
 
 namespace PuraUser;
-use PuraUser\Form\BarcodeEntryForm;
-use PuraUser\Form\BarcodeEntryFormFactory;
 use PuraUser\Handler\BarcodeEntryHandler;
 use PuraUser\Handler\BarcodeEntryFactory;
+use User\InputFilter\BarcodeEntryInputFilter;
 use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
 use Zend\Expressive\Authentication\AuthenticationInterface;
 use Zend\Expressive\Authentication\Session\PhpSessionFactory;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
  * The configuration provider for the User module
@@ -72,7 +72,7 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                //LoginInputFilter::class => InvokableFactory::class,
+                BarcodeEntryInputFilter::class => InvokableFactory::class,
             ]
         ];
     }
@@ -81,7 +81,7 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                BarcodeEntryForm::class => BarcodeEntryFormFactory::class,
+                //BarcodeEntryForm::class => BarcodeEntryFormFactory::class,
             ]
         ];
     }

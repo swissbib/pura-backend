@@ -31,8 +31,10 @@
 namespace PuraUser\Handler;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use PuraUser\Form\BarcodeEntryForm;
+use PuraUser\InputFilter\BarcodeEntryInputFilter;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\Form\Form;
+use Zend\InputFilter\InputFilterPluginManager;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -62,11 +64,17 @@ class BarcodeEntryFactory implements FactoryInterface
      *     creating a service.
      * @throws ContainerException if any other error occurs
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(
+        ContainerInterface $container,
+        $requestedName,
+        array $options = null
+    )
     {
         $template  = $container->get(TemplateRendererInterface::class);
-        $barcodeEntryForm = $container->get(FormElementManager::class)
-            ->get(BarcodeEntryForm::class);
+        $inputFilterManager = $container->get(InputFilterPluginManager::class);
+        $loginInputFilter = $inputFilterManager->get(BarcodeEntryInputFilter::class);
+        $barcodeEntryForm = new Form();
+        $barcodeEntryForm->setInputFilter($loginInputFilter);
 
         return new BarcodeEntryHandler($template, $barcodeEntryForm);
     }
