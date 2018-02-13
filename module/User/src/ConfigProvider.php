@@ -1,8 +1,6 @@
 <?php
 
 namespace User;
-use User\Form\LoginForm;
-use User\Form\LoginFormFactory;
 use User\Handler\LoginFactory;
 use User\Handler\LoginHandler;
 use User\Handler\LogoutHandler;

@@ -48,8 +48,6 @@ class ConfigProvider
                 AuthenticationInterface::class => PhpSessionFactory::class,
             ],
             'aliases' => [
-                // ...
-                UserRepositoryInterface::class => PdoDatabase::class
             ],
         ];
     }
