@@ -31,6 +31,8 @@ class BarcodeEntryHandler implements MiddlewareInterface
      */
     private $barcodeEntryForm;
 
+    private $x;
+
     /**
      * BarcodeEntryHandler constructor.
      * @param TemplateRendererInterface $template
@@ -38,10 +40,12 @@ class BarcodeEntryHandler implements MiddlewareInterface
      */
     public function __construct(
         TemplateRendererInterface $template,
-        Form                      $barcodeEntryForm
+        Form                      $barcodeEntryForm,
+        String                    $x
     ) {
         $this->template         = $template;
         $this->barcodeEntryForm = $barcodeEntryForm;
+        $this->x = $x;
     }
 
     /**
@@ -96,6 +100,7 @@ class BarcodeEntryHandler implements MiddlewareInterface
                 'purauser::barcodeentry-page', [
                       'barcodeEntryForm'  => $this->barcodeEntryForm,
                       'error' => $error,
+                      'x' => $this->x
                 ]
             )
         );

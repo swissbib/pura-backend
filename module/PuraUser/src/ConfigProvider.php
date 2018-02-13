@@ -3,6 +3,10 @@
 namespace PuraUser;
 use PuraUser\Handler\BarcodeEntryHandler;
 use PuraUser\Handler\BarcodeEntryFactory;
+use PuraUser\Model\Repository\PuraUserRepositoryFactory;
+use PuraUser\Model\Repository\PuraUserRepositoryInterface;
+use PuraUser\Model\Storage\Db\PuraUserDbStorageFactory;
+use PuraUser\Model\Storage\PuraUserStorageInterface;
 use User\InputFilter\BarcodeEntryInputFilter;
 use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
@@ -46,6 +50,8 @@ class ConfigProvider
             'factories'  => [
                 BarcodeEntryHandler::class => BarcodeEntryFactory::class,
                 AuthenticationInterface::class => PhpSessionFactory::class,
+                PuraUserStorageInterface::class => PuraUserDbStorageFactory::class,
+                PuraUserRepositoryInterface::class => PuraUserRepositoryFactory::class,
             ],
             'aliases' => [
             ],

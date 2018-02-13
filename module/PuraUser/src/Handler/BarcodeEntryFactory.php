@@ -32,6 +32,7 @@ namespace PuraUser\Handler;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use PuraUser\InputFilter\BarcodeEntryInputFilter;
+use PuraUser\Model\Repository\PuraUserRepositoryInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterPluginManager;
@@ -76,6 +77,10 @@ class BarcodeEntryFactory implements FactoryInterface
         $barcodeEntryForm = new Form();
         $barcodeEntryForm->setInputFilter($loginInputFilter);
 
-        return new BarcodeEntryHandler($template, $barcodeEntryForm);
+        /** @var PuraUserRepositoryInterface $puraUserRepository */
+        $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
+        $puraUserList = $puraUserRepository->getListOfAllUsers();
+
+        return new BarcodeEntryHandler($template, $barcodeEntryForm, json_encode($puraUserList));
     }
 }
