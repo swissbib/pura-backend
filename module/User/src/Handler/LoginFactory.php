@@ -31,9 +31,11 @@
 namespace User\Handler;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use User\Form\LoginForm;
+use User\InputFilter\LoginInputFilter;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\Form\Form;
 use Zend\Form\FormElementManager;
+use Zend\InputFilter\InputFilterPluginManager;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -65,9 +67,11 @@ class LoginFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $template  = $container->get(TemplateRendererInterface::class);
-        $loginForm = $container->get(FormElementManager::class)
-            ->get(LoginForm::class);
+        $inputFilterManager = $container->get(InputFilterPluginManager::class);
+        $loginInputFilter = $inputFilterManager->get(LoginInputFilter::class);
+        $form = new Form();
+        $form->setInputFilter($loginInputFilter);
 
-        return new LoginHandler($template, $loginForm);
+        return new LoginHandler($template, $form);
     }
 }
