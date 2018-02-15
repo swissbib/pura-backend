@@ -1,0 +1,18 @@
+main.container {
+    max-width: 100%;
+}
+
+div#main{
+}
+
+div#sidebar {
+    float: left;
+    min-width: 20%;
+    padding: 15px;
+}
+
+div#content {
+    float: right;
+    min-width: 70%;
+    padding: 15px;
+}

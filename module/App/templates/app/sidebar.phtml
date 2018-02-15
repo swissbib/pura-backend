@@ -1,9 +1,0 @@
-<form id="search-form" class="searchForm form-search" action="<?= $this->url($route, array('action' => 'search')); ?>">
-    <div class="input-append">
-        <input id="search-query" name="query" type="text" class="search-query" placeholder="Search">
-        <button type="submit" class="btn"><?= $this->translate('action_search') ?></button>
-    </div>
-</form>
-<ul id="search-results-list" class="searchResultList nav nav-tabs nav-stacked">
-    <?= $this->render('App/app/search'); ?>
-</ul>
