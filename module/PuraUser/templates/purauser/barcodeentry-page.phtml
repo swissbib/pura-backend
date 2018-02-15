@@ -40,14 +40,12 @@ $this->barcodeEntryForm->prepare();
 	<div id="sidebar" class="span3">
 		<?=
 		$this->render('purauser::sidebar', array(
-			'route' => 'institution',
-			'listItems' => []//$listItems
+			'puraUserList' => $puraUserList
 		));?>
 	</div>
 	<div id="content" class="span9">
 		<?= $this->render('purauser::barcodeentry-content', [
 		    'barcodeEntryForm' => $this->barcodeEntryForm,
-		    'x' => $this->x,
             'error' => $error
         ]); ?>
 	</div>

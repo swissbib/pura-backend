@@ -2,12 +2,14 @@
 //use App\Model\BaseModel;
 
 /**
- * @var BaseModel[]    $listItems
+ * @var BaseModel[]    $puraUserList
  * @var String        $route
  */
 ?>
-<?php foreach ($listItems as $listItem): ?>
-    <li><a href="<?= $this->url($route, array('action' => 'edit', 'id' => $listItem->getID())); ?>">
-            <?= $this->escapeHtml($listItem->getListLabel()) ?>
-        </a></li>
+<?php foreach ($puraUserList as $puraUser): ?>
+    <li>
+        <a href="purauser/search/<?=$puraUser['user_id']?>">
+                <?= $this->escapeHtml($puraUser['user_id']) ?> - <?= $this->escapeHtml($puraUser['barcode']) ?> - <?= $this->escapeHtml($puraUser['edu_id']) ?>
+        </a>
+    </li>
 <?php endforeach; ?>

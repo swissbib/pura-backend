@@ -1,3 +1,7 @@
+/***
+ * main page layout
+ ***/
+
 main.container {
     max-width: 100%;
 }
@@ -15,4 +19,15 @@ div#content {
     float: right;
     min-width: 70%;
     padding: 15px;
+}
+
+
+
+/***
+ * list in sidebar
+ ***/
+
+.puraUserList {
+    list-style: none;
+    padding: 0;
 }
