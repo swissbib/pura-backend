@@ -37,8 +37,11 @@ return function (
                     MiddlewareFactory $factory,
                     ContainerInterface $container
                 ) : void {
+    /* Module 'App' */
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
+
+    /* Module 'User' */
     $app->route(
         '/login',
         [
@@ -49,6 +52,8 @@ return function (
         'user.login'
     );
     $app->get('/logout', User\Handler\LogoutHandler::class, 'user.logout');
+
+    /* Module 'PuraUser' */
     $app->get(
         '/purauser/barcodeentry',
         PuraUser\Handler\BarcodeEntryHandler::class,
@@ -59,6 +64,13 @@ return function (
         PuraUser\Handler\BarcodeEntryHandler::class,
         'purauser.alephnrentry'
     );
+    $app->get(
+        'purauser/search/:user_id',
+        PuraUser\Handler\SerarchPuraUserHandler::class,
+        'purauser.search'
+    );
+
+    /* Module 'Publisher' */
     $app->get('/publisher', Publisher\Handler\PublisherHandler::class, 'publisher');
     $app->get('/publisher/activate', Publisher\Handler\ActivatePublisherHandler::class, 'publisher.activate');
     $app->get('/publisher/deactivate', Publisher\Handler\DeactivatePublisherHandler::class, 'publisher.deactivate');
