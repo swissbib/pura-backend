@@ -73,9 +73,9 @@ class BarcodeEntryFactory implements FactoryInterface
     {
         $template  = $container->get(TemplateRendererInterface::class);
         $inputFilterManager = $container->get(InputFilterPluginManager::class);
-        $loginInputFilter = $inputFilterManager->get(BarcodeEntryInputFilter::class);
+        $barcodeEntryInputFilter = $inputFilterManager->get(BarcodeEntryInputFilter::class);
         $barcodeEntryForm = new Form();
-        $barcodeEntryForm->setInputFilter($loginInputFilter);
+        $barcodeEntryForm->setInputFilter($barcodeEntryInputFilter);
 
         /** @var PuraUserRepositoryInterface $puraUserRepository */
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);

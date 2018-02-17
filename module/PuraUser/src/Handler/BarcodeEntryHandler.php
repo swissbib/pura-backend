@@ -8,6 +8,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
+use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\Form;
 
@@ -60,39 +61,29 @@ class BarcodeEntryHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        /*
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         if ($session->has(UserInterface::class)) {
             return new RedirectResponse('/purauser/barcodeentry');
         }
-        */
 
         $error = '';
         if ($request->getMethod() === 'POST') {
-            //$inputFilter = $this->loginForm->getInputFilter();
+            $inputFilter = $this->loginForm->getInputFilter();
+            $inputFilter->setData($request->getParsedBody());
 
-
-            //$inputFilter->setData($request->getParsedBody());
-            /*
             if ($inputFilter->isValid()) {
                 $request = $request->withAttribute(
-                    'username',
-                    $inputFilter->getValue('username')
-                );
-                $request = $request->withAttribute(
-                    'password',
-                    $inputFilter->getValue('password')
+                    'barcodeEntry',
+                    $inputFilter->getValue('barcodeEntry')
                 );
 
                 $response = $handler->handle($request);
                 if ($response->getStatusCode() !== 301) {
-                    return new RedirectResponse('/');
+                    return new RedirectResponse('/purauser/alephnrentry');
                 }
 
-                $error = 'Login Failure, please try again';
+                $error = 'Barcode not accepted.';
             }
-            */
-            return new RedirectResponse('/purauser/alephnrentry');
         }
 
         return new HtmlResponse(

@@ -32,5 +32,17 @@
 echo $error;
 
 $this->barcodeEntryForm->prepare();
-echo 'hi world';
 ?>
+
+<form action="" method="POST" name="barcodeEntry-form" id="barcodeEntry-form">
+
+    <div class="form-group">
+        <label>
+            <span>Enter Barcode</span>
+            <input type="text" name="barcodeEntry" value="">
+        </label>
+    </div>
+
+    <input type="submit" name="Login" value="Validate">
+
+</form>

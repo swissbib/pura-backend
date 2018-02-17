@@ -60,7 +60,7 @@ class LoginHandler implements MiddlewareInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         if ($session->has(UserInterface::class)) {
-            return new RedirectResponse('/');
+            return new RedirectResponse('/login');
         }
 
         $error = '';
