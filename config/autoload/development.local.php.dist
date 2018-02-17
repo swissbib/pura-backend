@@ -50,8 +50,7 @@ return [
 
         'db' => [
             'driver'   => 'Pdo',
-            'dsn'      => 'mysql:host=localhost',
-            'database' => 'vufind4',
+            'dsn'      => 'mysql:host=localhost;dbname=vufind4',
             'user'     => 'vfuser',
             'password' => 'vfpwd'
         ],
