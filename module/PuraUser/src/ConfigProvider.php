@@ -1,13 +1,16 @@
 <?php
 
 namespace PuraUser;
+use PuraUser\Handler\AlephNrEntryFactory;
+use PuraUser\Handler\AlephNrEntryHandler;
 use PuraUser\Handler\BarcodeEntryHandler;
 use PuraUser\Handler\BarcodeEntryFactory;
+use PuraUser\InputFilter\AlephNrEntryInputFilter;
 use PuraUser\Model\Repository\PuraUserRepositoryFactory;
 use PuraUser\Model\Repository\PuraUserRepositoryInterface;
 use PuraUser\Model\Storage\Db\PuraUserDbStorageFactory;
 use PuraUser\Model\Storage\PuraUserStorageInterface;
-use User\InputFilter\BarcodeEntryInputFilter;
+use PuraUser\InputFilter\BarcodeEntryInputFilter;
 use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
 use Zend\Expressive\Authentication\AuthenticationInterface;
@@ -48,6 +51,7 @@ class ConfigProvider
     {
         return [
             'factories'  => [
+                AlephNrEntryHandler::class => AlephNrEntryFactory::class,
                 BarcodeEntryHandler::class => BarcodeEntryFactory::class,
                 AuthenticationInterface::class => PhpSessionFactory::class,
                 PuraUserStorageInterface::class => PuraUserDbStorageFactory::class,
@@ -77,6 +81,7 @@ class ConfigProvider
         return [
             'factories'  => [
                 BarcodeEntryInputFilter::class => InvokableFactory::class,
+                AlephNrEntryInputFilter::class => InvokableFactory::class,
             ]
         ];
     }

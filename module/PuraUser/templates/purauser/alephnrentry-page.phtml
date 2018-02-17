@@ -31,18 +31,20 @@
 
 echo $error;
 
-$this->barcodeEntryForm->prepare();
+//$this->barcodeEntryForm->prepare();
 ?>
 
-<form action="/purauser/alephnrentry" method="POST" name="barcodeEntry-form" id="barcodeEntry-form">
-
-    <div class="form-group">
-        <label>
-            <span>Enter Barcode</span>
-            <input type="text" name="barcodeEntry" value="">
-        </label>
-    </div>
-
-    <input type="submit" name="validate" value="Validate">
-
-</form>
+<div class="row" id="main">
+	<div id="sidebar" class="span3">
+		<?=
+		$this->render('purauser::sidebar', array(
+			'puraUserList' => $puraUserList
+		));?>
+	</div>
+	<div id="content" class="span9">
+		<?= $this->render('purauser::alephnrentry-content', [
+		    'alephNrEntryForm' => $this->alephNrEntryForm,
+            'error' => $error
+        ]); ?>
+	</div>
+</div>

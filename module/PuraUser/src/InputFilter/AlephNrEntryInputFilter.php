@@ -1,6 +1,6 @@
 <?php
 /**
- * ${NAME}
+ * AlephNrEntryInputFilter
  *
  * PHP version 5
  *
@@ -8,7 +8,7 @@
  * http://www.swissbib.org  / http://www.swissbib.ch / http://www.ub.unibas.ch
  *
  * Date: 09.02.18
- * Time: 14:20
+ * Time: 15:21
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
@@ -23,26 +23,36 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @category Swissbib_VuFind2
- * @package  ${PACKAGE}
- * @author   Lionel Walter <lionel.walter@unibas.ch>
+ * @package  User_InputFilter
+ * @author   Matthias Edel<matthias.edel@unibas.ch>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://www.swissbib.org
  */
+namespace PuraUser\InputFilter;
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
+use Zend\InputFilter\InputFilter;
 
-echo $error;
+/**
+ * AlephNrEntryInputFilter
+ *
+ * @category Swissbib_VuFind2
+ * @package  User_InputFilter
+ * @author   Matthias Edel<matthias.edel@unibas.ch>
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     http://vufind.org
+ */
+class AlephNrEntryInputFilter extends InputFilter
+{
+    public function init()
+    {
+        $factory = $this->getFactory();
 
-$this->barcodeEntryForm->prepare();
-?>
+        $alephNr = $factory->createInput(['name' => 'alephNr']);
+        $alephNr->setRequired(true);
+        $alephNr->getFilterChain()->attachByName(StripTags::class);
+        $alephNr->getFilterChain()->attachByName(StringTrim::class);
 
-<form action="/purauser/alephnrentry" method="POST" name="barcodeEntry-form" id="barcodeEntry-form">
-
-    <div class="form-group">
-        <label>
-            <span>Enter Barcode</span>
-            <input type="text" name="barcodeEntry" value="">
-        </label>
-    </div>
-
-    <input type="submit" name="validate" value="Validate">
-
-</form>
+        $this->add($alephNr);
+    }
+}

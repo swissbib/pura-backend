@@ -61,12 +61,12 @@ return function (
     );
     $app->get(
         '/purauser/alephnrentry',
-        PuraUser\Handler\BarcodeEntryHandler::class,
+        PuraUser\Handler\AlephNrEntryHandler::class,
         'purauser.alephnrentry'
     );
     $app->get(
         'purauser/search/:user_id',
-        PuraUser\Handler\SerarchPuraUserHandler::class,
+        PuraUser\Handler\SearchPuraUserHandler::class,
         'purauser.search'
     );
 

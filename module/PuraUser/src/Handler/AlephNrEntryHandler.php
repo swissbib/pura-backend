@@ -22,7 +22,7 @@ use Zend\Form\Form;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org
  */
-class BarcodeEntryHandler implements MiddlewareInterface
+class AlephNrEntryHandler implements MiddlewareInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -31,7 +31,7 @@ class BarcodeEntryHandler implements MiddlewareInterface
     /**
      * @var Form
      */
-    private $barcodeEntryForm;
+    private $alephNrEntryForm;
 
     private $puraUserList;
 
@@ -42,11 +42,11 @@ class BarcodeEntryHandler implements MiddlewareInterface
      */
     public function __construct(
         TemplateRendererInterface $template,
-        Form                      $barcodeEntryForm,
+        Form                      $alephNrForm,
         array                     $puraUserList
     ) {
         $this->template         = $template;
-        $this->barcodeEntryForm = $barcodeEntryForm;
+        $this->barcodeEntryForm = $alephNrForm;
         $this->puraUserList     = $puraUserList;
     }
 
@@ -64,33 +64,33 @@ class BarcodeEntryHandler implements MiddlewareInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         if ($session->has(UserInterface::class)) {
-            //return new RedirectResponse('/purauser/barcodeentry');
+            return new RedirectResponse('/purauser/alephnrentry');
         }
 
         $error = '';
         if ($request->getMethod() === 'POST') {
-            $inputFilter = $this->loginForm->getInputFilter();
+            $inputFilter = $this->alephNrEntryForm->getInputFilter();
             $inputFilter->setData($request->getParsedBody());
 
             if ($inputFilter->isValid()) {
                 $request = $request->withAttribute(
-                    'barcodeEntry',
-                    $inputFilter->getValue('barcodeEntry')
+                    'alephNrEntry',
+                    $inputFilter->getValue('$alephNrEntry')
                 );
 
                 $response = $handler->handle($request);
                 if ($response->getStatusCode() !== 301) {
-                    return new RedirectResponse('/purauser/alephnrentry');
+                    return new RedirectResponse('/purauser/edit');
                 }
 
-                $error = 'Barcode not accepted.';
+                $error = 'Aleph Number not accepted.';
             }
         }
 
         return new HtmlResponse(
             $this->template->render(
-                'purauser::barcodeentry-page', [
-                      'barcodeEntryForm'  => $this->barcodeEntryForm,
+                'purauser::alephnrentry-page', [
+                      'alephNrEntryForm'  => $this->alephNrEntryForm,
                       'puraUserList' => $this->puraUserList,
                       'error' => $error,
                 ]
