@@ -40,6 +40,20 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     }
 
     /**
+     * Get filtered list of all PuraUsers
+     *
+     * @param String $filter
+
+     * @return array
+     */
+    public function getFilteredListOfAllUsers($filter)
+    {
+        $puraUsers = $this->puraUserStorage->getFilteredListOfAllUsers();
+
+        return $puraUsers;
+    }
+
+    /**
      * Get single PuraUser by barcode
      *
      * @param integer $barcode

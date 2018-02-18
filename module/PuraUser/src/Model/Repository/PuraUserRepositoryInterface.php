@@ -17,6 +17,15 @@ interface PuraUserRepositoryInterface
     public function getListOfAllUsers();
 
     /**
+     * Get fitlered list of all PuraUsers
+     *
+     * @param String $filer
+     *
+     * @return array
+     */
+    public function getFilteredListOfAllUsers($filter);
+
+    /**
      * Get single PuraUser by barcode
      *
      * @param integer $barcode

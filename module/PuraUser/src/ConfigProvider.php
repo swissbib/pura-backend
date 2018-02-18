@@ -5,6 +5,7 @@ use PuraUser\Handler\AlephNrEntryFactory;
 use PuraUser\Handler\AlephNrEntryHandler;
 use PuraUser\Handler\BarcodeEntryHandler;
 use PuraUser\Handler\BarcodeEntryFactory;
+use PuraUser\Handler\SearchPuraUserHandler;
 use PuraUser\InputFilter\AlephNrEntryInputFilter;
 use PuraUser\Model\Repository\PuraUserRepositoryFactory;
 use PuraUser\Model\Repository\PuraUserRepositoryInterface;
@@ -51,6 +52,7 @@ class ConfigProvider
     {
         return [
             'factories'  => [
+                SearchPuraUserHandler::class => SearchPuraUserHandlerFactory::class,
                 AlephNrEntryHandler::class => AlephNrEntryFactory::class,
                 BarcodeEntryHandler::class => BarcodeEntryFactory::class,
                 AuthenticationInterface::class => PhpSessionFactory::class,

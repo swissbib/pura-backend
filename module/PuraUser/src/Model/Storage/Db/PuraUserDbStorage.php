@@ -4,7 +4,6 @@ namespace PuraUser\Model\Storage\Db;
 
 use PuraUser\Model\Storage\PuraUserStorageInterface;
 use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\Sql\Expression;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
@@ -37,14 +36,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      */
     public function getListOfAllUsers()
     {
-        $select = $this->tableGateway->getSql()->select();
-        $data = [];
-
-        foreach ($this->tableGateway->selectWith($select) as $row) {
-            $data[] = $row;
-        }
-
-        return $data;
+        return $this->getFiteredListOfAllUsers('');
     }
 
     /**
@@ -65,4 +57,25 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         return $resultSet->current();
     }
 
+    /**
+     * Get a filtered lsit of all PuraUsers
+
+     * @param $filter
+     *
+     * @return array
+     */
+    public function getFiteredListOfAllUsers($filter)
+    {
+        $filter = '%' . $filter . '%';
+        $select = $this->tableGateway->getSql()->select()
+            ->where->like('edu_id', $filter)
+            ->where->or->like('user_id', $filter)
+            ->where->or->like('barcode', $filter);
+        $data = [];
+
+        foreach ($this->tableGateway->select($select) as $row) {
+            $data[] = $row;
+        }
+        return $data;
+    }
 }

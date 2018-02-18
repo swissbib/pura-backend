@@ -11,5 +11,6 @@ namespace PuraUser\Model\Storage;
 interface PuraUserStorageInterface
 {
     public function getListOfAllUsers();
+    public function getFiteredListOfAllUsers($filter);
     public function getSingleUser($barcode);
 }
