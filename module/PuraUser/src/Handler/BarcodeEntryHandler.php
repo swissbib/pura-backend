@@ -69,7 +69,7 @@ class BarcodeEntryHandler implements MiddlewareInterface
 
         $error = '';
         if ($request->getMethod() === 'POST') {
-            $inputFilter = $this->loginForm->getInputFilter();
+            $inputFilter = $this->barcodeEntryForm->getInputFilter();
             $inputFilter->setData($request->getParsedBody());
 
             if ($inputFilter->isValid()) {
