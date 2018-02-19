@@ -31,26 +31,20 @@
 
 echo $error;
 
-$this->alephNrEntryForm->prepare();
+//$this->barcodeEntryForm->prepare();
 ?>
 
-Last Name: Muster<br/>
-First Name: Max<br/>
-SWITCH edu-id: 123@eduid.ch<br/>
-email: max@uni.ch<br/>
-<br/>
-ID checked?<br/>
-Address and account in Aleph verified?<br/>
-<br/>
-<form action="/purauser/edit" method="POST" name="alephNrEntry-form" id="alephNrEntry-form">
-
-    <div class="form-group">
-        <label>
-            <span>Copy the user number from Aleph</span>
-            <input type="text" name="alephNrEntry" value="">
-        </label>
-    </div>
-
-    <input type="submit" name="validate" value="Validate this user">
-
-</form>
+<div class="row" id="main">
+	<div id="sidebar" class="span3">
+		<?=
+		$this->render('purauser::sidebar', array(
+			'puraUserList' => $puraUserList
+		));?>
+	</div>
+	<div id="content" class="span9">
+		<?= $this->render('purauser::edit-content', [
+		    'editForm' => $this->editForm,
+            'error' => $error
+        ]); ?>
+	</div>
+</div>

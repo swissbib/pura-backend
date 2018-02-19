@@ -41,7 +41,7 @@ use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * $alephNrEntryEntryFactory
+ * EditFactory
  *
  * @category Swissbib_VuFind2
  * @package  User_Handler
@@ -49,7 +49,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org
  */
-class AlephNrEntryFactory implements FactoryInterface
+class EditFactory implements FactoryInterface
 {
 
     /**
@@ -71,15 +71,15 @@ class AlephNrEntryFactory implements FactoryInterface
     )
     {
         $template  = $container->get(TemplateRendererInterface::class);
-        $inputFilterManager = $container->get(InputFilterPluginManager::class);
-        $alephNrEntryInputFilter = $inputFilterManager->get(AlephNrEntryInputFilter::class);
-        $alephNrEntryForm = new Form();
-        $alephNrEntryForm->setInputFilter($alephNrEntryInputFilter);
+        //$inputFilterManager = $container->get(InputFilterPluginManager::class);
+        //$alephNrEntryInputFilter = $inputFilterManager->get(AlephNrEntryInputFilter::class);
+        $editForm = new Form();
+        //$alephNrEntryForm->setInputFilter($alephNrEntryInputFilter);
 
         /** @var PuraUserRepositoryInterface $puraUserRepository */
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
         $puraUserList = $puraUserRepository->getListOfAllUsers();
 
-        return new AlephNrEntryHandler($template, $alephNrEntryForm, $puraUserList);
+        return new EditHandler($template, $editForm, $puraUserList);
     }
 }

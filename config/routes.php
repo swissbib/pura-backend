@@ -69,6 +69,12 @@ return function (
         'purauser.alephnrentry'
     );
     $app->route(
+        '/purauser/edit',
+        PuraUser\Handler\EditHandler::class,
+        ['GET', 'POST'],
+        'purauser.edit'
+    );
+    $app->route(
         '/purauser/search',
         PuraUser\Handler\SearchPuraUserHandler::class,
         ['GET', 'POST'],

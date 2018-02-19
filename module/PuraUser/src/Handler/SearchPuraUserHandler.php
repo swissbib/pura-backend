@@ -38,7 +38,7 @@ class SearchPuraUserHandler implements MiddlewareInterface
     private $puraUserRepository;
 
     /**
-     * BarcodeEntryHandler constructor.
+     * SearchPuraUserHandler constructor.
      * @param TemplateRendererInterface $template
      * @param Form $barcodeEntryForm
      */
