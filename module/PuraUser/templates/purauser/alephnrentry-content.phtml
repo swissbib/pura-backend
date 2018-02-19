@@ -24,7 +24,7 @@
  *
  * @category Swissbib_VuFind2
  * @package  ${PACKAGE}
- * @author   Lionel Walter <lionel.walter@unibas.ch>
+ * @author   Matthias Edel <matthias.edel@unibas.ch>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://www.swissbib.org
  */
@@ -34,15 +34,23 @@ echo $error;
 $this->alephNrEntryForm->prepare();
 ?>
 
+Last Name: Muster<br/>
+First Name: Max<br/>
+SWITCH edu-id: 123@eduid.ch<br/>
+email: max@uni.ch<br/>
+<br/>
+ID checked?<br/>
+Address and account in Aleph verified?<br/>
+<br/>
 <form action="" method="POST" name="alephNrEntry-form" id="alephNrEntry-form">
 
     <div class="form-group">
         <label>
-            <span>Enter Aleph Number</span>
+            <span>Copy the user number from Aleph</span>
             <input type="text" name="alephNrEntry" value="">
         </label>
     </div>
 
-    <input type="submit" name="validate" value="Validate">
+    <input type="submit" name="validate" value="Validate this user">
 
 </form>

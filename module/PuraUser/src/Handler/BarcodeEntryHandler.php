@@ -62,10 +62,10 @@ class BarcodeEntryHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        if ($session->has(UserInterface::class)) {
+        //$session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
+        //if ($session->has(UserInterface::class)) {
             //return new RedirectResponse('/purauser/barcodeentry');
-        }
+        //}
 
         $error = '';
         if ($request->getMethod() === 'POST') {
@@ -83,8 +83,8 @@ class BarcodeEntryHandler implements MiddlewareInterface
                     return new RedirectResponse('/purauser/alephnrentry');
                 }
 
-                $error = 'Barcode not accepted.';
             }
+            $error = 'Barcode not accepted.';
         }
 
         return new HtmlResponse(

@@ -78,8 +78,11 @@ class SearchPuraUserHandlerFactory implements FactoryInterface
 
         /** @var PuraUserRepositoryInterface $puraUserRepository */
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
-        $puraUserList = $puraUserRepository->getListOfAllUsers();
+        //$puraUserList = $puraUserRepository->getListOfAllUsers();
 
-        return new SearchPuraUserHandler($template, $alephNrEntryForm, $puraUserList);
+        $searchPuraUserForm = new Form();
+
+        //return new SearchPuraUserHandler($puraUserList, $searchPuraUserForm , $puraUserRepository);
+        return new SearchPuraUserHandler($template, $searchPuraUserForm , $puraUserRepository);
     }
 }

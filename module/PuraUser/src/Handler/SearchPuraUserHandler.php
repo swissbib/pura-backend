@@ -7,10 +7,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use PuraUser\Model\Repository\PuraUserRepository;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\Form;
+use Zend\View\Model\ViewModel;
 
 /**
  * SearchPuraUserHandler
@@ -35,6 +34,9 @@ class SearchPuraUserHandler implements MiddlewareInterface
 
     private $puraUserList;
 
+    /** @var PuraUserRepository $puraUserRepository */
+    private $puraUserRepository;
+
     /**
      * BarcodeEntryHandler constructor.
      * @param TemplateRendererInterface $template
@@ -43,13 +45,14 @@ class SearchPuraUserHandler implements MiddlewareInterface
     public function __construct(
         TemplateRendererInterface $template,
         Form                      $barcodeEntryForm,
-        array                     $puraUserList,
         PuraUserRepository        $puraUserRepository
+        //array                     $puraUserList
     )
     {
         $this->template = $template;
         $this->barcodeEntryForm = $barcodeEntryForm;
-        $this->puraUserList = $puraUserList;
+        $this->puraUserRepository = $puraUserRepository;
+        //$this->puraUserList = $puraUserList;
     }
 
     /**
@@ -64,10 +67,13 @@ class SearchPuraUserHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        $userId = $request->getAttribute('user_id');
+        $searchTerm = $request->getAttribute('sidebarSearchbox');
+        $filteredPuraUserList = $this->puraUserRepository->getFilteredListOfAllUsers($searchTerm);
 
-        // call find()/getfiltereduserlist form purauserrepository.php
+        $viewModel = new ViewModel([ 'puraUserList' => $filteredPuraUserList]);
+        $viewModel->setTerminal(true);
+        $viewModel->setTemplate('purauser::sidebar');
 
-        // return viewmodel(?) containing the passed userlist
+        return $viewModel;
     }
 }

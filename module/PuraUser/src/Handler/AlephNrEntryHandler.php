@@ -42,11 +42,11 @@ class AlephNrEntryHandler implements MiddlewareInterface
      */
     public function __construct(
         TemplateRendererInterface $template,
-        Form                      $alephNrForm,
+        Form                      $alephNrEntryForm,
         array                     $puraUserList
     ) {
         $this->template         = $template;
-        $this->barcodeEntryForm = $alephNrForm;
+        $this->alephNrEntryForm = $alephNrEntryForm;
         $this->puraUserList     = $puraUserList;
     }
 
@@ -62,10 +62,12 @@ class AlephNrEntryHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
+        /*
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         if ($session->has(UserInterface::class)) {
             return new RedirectResponse('/purauser/alephnrentry');
         }
+        */
 
         $error = '';
         if ($request->getMethod() === 'POST') {

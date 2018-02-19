@@ -48,7 +48,7 @@ class BarcodeEntryInputFilter extends InputFilter
     {
         $factory = $this->getFactory();
 
-        $barcode = $factory->createInput(['name' => 'barcode']);
+        $barcode = $factory->createInput(['name' => 'barcodeEntry']);
         $barcode->setRequired(true);
         $barcode->getFilterChain()->attachByName(StripTags::class);
         $barcode->getFilterChain()->attachByName(StringTrim::class);

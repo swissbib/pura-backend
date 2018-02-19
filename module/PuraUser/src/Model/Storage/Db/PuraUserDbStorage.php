@@ -36,7 +36,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      */
     public function getListOfAllUsers()
     {
-        return $this->getFiteredListOfAllUsers('');
+        return $this->getFilteredListOfAllUsers('');
     }
 
     /**
@@ -64,7 +64,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      *
      * @return array
      */
-    public function getFiteredListOfAllUsers($filter)
+    public function getFilteredListOfAllUsers($filter)
     {
         $filter = '%' . $filter . '%';
         $select = $this->tableGateway->getSql()->select()
@@ -78,4 +78,5 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         }
         return $data;
     }
+
 }

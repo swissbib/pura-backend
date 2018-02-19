@@ -41,6 +41,7 @@ return function (
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
 
+
     /* Module 'User' */
     $app->route(
         '/login',
@@ -53,22 +54,27 @@ return function (
     );
     $app->get('/logout', User\Handler\LogoutHandler::class, 'user.logout');
 
+
     /* Module 'PuraUser' */
-    $app->get(
+    $app->route(
         '/purauser/barcodeentry',
         PuraUser\Handler\BarcodeEntryHandler::class,
+        ['GET', 'POST'],
         'purauser.barcodeentry'
     );
-    $app->get(
+    $app->route(
         '/purauser/alephnrentry',
         PuraUser\Handler\AlephNrEntryHandler::class,
+        ['GET', 'POST'],
         'purauser.alephnrentry'
     );
-    $app->get(
-        'purauser/search/:user_id',
+    $app->route(
+        '/purauser/search',
         PuraUser\Handler\SearchPuraUserHandler::class,
+        ['GET', 'POST'],
         'purauser.search'
     );
+
 
     /* Module 'Publisher' */
     $app->get('/publisher', Publisher\Handler\PublisherHandler::class, 'publisher');

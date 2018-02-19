@@ -6,6 +6,7 @@ use PuraUser\Handler\AlephNrEntryHandler;
 use PuraUser\Handler\BarcodeEntryHandler;
 use PuraUser\Handler\BarcodeEntryFactory;
 use PuraUser\Handler\SearchPuraUserHandler;
+use PuraUser\Handler\SearchPuraUserHandlerFactory;
 use PuraUser\InputFilter\AlephNrEntryInputFilter;
 use PuraUser\Model\Repository\PuraUserRepositoryFactory;
 use PuraUser\Model\Repository\PuraUserRepositoryInterface;

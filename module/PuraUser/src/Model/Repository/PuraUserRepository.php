@@ -48,7 +48,7 @@ class PuraUserRepository implements PuraUserRepositoryInterface
      */
     public function getFilteredListOfAllUsers($filter)
     {
-        $puraUsers = $this->puraUserStorage->getFilteredListOfAllUsers();
+        $puraUsers = $this->puraUserStorage->getFilteredListOfAllUsers($filter);
 
         return $puraUsers;
     }
