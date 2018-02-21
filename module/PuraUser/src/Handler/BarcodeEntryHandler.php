@@ -8,8 +8,6 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Expressive\Authentication\UserInterface;
-use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\Form;
 
@@ -69,15 +67,11 @@ class BarcodeEntryHandler implements MiddlewareInterface
 
         $error = '';
         if ($request->getMethod() === 'POST') {
-            $inputFilter = $this->barcodeEntryForm->getInputFilter();
-            $inputFilter->setData($request->getParsedBody());
+            $barcodeEntryValidator = new \Zend\Validator\Regex(['pattern' => '/[A-Z0-9]/']);
+            $isValid = $barcodeEntryValidator->isValid($request->getParsedBody()['barcodeEntry']);
 
-            if ($inputFilter->isValid()) {
-                $request = $request->withAttribute(
-                    'barcodeEntry',
-                    $inputFilter->getValue('barcodeEntry')
-                );
-
+            if ($isValid) {
+                // consider using striptags'n'trim-filter here an then add it as a derived request attibute!
                 $response = $handler->handle($request);
                 if ($response->getStatusCode() !== 301) {
                     return new RedirectResponse('/purauser/alephnrentry');
