@@ -80,6 +80,6 @@ class AlephNrEntryFactory implements FactoryInterface
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
         $puraUserList = $puraUserRepository->getListOfAllUsers();
 
-        return new AlephNrEntryHandler($template, $alephNrEntryForm, $puraUserList);
+        return new AlephNrEntryHandler($template, $alephNrEntryForm, $puraUserRepository, $puraUserList);
     }
 }

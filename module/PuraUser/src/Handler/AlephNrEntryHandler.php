@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use PuraUser\Model\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Authentication\UserInterface;
@@ -33,6 +34,8 @@ class AlephNrEntryHandler implements MiddlewareInterface
      */
     private $alephNrEntryForm;
 
+    private $puraUserRepository;
+
     private $puraUserList;
 
     /**
@@ -43,11 +46,13 @@ class AlephNrEntryHandler implements MiddlewareInterface
     public function __construct(
         TemplateRendererInterface $template,
         Form                      $alephNrEntryForm,
+        PuraUserRepository        $puraUserRepository,
         array                     $puraUserList
     ) {
-        $this->template         = $template;
-        $this->alephNrEntryForm = $alephNrEntryForm;
-        $this->puraUserList     = $puraUserList;
+        $this->template             = $template;
+        $this->alephNrEntryForm     = $alephNrEntryForm;
+        $this->puraUserRepository   = $puraUserRepository;
+        $this->puraUserList         = $puraUserList;
     }
 
     /**
@@ -62,14 +67,9 @@ class AlephNrEntryHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        /*
-        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        if ($session->has(UserInterface::class)) {
-            return new RedirectResponse('/purauser/alephnrentry');
-        }
-        */
-
         $error = '';
+        $barcode = $request->getAttribute('barcode');
+
         if ($request->getMethod() === 'POST') {
             $inputFilter = $this->alephNrEntryForm->getInputFilter();
             $inputFilter->setData($request->getParsedBody());
@@ -89,12 +89,16 @@ class AlephNrEntryHandler implements MiddlewareInterface
             }
         }
 
+        $singlePuraUserRecord = $this->puraUserRepository->getSinglePuraUser($barcode);
+
+        // todo: return entity instead of $singlePuraUserRecord-array
         return new HtmlResponse(
             $this->template->render(
                 'purauser::alephnrentry-page', [
                       'alephNrEntryForm'  => $this->alephNrEntryForm,
                       'puraUserList' => $this->puraUserList,
-                      'error' => $error,
+                      'singlePuraUserRecord' => $singlePuraUserRecord,
+                      'error' => $error
                 ]
             )
         );

@@ -67,14 +67,16 @@ class BarcodeEntryHandler implements MiddlewareInterface
 
         $error = '';
         if ($request->getMethod() === 'POST') {
+            $barcodeEntry = $request->getParsedBody()['barcodeEntry'];
+
             $barcodeEntryValidator = new \Zend\Validator\Regex(['pattern' => '/^[A-Z0-9]+$/']); // allow only capital letters and/or numbers, but multiple of them
-            $isValid = $barcodeEntryValidator->isValid($request->getParsedBody()['barcodeEntry']);
+            $isValid = $barcodeEntryValidator->isValid($barcodeEntry);
 
             if ($isValid) {
                 // consider using striptags'n'trim-filter here an then add it as a derived request attibute!
                 $response = $handler->handle($request);
                 if ($response->getStatusCode() !== 301) {
-                    return new RedirectResponse('/purauser/alephnrentry');
+                    return new RedirectResponse('/purauser/alephnrentry/' . $barcodeEntry);
                 }
 
             }

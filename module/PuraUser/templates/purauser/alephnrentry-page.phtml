@@ -44,6 +44,7 @@ echo $error;
 	<div id="content" class="span9">
 		<?= $this->render('purauser::alephnrentry-content', [
 		    'alephNrEntryForm' => $this->alephNrEntryForm,
+            'singlePuraUserRecord' => $this->singlePuraUserRecord,
             'error' => $error
         ]); ?>
 	</div>

@@ -63,7 +63,7 @@ return function (
         'purauser.barcodeentry'
     );
     $app->route(
-        '/purauser/alephnrentry',
+        '/purauser/alephnrentry/:barcode',
         PuraUser\Handler\AlephNrEntryHandler::class,
         ['GET', 'POST'],
         'purauser.alephnrentry'
