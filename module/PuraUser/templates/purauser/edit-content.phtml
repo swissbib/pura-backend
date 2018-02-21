@@ -36,27 +36,27 @@ $this->editForm->prepare();
 
 <span>The user has been succesfully activated.</span>
 <br/><br/>
-Last Name: Muster<br/>
-First Name: Max<br/>
-SWITCH edu-id: 123@eduid.ch<br/>
-email: max@uni.ch<br/>
-<br/>
-Aleph Number: 123<br/>
 
-<form action="" method="POST" name="edit-form" id="edit-form">
-
-    <div class="form-group">
-        Remark:<input type="text" name="edit-remarq" value="">
-    </div>
-
-    <input type="submit" name="save" value="Save">
-
+<form action="" method="POST" name="edit-form" id="edit-form" class="form-horizontal">
+    <table class="table"><tbody>
+        <tr><td>Last Name:</td>       <td>Muster</td><tr>
+        <tr><td>First Name:</td>      <td>Max</td><tr>
+        <tr><td>SWITCH edu-id:</td>   <td>123@eduid.ch</td><tr>
+        <tr><td>email:</td>           <td>max@uni.ch</td><tr>
+        <tr><td>activation date:</td> <td>25.4.2018</td><tr>
+        <tr><td>valid until:</td>     <td>24.4.2019</td><tr>
+        <tr><td>Aleph Number:</td>    <td>123</td></tr>
+        <tr><td>Remark:</td>          <td><textarea name="edit-remarq" value="" rows="5" cols=""></textarea></td></tr>
+        <tr><td><input type="submit" name="save" value="Save"></td><td></td></tr>
+    </tbody></table>
 </form>
 
-<form action="/publisher/deactivate" method="POST" name="edit--blockFromLib-form" id="edit-blockAllLibs-form">
+<form action="/publisher/deactivate" method="POST" name="edit-blockFromLib-form" id="edit-blockAllLibs-form">
     <input type="submit" name="save" value="Block this user from library">
 </form>
+<br/>
 
-<form action="/publisher/deactivate" method="POST" name="edit-blockAllLibs-form" id="edit-blockAllLibs-form">
+<form action="mailto:swissbib-ub@unibas.ch" method="POST" name="edit-blockAllLibs-form" id="edit-blockAllLibs-form">
+    <input type="hidden" name="user" value="put user IDs here">
     <input type="submit" name="save" value="Block this user from all libraries">
 </form>

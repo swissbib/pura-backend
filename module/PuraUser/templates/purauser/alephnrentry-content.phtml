@@ -34,10 +34,13 @@ echo $error;
 $this->alephNrEntryForm->prepare();
 ?>
 
-Last Name: Muster<br/>
-First Name: Max<br/>
-SWITCH edu-id: 123@eduid.ch<br/>
-email: max@uni.ch<br/>
+<table class="table"><tbody>
+    <tr><td>Last Name:</td>     <td>Muster</td><tr>
+    <tr><td>First Name:</td>    <td>Max</td><tr>
+    <tr><td>SWITCH edu-id:</td> <td>123@eduid.ch</td><tr>
+    <tr><td>email:</td>         <td>max@uni.ch</td><tr>
+</tbody></table>
+
 <br/>
 ID checked?<br/>
 Address and account in Aleph verified?<br/>
@@ -49,8 +52,8 @@ Address and account in Aleph verified?<br/>
             <span>Copy the user number from Aleph</span>
             <input type="text" name="alephNrEntry" value="">
         </label>
+        <input type="submit" name="validate" value="Validate this user">
     </div>
 
-    <input type="submit" name="validate" value="Validate this user">
 
 </form>
