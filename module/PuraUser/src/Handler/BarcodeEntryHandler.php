@@ -67,7 +67,7 @@ class BarcodeEntryHandler implements MiddlewareInterface
 
         $error = '';
         if ($request->getMethod() === 'POST') {
-            $barcodeEntryValidator = new \Zend\Validator\Regex(['pattern' => '/[A-Z0-9]/']);
+            $barcodeEntryValidator = new \Zend\Validator\Regex(['pattern' => '/^[A-Z0-9]+$/']); // allow only capital letters and/or numbers, but multiple of them
             $isValid = $barcodeEntryValidator->isValid($request->getParsedBody()['barcodeEntry']);
 
             if ($isValid) {
