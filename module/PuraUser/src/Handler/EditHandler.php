@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use PuraUser\Model\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Authentication\UserInterface;
@@ -33,6 +34,8 @@ class EditHandler implements MiddlewareInterface
      */
     private $editForm;
 
+    private $puraUserRepository;
+
     private $puraUserList;
 
     /**
@@ -43,11 +46,13 @@ class EditHandler implements MiddlewareInterface
     public function __construct(
         TemplateRendererInterface $template,
         Form                      $editForm,
+        PuraUserRepository        $puraUserRepository,
         array                     $puraUserList
     ) {
-        $this->template         = $template;
-        $this->editForm         = $editForm;
-        $this->puraUserList     = $puraUserList;
+        $this->template           = $template;
+        $this->editForm           = $editForm;
+        $this->puraUserRepository = $puraUserRepository;
+        $this->puraUserList       = $puraUserList;
     }
 
     /**
@@ -62,14 +67,9 @@ class EditHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        /*
-        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        if ($session->has(UserInterface::class)) {
-            return new RedirectResponse('/purauser/alephnrentry');
-        }
-        */
-
         $error = '';
+        $barcode = $request->getAttribute('barcode');
+
         if ($request->getMethod() === 'POST') {
             //$inputFilter = $this->editForm->getInputFilter();
             //$inputFilter->setData($request->getParsedBody());
@@ -92,11 +92,14 @@ class EditHandler implements MiddlewareInterface
 
         }
 
+        $singlePuraUserRecord = $this->puraUserRepository->getSinglePuraUser($barcode);
+
         return new HtmlResponse(
             $this->template->render(
                 'purauser::edit-page', [
                       'editForm'  => $this->editForm,
                       'puraUserList' => $this->puraUserList,
+                      'singlePuraUserRecord' => $singlePuraUserRecord,
                       'error' => $error,
                 ]
             )

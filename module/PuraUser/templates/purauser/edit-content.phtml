@@ -39,14 +39,14 @@ $this->editForm->prepare();
 
 <form action="" method="POST" name="edit-form" id="edit-form" class="form-horizontal">
     <table class="table"><tbody>
-        <tr><td>Last Name:</td>       <td>Muster</td><tr>
-        <tr><td>First Name:</td>      <td>Max</td><tr>
-        <tr><td>SWITCH edu-id:</td>   <td>123@eduid.ch</td><tr>
-        <tr><td>email:</td>           <td>max@uni.ch</td><tr>
-        <tr><td>activation date:</td> <td>25.4.2018</td><tr>
-        <tr><td>valid until:</td>     <td>24.4.2019</td><tr>
-        <tr><td>Aleph Number:</td>    <td>123</td></tr>
-        <tr><td>Remark:</td>          <td><textarea name="edit-remarq" value="" rows="5" cols=""></textarea></td></tr>
+        <tr><td>Last Name:</td>       <td><?= $singlePuraUserRecord['lastname'] ?></td><tr>
+        <tr><td>First Name:</td>      <td><?= $singlePuraUserRecord['firstname'] ?></td><tr>
+        <tr><td>SWITCH edu-id:</td>   <td><?= $singlePuraUserRecord['edu_id'] ?></td><tr>
+        <tr><td>email:</td>           <td><?= $singlePuraUserRecord['email'] ?></td><tr>
+        <tr><td>activation date:</td> <td><?= $singlePuraUserRecord['access_created'] ?></td><tr>
+        <tr><td>valid until:</td>     <td><?= $singlePuraUserRecord['date_expiration'] ?></td><tr>
+        <tr><td>Aleph Number:</td>    <td><?= $singlePuraUserRecord['library_system_number'] ?></td></tr>
+        <tr><td>Remark:</td>          <td><textarea name="edit-remarq" value="<?= $singlePuraUserRecord['remarks'] ?>" rows="5" cols=""></textarea></td></tr>
         <tr><td><input type="submit" name="save" value="Save"></td><td></td></tr>
     </tbody></table>
 </form>

@@ -80,6 +80,6 @@ class EditFactory implements FactoryInterface
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
         $puraUserList = $puraUserRepository->getListOfAllUsers();
 
-        return new EditHandler($template, $editForm, $puraUserList);
+        return new EditHandler($template, $editForm, $puraUserRepository, $puraUserList);
     }
 }

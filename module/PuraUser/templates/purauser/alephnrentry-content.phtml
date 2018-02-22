@@ -35,17 +35,17 @@ $this->alephNrEntryForm->prepare();
 ?>
 
 <table class="table"><tbody>
-    <tr><td>Last Name:</td>     <td>Muster</td><tr>
-    <tr><td>First Name:</td>    <td>Max</td><tr>
+    <tr><td>Last Name:</td>     <td><?= $singlePuraUserRecord['lastname'] ?></td><tr>
+    <tr><td>First Name:</td>    <td><?= $singlePuraUserRecord['firstname'] ?></td><tr>
     <tr><td>SWITCH edu-id:</td> <td><?= $singlePuraUserRecord['edu_id'] ?></td><tr>
-    <tr><td>email:</td>         <td>max@uni.ch</td><tr>
+    <tr><td>email:</td>         <td><?= $singlePuraUserRecord['email'] ?></td><tr>
 </tbody></table>
 
 <br/>
 ID checked?<br/>
 Address and account in Aleph verified?<br/>
 <br/>
-<form action="/purauser/edit" method="POST" name="alephNrEntry-form" id="alephNrEntry-form">
+<form action="/purauser/edit/<?= $singlePuraUserRecord['barcode'] ?>" method="POST" name="alephNrEntry-form" id="alephNrEntry-form">
 
     <div class="form-group">
         <label>

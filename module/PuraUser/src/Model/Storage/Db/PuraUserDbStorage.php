@@ -46,12 +46,12 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      *
      * @return array
      */
-    public function getSingleUser($barcode)
+    public function getSinglePuraUser($barcode)
     {
         $select = $this->tableGateway->getSql()->select();
+        $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number']);
         $select->where->equalTo('barcode', $barcode);
-        $select->join('user', 'user.id = pura_user.user_id', ['firstname', 'lastname'], 'left');
-        $select->columns(['user_id','edu_id','barcode']);
+        $select->join('user', 'user.id = pura_user.user_id', ['firstname', 'lastname', 'email'], 'left');
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);

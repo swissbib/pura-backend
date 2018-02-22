@@ -62,7 +62,7 @@ class PuraUserRepository implements PuraUserRepositoryInterface
      */
     public function getSinglePuraUser($barcode)
     {
-        $puraUser = $this->puraUserStorage->getSingleUser($barcode);
+        $puraUser = $this->puraUserStorage->getSinglePuraUser($barcode);
 
         if (!$puraUser) {
             return false;

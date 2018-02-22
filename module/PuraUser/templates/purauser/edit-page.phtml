@@ -44,6 +44,7 @@ echo $error;
 	<div id="content" class="span9">
 		<?= $this->render('purauser::edit-content', [
 		    'editForm' => $this->editForm,
+            'singlePuraUserRecord' => $singlePuraUserRecord,
             'error' => $error
         ]); ?>
 	</div>

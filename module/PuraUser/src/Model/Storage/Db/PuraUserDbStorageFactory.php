@@ -22,11 +22,7 @@ class PuraUserDbStorageFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        $adapter = $container->get(AdapterInterface::class);
-
-        //$resultSet = new ResultSet(ResultSet::TYPE_ARRAY);
         $resultSet = new ResultSet();
-
         $dbConfig = $container->get('config')['db'];
         $adapter = new Adapter($dbConfig);
 
