@@ -50,6 +50,8 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     {
         $select = $this->tableGateway->getSql()->select();
         $select->where->equalTo('barcode', $barcode);
+        $select->join('user', 'user.id = pura_user.user_id', ['firstname', 'lastname'], 'left');
+        $select->columns(['user_id','edu_id','barcode']);
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
@@ -68,12 +70,14 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     {
         $filter = '%' . $filter . '%';
         $select = $this->tableGateway->getSql()->select()
-            ->where->like('edu_id', $filter)
+            ->columns(['user_id','edu_id','barcode']);
+        $select->where->like('edu_id', $filter)
             ->where->or->like('user_id', $filter)
             ->where->or->like('barcode', $filter);
+        $select->join('user', 'user.id = pura_user.user_id', ['firstname','lastname'], 'left');
         $data = [];
 
-        foreach ($this->tableGateway->select($select) as $row) {
+        foreach ($this->tableGateway->selectWith($select) as $row) {
             $data[] = $row;
         }
         return $data;
