@@ -9,7 +9,7 @@
 <?php foreach ($puraUserList as $puraUser): ?>
     <li>
         <a href="purauser/edit/<?=$puraUser['user_id']?>">
-                <?= $this->escapeHtml($puraUser['user_id']) ?> - <?= $this->escapeHtml($puraUser['barcode']) ?> - <?= $this->escapeHtml($puraUser['edu_id']) ?>
+                <?= $this->escapeHtml($puraUser['firstname']) ?> - <?= $this->escapeHtml($puraUser['lastname']) ?> - <?= $this->escapeHtml($puraUser['edu_id']) ?>
         </a>
     </li>
 <?php endforeach; ?>
