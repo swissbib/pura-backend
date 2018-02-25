@@ -71,4 +71,19 @@ class PuraUserRepository implements PuraUserRepositoryInterface
         return $puraUser;
     }
 
+    /**
+     * @param $alephNr aleph number
+     * @param $barcode barcode of purauser
+     * @return the user_id
+     */
+    public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode)
+    {
+        $puraUserId = $this->puraUserStorage->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
+
+        if (!$puraUserId) {
+            return false;
+        }
+
+        return $puraUserId;
+    }
 }

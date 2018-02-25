@@ -71,22 +71,20 @@ class AlephNrEntryHandler implements MiddlewareInterface
         $barcode = $request->getAttribute('barcode');
 
         if ($request->getMethod() === 'POST') {
-            $inputFilter = $this->alephNrEntryForm->getInputFilter();
-            $inputFilter->setData($request->getParsedBody());
+            $alephNr = $request->getParsedBody()['alephNrEntry'];
+            // todo: filter (strip spaces) $alephNr here!
+            $puraUserId = $this->puraUserRepository->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
 
-            if ($inputFilter->isValid()) {
-                $request = $request->withAttribute(
-                    'alephNrEntry',
-                    $inputFilter->getValue('$alephNrEntry')
-                );
+            $request = $request->withAttribute(
+                'alephNrEntry',
+                $alephNr
+            );
 
-                $response = $handler->handle($request);
-                if ($response->getStatusCode() !== 301) {
-                    return new RedirectResponse('/purauser/edit');
-                }
-
-                $error = 'Aleph Number not accepted.';
+            $response = $handler->handle($request);
+            if ($response->getStatusCode() !== 301) {
+                return new RedirectResponse('/purauser/edit/' . $puraUserId);
             }
+            $error = 'Aleph Number not accepted.';
         }
 
         $singlePuraUserRecord = $this->puraUserRepository->getSinglePuraUser($barcode);

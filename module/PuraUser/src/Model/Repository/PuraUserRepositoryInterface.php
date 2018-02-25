@@ -33,4 +33,11 @@ interface PuraUserRepositoryInterface
      * @return array
      */
     public function getSinglePuraUser($barcode);
+
+    /**
+     * @param $alephNr aleph number
+     * @param $barcode barcode of purauser
+     * @return the user_id
+     */
+    public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
 }

@@ -60,11 +60,6 @@ class BarcodeEntryHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        //$session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        //if ($session->has(UserInterface::class)) {
-            //return new RedirectResponse('/purauser/barcodeentry');
-        //}
-
         $error = '';
         if ($request->getMethod() === 'POST') {
             $barcodeEntry = $request->getParsedBody()['barcodeEntry'];

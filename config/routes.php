@@ -69,7 +69,7 @@ return function (
         'purauser.alephnrentry'
     );
     $app->route(
-        '/purauser/edit/:barcode',
+        '/purauser/edit/:user_id',
         PuraUser\Handler\EditHandler::class,
         ['GET', 'POST'],
         'purauser.edit'

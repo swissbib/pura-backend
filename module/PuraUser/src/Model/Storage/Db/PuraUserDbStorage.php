@@ -83,4 +83,17 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         return $data;
     }
 
+    public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode)
+    {
+        $update = $this->tableGateway->getSql()->update();
+        $update->set(
+            [
+                'library_system_number' => $alephNr,
+            ]
+        );
+        $update->where->equalTo('library_system_number', $barcode);
+        $this->tableGateway->updateWith($update);
+
+        return true;
+    }
 }
