@@ -91,7 +91,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
                 'library_system_number' => $alephNr,
             ]
         );
-        $update->where->equalTo('library_system_number', $barcode);
+        $update->where->equalTo('barcode', $barcode);
         $this->tableGateway->updateWith($update);
 
         return true;
