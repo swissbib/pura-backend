@@ -68,7 +68,8 @@ class EditHandler implements MiddlewareInterface
     ): ResponseInterface
     {
         $error = '';
-        $barcode = $request->getAttribute('barcode');
+        $userId = $request->getAttribute('user_id');
+        $singlePuraUserRecord = $this->puraUserRepository->getSinglePuraUserByUserId($userId);
 
         if ($request->getMethod() === 'POST') {
             //$inputFilter = $this->editForm->getInputFilter();
@@ -91,8 +92,6 @@ class EditHandler implements MiddlewareInterface
             */
 
         }
-
-        $singlePuraUserRecord = $this->puraUserRepository->getSinglePuraUser($barcode);
 
         return new HtmlResponse(
             $this->template->render(

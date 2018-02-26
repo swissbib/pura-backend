@@ -60,9 +60,27 @@ class PuraUserRepository implements PuraUserRepositoryInterface
      *
      * @return array
      */
-    public function getSinglePuraUser($barcode)
+    public function getSinglePuraUserByBarcode($barcode)
     {
-        $puraUser = $this->puraUserStorage->getSinglePuraUser($barcode);
+        $puraUser = $this->puraUserStorage->getSinglePuraUserByBarcode($barcode);
+
+        if (!$puraUser) {
+            return false;
+        }
+
+        return $puraUser;
+    }
+
+    /**
+     * Get single PuraUser by user_id
+     *
+     * @param integer $userId
+     *
+     * @return array
+     */
+    public function getSinglePuraUserByUserId($userId)
+    {
+        $puraUser = $this->puraUserStorage->getSinglePuraUserByUserId($userId);
 
         if (!$puraUser) {
             return false;
@@ -78,12 +96,6 @@ class PuraUserRepository implements PuraUserRepositoryInterface
      */
     public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode)
     {
-        $puraUserId = $this->puraUserStorage->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
-
-        if (!$puraUserId) {
-            return false;
-        }
-
-        return $puraUserId;
+        return $this->puraUserStorage->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
     }
 }

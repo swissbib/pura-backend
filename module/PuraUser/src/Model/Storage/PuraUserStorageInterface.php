@@ -12,6 +12,7 @@ interface PuraUserStorageInterface
 {
     public function getListOfAllUsers();
     public function getFilteredListOfAllUsers($filter);
-    public function getSinglePuraUser($barcode);
+    public function getSinglePuraUserByBarcode($barcode);
+    public function getSinglePuraUserByUserId($userId);
     public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
 }

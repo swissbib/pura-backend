@@ -26,13 +26,22 @@ interface PuraUserRepositoryInterface
     public function getFilteredListOfAllUsers($filter);
 
     /**
+     * Get single PuraUser by user_id
+     *
+     * @param integer $userId
+     *
+     * @return array
+     */
+    public function getSinglePuraUserByUserId($userId);
+
+    /**
      * Get single PuraUser by barcode
      *
      * @param integer $barcode
      *
      * @return array
      */
-    public function getSinglePuraUser($barcode);
+    public function getSinglePuraUserByBarcode($barcode);
 
     /**
      * @param $alephNr aleph number

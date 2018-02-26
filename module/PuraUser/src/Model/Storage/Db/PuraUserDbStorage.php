@@ -46,11 +46,31 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      *
      * @return array
      */
-    public function getSinglePuraUser($barcode)
+    public function getSinglePuraUserByBarcode($barcode)
     {
         $select = $this->tableGateway->getSql()->select();
         $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number']);
         $select->where->equalTo('barcode', $barcode);
+        $select->join('user', 'user.id = pura_user.user_id', ['firstname', 'lastname', 'email'], 'left');
+
+        /** @var ResultSet $resultSet */
+        $resultSet = $this->tableGateway->selectWith($select);
+
+        return $resultSet->current();
+    }
+
+    /**
+     * Get PuraUser by user_id
+     *
+     * @param integer $userId
+     *
+     * @return array
+     */
+    public function getSinglePuraUserByUserId($userId)
+    {
+        $select = $this->tableGateway->getSql()->select();
+        $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number']);
+        $select->where->equalTo('user_id', $userId);
         $select->join('user', 'user.id = pura_user.user_id', ['firstname', 'lastname', 'email'], 'left');
 
         /** @var ResultSet $resultSet */
@@ -92,8 +112,8 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             ]
         );
         $update->where->equalTo('barcode', $barcode);
-        $this->tableGateway->updateWith($update);
+        $dbRetVal = $this->tableGateway->updateWith($update);
 
-        return true;
+        return $dbRetVal;
     }
 }

@@ -69,27 +69,29 @@ class AlephNrEntryHandler implements MiddlewareInterface
     {
         $error = '';
         $barcode = $request->getAttribute('barcode');
+        $singlePuraUserRecord = $this->puraUserRepository->getSinglePuraUserByBarcode($barcode);
 
         if ($request->getMethod() === 'POST') {
             $alephNr = $request->getParsedBody()['alephNrEntry'];
             // todo: filter (strip spaces) $alephNr here!
-            $puraUserId = $this->puraUserRepository->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
 
             $request = $request->withAttribute(
                 'alephNrEntry',
                 $alephNr
             );
 
-            $response = $handler->handle($request);
-            if ($response->getStatusCode() !== 301) {
-                return new RedirectResponse('/purauser/edit/' . $puraUserId);
+            $dbReturnCode = 1;
+            if ($singlePuraUserRecord['library_system_number'] !== $alephNr) {
+                $dbReturnCode = $this->puraUserRepository->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
             }
-            $error = 'Aleph Number not accepted.';
+
+            if ($dbReturnCode == 1) {
+                $response = $handler->handle($request);
+                return new RedirectResponse('/purauser/edit/' . $singlePuraUserRecord['user_id']);
+            }
+            $error = 'There was an error saving the aleph number to the database.';
         }
 
-        $singlePuraUserRecord = $this->puraUserRepository->getSinglePuraUser($barcode);
-
-        // todo: return entity instead of $singlePuraUserRecord-array
         return new HtmlResponse(
             $this->template->render(
                 'purauser::alephnrentry-page', [
