@@ -98,4 +98,13 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     {
         return $this->puraUserStorage->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
     }
+
+    /**
+     * @param $alephNr aleph number
+     * @return boolean
+     */
+    public function savePuraUser($puraUser)
+    {
+        return $this->puraUserStorage->savePuraUser($puraUser);
+    }
 }

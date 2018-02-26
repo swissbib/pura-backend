@@ -116,4 +116,9 @@ class PuraUserDbStorage implements PuraUserStorageInterface
 
         return $dbRetVal;
     }
+
+    public function savePuraUser($puraUser)
+    {
+        return false;
+    }
 }

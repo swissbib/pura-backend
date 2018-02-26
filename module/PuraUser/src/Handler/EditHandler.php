@@ -69,7 +69,8 @@ class EditHandler implements MiddlewareInterface
     {
         $error = '';
         $userId = $request->getAttribute('user_id');
-        $singlePuraUserRecord = $this->puraUserRepository->getSinglePuraUserByUserId($userId);
+        $singlePuraUserRecord
+            = $this->puraUserRepository->getSinglePuraUserByUserId($userId);
 
         if ($request->getMethod() === 'POST') {
             //$inputFilter = $this->editForm->getInputFilter();
