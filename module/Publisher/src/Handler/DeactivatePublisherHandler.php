@@ -35,6 +35,8 @@ namespace Publisher\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use SwitchSharedAttributesAPIClient\PublishersList;
+use SwitchSharedAttributesAPIClient\PuraSwitchClient;
 use SwitchSharedAttributesAPIClient\SwitchSharedAttributesAPIClient;
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -64,14 +66,37 @@ class DeactivatePublisherHandler implements RequestHandlerInterface
         $switchApiConfg['operation_remove'] = 'remove';
         $switchApiConfg['path_member'] = 'members';
 
-        /** @var  $SwitchClient SwitchSharedAttributesAPIClient */
-        $SwitchClient = new SwitchSharedAttributesAPIClient($credentials, $switchApiConfg);
+        $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
 
-        $SwitchClient->removeUserFromGroupAndVerify(
+
+        $publishersJsonData
+            = file_exists($filePath) ? file_get_contents($filePath) : '';
+
+        /**
+         * @var PublishersList $publishersList
+         */
+        $publishersList = new PublishersList();
+
+        $publishersList->loadPublishersFromJsonFile($publishersJsonData);
+
+        /** @var  $SwitchClient PuraSwitchClient */
+        $puraSwitchClient = new PuraSwitchClient($credentials, $switchApiConfg, $publishersList);
+
+
+        $otherLibraries=[];
+
+        //todo check if the user is registered with other libraries
+
+
+        $result = $puraSwitchClient->deactivatePublishers(
             '169330697816@test.eduid.ch',
-            '2c0ddd57-5172-412a-9a57-30e85d79ea40'
+            'Z01',
+            $otherLibraries
         );
 
-        return new JsonResponse(['It is a success!' => 'Youhou']);
+        //Here Needs to Store in the DB the date of deactivation'
+        // and set "has_access" to false
+
+        return new JsonResponse(['success : ' . $result['success'] => $result['message']]);
     }
 }
