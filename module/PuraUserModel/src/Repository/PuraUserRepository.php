@@ -2,6 +2,7 @@
 
 namespace PuraUserModel\Repository;
 
+use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Storage\PuraUserStorageInterface;
 
 /**
@@ -24,7 +25,7 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     public function __construct(
         PuraUserStorageInterface $puraUserStorage
     ) {
-        $this->puraUserStorage      = $puraUserStorage;
+        $this->puraUserStorage = $puraUserStorage;
     }
 
     /**
@@ -76,7 +77,7 @@ class PuraUserRepository implements PuraUserRepositoryInterface
      *
      * @param integer $userId
      *
-     * @return array
+     * @return PuraUserEntity
      */
     public function getSinglePuraUserByUserId($userId)
     {

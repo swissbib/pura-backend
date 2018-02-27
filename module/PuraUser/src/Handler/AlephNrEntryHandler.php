@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
@@ -69,7 +70,9 @@ class AlephNrEntryHandler implements MiddlewareInterface
     {
         $error = '';
         $barcode = $request->getAttribute('barcode');
-        $singlePuraUserRecord = $this->puraUserRepository->getSinglePuraUserByBarcode($barcode);
+
+        /** @var PuraUserEntity $puraUserEntity */
+        $puraUserEntity = $this->puraUserRepository->getSinglePuraUserByBarcode($barcode);
 
         if ($request->getMethod() === 'POST') {
             $alephNr = $request->getParsedBody()['alephNrEntry'];
@@ -81,13 +84,13 @@ class AlephNrEntryHandler implements MiddlewareInterface
             );
 
             $dbReturnCode = 1;
-            if ($singlePuraUserRecord['library_system_number'] !== $alephNr) {
+            if ($puraUserEntity->getLibrarySystemNumber() !== $alephNr) {
                 $dbReturnCode = $this->puraUserRepository->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
             }
 
             if ($dbReturnCode == 1) {
                 $response = $handler->handle($request);
-                return new RedirectResponse('/purauser/edit/' . $singlePuraUserRecord['user_id']);
+                return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getUserId());
             }
             $error = 'There was an error saving the aleph number to the database.';
         }
@@ -97,7 +100,7 @@ class AlephNrEntryHandler implements MiddlewareInterface
                 'purauser::alephnrentry-page', [
                       'alephNrEntryForm'  => $this->alephNrEntryForm,
                       'puraUserList' => $this->puraUserList,
-                      'singlePuraUserRecord' => $singlePuraUserRecord,
+                      'puraUserEntity' => $puraUserEntity,
                       'error' => $error
                 ]
             )

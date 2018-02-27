@@ -2,6 +2,7 @@
 
 namespace PuraUserModel\Storage\Db;
 
+use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Storage\PuraUserStorageInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
@@ -55,8 +56,21 @@ class PuraUserDbStorage implements PuraUserStorageInterface
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
+        $puraUserArray = $resultSet->current();
 
-        return $resultSet->current();
+        $puraUserEntity = new PuraUserEntity();
+        $puraUserEntity->setUserId($puraUserArray['user_id']);
+        $puraUserEntity->setEduId($puraUserArray['edu_id']);
+        $puraUserEntity->setBarcode($puraUserArray['barcode']);
+        $puraUserEntity->setAccessCreated($puraUserArray['access_created']);
+        $puraUserEntity->setDateExpiration($puraUserArray['date_expiration']);
+        $puraUserEntity->setRemarks($puraUserArray['remarks']);
+        $puraUserEntity->setLibrarySystemNumber($puraUserArray['library_system_number']);
+        $puraUserEntity->setFirstname($puraUserArray['firstname']);
+        $puraUserEntity->setLastname($puraUserArray['lastname']);
+        $puraUserEntity->setEmail($puraUserArray['email']);
+
+        return $puraUserEntity;
     }
 
     /**
@@ -64,7 +78,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      *
      * @param integer $userId
      *
-     * @return array
+     * @return PuraUserEntity
      */
     public function getSinglePuraUserByUserId($userId)
     {
@@ -75,8 +89,21 @@ class PuraUserDbStorage implements PuraUserStorageInterface
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
+        $puraUserArray = $resultSet->current();
 
-        return $resultSet->current();
+        $puraUserEntity = new PuraUserEntity();
+        $puraUserEntity->setUserId($puraUserArray['user_id']);
+        $puraUserEntity->setEduId($puraUserArray['edu_id']);
+        $puraUserEntity->setBarcode($puraUserArray['barcode']);
+        $puraUserEntity->setAccessCreated($puraUserArray['access_created']);
+        $puraUserEntity->setDateExpiration($puraUserArray['date_expiration']);
+        $puraUserEntity->setRemarks($puraUserArray['remarks']);
+        $puraUserEntity->setLibrarySystemNumber($puraUserArray['library_system_number']);
+        $puraUserEntity->setFirstname($puraUserArray['firstname']);
+        $puraUserEntity->setLastname($puraUserArray['lastname']);
+        $puraUserEntity->setEmail($puraUserArray['email']);
+
+        return $puraUserEntity;
     }
 
     /**
@@ -95,12 +122,25 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             ->where->or->like('user_id', $filter)
             ->where->or->like('barcode', $filter);
         $select->join('user', 'user.id = pura_user.user_id', ['firstname','lastname'], 'left');
-        $data = [];
+
+        $puraUserEntityArray = [];
+        $puraUserEntity = new PuraUserEntity();
 
         foreach ($this->tableGateway->selectWith($select) as $row) {
-            $data[] = $row;
+            $puraUserArray = $row;
+            $puraUserEntity->setUserId($puraUserArray['user_id']);
+            $puraUserEntity->setEduId($puraUserArray['edu_id']);
+            $puraUserEntity->setBarcode($puraUserArray['barcode']);
+            $puraUserEntity->setAccessCreated($puraUserArray['access_created']);
+            $puraUserEntity->setDateExpiration($puraUserArray['date_expiration']);
+            $puraUserEntity->setRemarks($puraUserArray['remarks']);
+            $puraUserEntity->setLibrarySystemNumber($puraUserArray['library_system_number']);
+            $puraUserEntity->setFirstname($puraUserArray['firstname']);
+            $puraUserEntity->setLastname($puraUserArray['lastname']);
+            $puraUserEntity->setEmail($puraUserArray['email']);
+            $puraUserEntityArray[] = $puraUserEntity;
         }
-        return $data;
+        return $puraUserEntityArray;
     }
 
     public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode)

@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
@@ -69,7 +70,8 @@ class EditHandler implements MiddlewareInterface
     {
         $error = '';
         $userId = $request->getAttribute('user_id');
-        $singlePuraUserRecord
+        /** @var PuraUserEntity $puraUserEntity */
+        $puraUserEntity
             = $this->puraUserRepository->getSinglePuraUserByUserId($userId);
 
         if ($request->getMethod() === 'POST') {
@@ -99,7 +101,7 @@ class EditHandler implements MiddlewareInterface
                 'purauser::edit-page', [
                       'editForm'  => $this->editForm,
                       'puraUserList' => $this->puraUserList,
-                      'singlePuraUserRecord' => $singlePuraUserRecord,
+                      'puraUserEntity' => $puraUserEntity,
                       'error' => $error,
                 ]
             )

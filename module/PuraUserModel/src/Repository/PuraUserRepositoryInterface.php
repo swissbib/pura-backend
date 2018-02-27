@@ -1,6 +1,7 @@
 <?php
 
 namespace PuraUserModel\Repository;
+use PuraUserModel\Entity\PuraUserEntity;
 
 /**
  * Interface PuraUserRepositoryInterface
@@ -30,7 +31,7 @@ interface PuraUserRepositoryInterface
      *
      * @param integer $userId
      *
-     * @return array
+     * @return PuraUserEntity
      */
     public function getSinglePuraUserByUserId($userId);
 
@@ -39,7 +40,7 @@ interface PuraUserRepositoryInterface
      *
      * @param integer $barcode
      *
-     * @return array
+     * @return PuraUserEntity
      */
     public function getSinglePuraUserByBarcode($barcode);
 
@@ -51,7 +52,7 @@ interface PuraUserRepositoryInterface
     public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
 
     /**
-     * @param $alephNr aleph number
+     * @param $puraUser PuraUserEntity
      * @return boolean
      */
     public function savePuraUser($puraUser);

@@ -1,15 +1,16 @@
 <?php
-//use App\Model\BaseModel;
+
+use PuraUserModel\Entity\PuraUserEntity;
 
 /**
- * @var BaseModel[]    $puraUserList
- * @var String        $route
+ * @var PuraUserEntity[] $puraUserList
+ * @var String           $route
  */
 ?>
 <?php foreach ($puraUserList as $puraUser): ?>
     <li>
-        <a href="purauser/edit/<?=$puraUser['user_id']?>">
-                <?= $this->escapeHtml($puraUser['firstname']) ?> - <?= $this->escapeHtml($puraUser['lastname']) ?> - <?= $this->escapeHtml($puraUser['edu_id']) ?>
+        <a href="purauser/edit/<?=$puraUser->getUserId()?>">
+                <?= $this->escapeHtml($puraUser->getFirstname()) ?> - <?= $this->escapeHtml($puraUser->getLastname()) ?> - <?= $this->escapeHtml($puraUser->getEduId()) ?>
         </a>
     </li>
 <?php endforeach; ?>
