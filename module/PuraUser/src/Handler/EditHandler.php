@@ -75,25 +75,27 @@ class EditHandler implements MiddlewareInterface
             = $this->puraUserRepository->getSinglePuraUserByUserId($userId);
 
         if ($request->getMethod() === 'POST') {
-            //$inputFilter = $this->editForm->getInputFilter();
-            //$inputFilter->setData($request->getParsedBody());
+            $userId  = $request->getParsedBody()['edit-userId'];
+            $alephNr = $request->getParsedBody()['edit-alephNr'];
+            $remark  = $request->getParsedBody()['edit-remark'];
+            // todo: filter (strip spaces) of values here!
 
-            /*
-            if ($inputFilter->isValid()) {
-                $request = $request->withAttribute(
-                    'editEntry',
-                    $inputFilter->getValue('$editEntry')
-                );
+            $request = $request->withAttribute(
+                'alephNr',
+                $alephNr
+            );
+            $request = $request->withAttribute(
+                'remark',
+                $remark
+            );
 
-                $response = $handler->handle($request);
-                if ($response->getStatusCode() !== 301) {
-                    return new RedirectResponse('/purauser/edit');
-                }
+            // save alephNr+remark with savePuraUser(entity)
+            $dbReturnCode = -1;
+            $puraUserEntity->setLibrarySystemNumber($alephNr);
+            $puraUserEntity->setRemarks($remark);
+            $dbReturnCode = $this->puraUserRepository->savePuraUser($puraUserEntity);
 
-                $error = 'Input not accepted.';
-            }
-            */
-
+            if ($dbReturnCode < 0) $error = 'There was an error saving the aleph number to the database.';
         }
 
         return new HtmlResponse(
