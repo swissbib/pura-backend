@@ -1,0 +1,34 @@
+{
+  "publishers" : [
+    {
+      "name": "Cambridge University Press",
+      "url" : "https://www.cambridge.org/core/journals/",
+      "wayfless_url" : "https://www.cambridge.org/core/journals/",
+      "description" : "a collection of journals",
+      "switch_group_id" : "f4d40595-6d7d-41bc-9fa2-7139d2fcf892",
+      "libraries_with_contract" : [
+        "Z01","RE01001"
+      ]
+    },
+    {
+      "name": "Munzinger",
+      "url" : "https://www.munzinger.de",
+      "wayfless_url" : "",
+      "description" : "a collection of journals",
+      "switch_group_id" : "",
+      "libraries_with_contract" : [
+        "E02"
+      ]
+    },
+    {
+      "name": "Thieme",
+      "url" : "https://www.thieme.de",
+      "wayfless_url" : "",
+      "description" : "a collection of journals",
+      "switch_group_id" : "2c0ddd57-5172-412a-9a57-30e85d79ea40",
+      "libraries_with_contract" : [
+        "Z01"
+      ]
+    }
+  ]
+}

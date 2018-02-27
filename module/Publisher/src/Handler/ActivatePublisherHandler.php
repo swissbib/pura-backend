@@ -35,6 +35,8 @@ namespace Publisher\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use SwitchSharedAttributesAPIClient\PublishersList;
+use SwitchSharedAttributesAPIClient\PuraSwitchClient;
 use SwitchSharedAttributesAPIClient\SwitchSharedAttributesAPIClient;
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -64,10 +66,26 @@ class ActivatePublisherHandler implements RequestHandlerInterface
         $switchApiConfg['operation_remove'] = 'remove';
         $switchApiConfg['path_member'] = 'members';
 
-        $SwitchClient = new SwitchSharedAttributesAPIClient($credentials, $switchApiConfg);
 
-        $SwitchClient->activatePublisherForUser('169330697816@test.eduid.ch', '2c0ddd57-5172-412a-9a57-30e85d79ea40');
+        $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
 
-        return new JsonResponse(['It is a success!' => 'Youhou']);
+
+        $publishersJsonData
+            = file_exists($filePath) ? file_get_contents($filePath) : '';
+
+        /**
+         * @var PublishersList $publishersList
+         */
+        $publishersList = new PublishersList();
+
+        $publishersList->loadPublishersFromJsonFile($publishersJsonData);
+
+        $puraSwitchClient = new PuraSwitchClient($credentials, $switchApiConfg, $publishersList);
+
+        $result = $puraSwitchClient->activatePublishers('169330697816@test.eduid.ch', 'Z01');
+
+        //Here Needs to Store in the DB the date of activation and set "has_access" to true
+
+        return new JsonResponse(['success : ' . $result['success'] => $result['message']]);
     }
 }
