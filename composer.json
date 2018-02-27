@@ -59,7 +59,8 @@
             "App\\": "module/App/src/",
             "User\\": "module/User/src/",
             "PuraUser\\": "module/PuraUser/src/",
-            "Publisher\\": "module/Publisher/src/"
+            "Publisher\\": "module/Publisher/src/",
+            "PuraUserModel\\": "module/PuraUserModel/src/"
         }
     },
     "autoload-dev": {

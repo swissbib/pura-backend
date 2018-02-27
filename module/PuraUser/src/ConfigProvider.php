@@ -10,10 +10,6 @@ use PuraUser\Handler\EditHandler;
 use PuraUser\Handler\SearchPuraUserHandler;
 use PuraUser\Handler\SearchPuraUserHandlerFactory;
 use PuraUser\InputFilter\AlephNrEntryInputFilter;
-use PuraUser\Model\Repository\PuraUserRepositoryFactory;
-use PuraUser\Model\Repository\PuraUserRepositoryInterface;
-use PuraUser\Model\Storage\Db\PuraUserDbStorageFactory;
-use PuraUser\Model\Storage\PuraUserStorageInterface;
 use PuraUser\InputFilter\BarcodeEntryInputFilter;
 use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
@@ -60,8 +56,6 @@ class ConfigProvider
                 AlephNrEntryHandler::class => AlephNrEntryFactory::class,
                 BarcodeEntryHandler::class => BarcodeEntryFactory::class,
                 AuthenticationInterface::class => PhpSessionFactory::class,
-                PuraUserStorageInterface::class => PuraUserDbStorageFactory::class,
-                PuraUserRepositoryInterface::class => PuraUserRepositoryFactory::class,
             ],
             'aliases' => [
             ],

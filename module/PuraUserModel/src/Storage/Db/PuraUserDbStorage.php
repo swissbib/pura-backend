@@ -1,8 +1,8 @@
 <?php
 
-namespace PuraUser\Model\Storage\Db;
+namespace PuraUserModel\Storage\Db;
 
-use PuraUser\Model\Storage\PuraUserStorageInterface;
+use PuraUserModel\Storage\PuraUserStorageInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\TableGateway\TableGatewayInterface;
@@ -10,7 +10,7 @@ use Zend\Db\TableGateway\TableGatewayInterface;
 /**
  * Class PuraUserDbStorage
  *
- * @package PuraUser\Model\Storage\Db
+ * @package PuraUserModel\Storage\Db
  */
 class PuraUserDbStorage implements PuraUserStorageInterface
 {

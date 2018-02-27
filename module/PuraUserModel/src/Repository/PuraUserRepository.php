@@ -1,13 +1,13 @@
 <?php
 
-namespace PuraUser\Model\Repository;
+namespace PuraUserModel\Repository;
 
-use PuraUser\Model\Storage\PuraUserStorageInterface;
+use PuraUserModel\Storage\PuraUserStorageInterface;
 
 /**
  * Class PuraUserRepository
  *
- * @package PuraUser\Model\Repository
+ * @package PuraUserModel\Repository
  */
 class PuraUserRepository implements PuraUserRepositoryInterface
 {

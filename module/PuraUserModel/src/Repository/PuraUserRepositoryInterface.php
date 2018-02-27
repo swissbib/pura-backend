@@ -1,11 +1,11 @@
 <?php
 
-namespace PuraUser\Model\Repository;
+namespace PuraUserModel\Repository;
 
 /**
  * Interface PuraUserRepositoryInterface
  *
- * @package PuraUser\Model\Repository
+ * @package PuraUserModel\Repository
  */
 interface PuraUserRepositoryInterface
 {

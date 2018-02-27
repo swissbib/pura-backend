@@ -32,7 +32,7 @@ namespace PuraUser\Handler;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use PuraUser\InputFilter\AlephNrEntryInputFilter;
-use PuraUser\Model\Repository\PuraUserRepositoryInterface;
+use PuraUserModel\Repository\PuraUserRepositoryInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterPluginManager;

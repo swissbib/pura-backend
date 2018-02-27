@@ -1,6 +1,6 @@
 <?php
 
-namespace PuraUser\Model\Storage\Db;
+namespace PuraUserModel\Storage\Db;
 
 use Interop\Container\ContainerInterface;
 use Zend\Db\Adapter\Adapter;
@@ -11,7 +11,7 @@ use Zend\Db\TableGateway\TableGateway;
 /**
  * Class PuraUserDbStorageFactory
  *
- * @package PuraUser\Model\Storage\Db
+ * @package PuraUserModel\Storage\Db
  */
 class PuraUserDbStorageFactory
 {

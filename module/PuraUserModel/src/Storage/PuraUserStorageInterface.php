@@ -6,7 +6,7 @@
  * Time: 14:26
  */
 
-namespace PuraUser\Model\Storage;
+namespace PuraUserModel\Storage;
 
 interface PuraUserStorageInterface
 {

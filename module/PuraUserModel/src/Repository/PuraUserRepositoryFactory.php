@@ -1,15 +1,15 @@
 <?php
 
-namespace PuraUser\Model\Repository;
+namespace PuraUserModel\Repository;
 
 use Interop\Container\ContainerInterface;
-use PuraUser\Model\Repository\PuraUserRepositoryInterface;
-use PuraUser\Model\Storage\PuraUserStorageInterface;
+use PuraUserModel\Repository\PuraUserRepositoryInterface;
+use PuraUserModel\Storage\PuraUserStorageInterface;
 
 /**
  * Class PuraUserRepositoryFactory
  *
- * @package PuraUser\Model\Repository
+ * @package PuraUserModel\Repository
  */
 class PuraUserRepositoryFactory
 {
