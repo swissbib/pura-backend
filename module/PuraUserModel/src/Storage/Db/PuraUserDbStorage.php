@@ -31,6 +31,25 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     }
 
     /**
+     * Check whether a barcode exits in the Database
+     *
+     * @return bool
+     */
+    public function getBarcodeExists($barcode)
+    {
+        $select = $this->tableGateway->getSql()->select();
+        $select->where->equalTo('barcode', $barcode);
+
+        /** @var ResultSet $resultSet */
+        $resultSet = $this->tableGateway->selectWith($select);
+        if ($resultSet->count() < 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * Get a list of all PuraUsers
      *
      * @return array
@@ -103,6 +122,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
+        if ($resultSet->count() < 1) return false;
         $puraUserEntity = $this->createPuraUserEntity($resultSet->current());
 
         return $puraUserEntity;

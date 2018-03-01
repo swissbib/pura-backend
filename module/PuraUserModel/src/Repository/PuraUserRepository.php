@@ -29,6 +29,16 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     }
 
     /**
+     * Check whether a barcode exits in the Database
+     *
+     * @return bool
+     */
+    public function getBarcodeExists($barcode)
+    {
+        return $this->puraUserStorage->getBarcodeExists($barcode);
+    }
+
+    /**
      * Get list of all PuraUsers
      *
      * @return array

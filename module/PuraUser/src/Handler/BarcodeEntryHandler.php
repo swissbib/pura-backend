@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
@@ -33,6 +34,8 @@ class BarcodeEntryHandler implements MiddlewareInterface
 
     private $puraUserList;
 
+    private $puraUserRepository;
+
     /**
      * BarcodeEntryHandler constructor.
      * @param TemplateRendererInterface $template
@@ -41,11 +44,13 @@ class BarcodeEntryHandler implements MiddlewareInterface
     public function __construct(
         TemplateRendererInterface $template,
         Form                      $barcodeEntryForm,
-        array                     $puraUserList
+        array                     $puraUserList,
+        PuraUserRepository        $puraUserRepository
     ) {
-        $this->template         = $template;
-        $this->barcodeEntryForm = $barcodeEntryForm;
-        $this->puraUserList     = $puraUserList;
+        $this->template           = $template;
+        $this->barcodeEntryForm   = $barcodeEntryForm;
+        $this->puraUserList       = $puraUserList;
+        $this->puraUserRepository = $puraUserRepository;
     }
 
     /**
@@ -62,20 +67,22 @@ class BarcodeEntryHandler implements MiddlewareInterface
     {
         $error = '';
         if ($request->getMethod() === 'POST') {
-            $barcodeEntry = $request->getParsedBody()['barcodeEntry'];
+            $barcode = $request->getParsedBody()['barcodeEntry'];
 
-            $barcodeEntryValidator = new \Zend\Validator\Regex(['pattern' => '/^[A-Z0-9]+$/']); // allow only capital letters and/or numbers, but multiple of them
-            $isValid = $barcodeEntryValidator->isValid($barcodeEntry);
+            // allow only capital letters and/or numbers, but multiple of them:
+            $barcodeEntryValidator = new \Zend\Validator\Regex(['pattern' => '/^[A-Z0-9]+$/']);
+            $isValid = $barcodeEntryValidator->isValid($barcode);
+            $error = 'Barcode is in an invalid format.';
+            $isValid = $this->getBarcodeExistInDb($barcode);
+            if (!$isValid) $error = 'Barcode does not exist in the database.';
 
             if ($isValid) {
                 // consider using striptags'n'trim-filter here an then add it as a derived request attibute!
                 $response = $handler->handle($request);
                 if ($response->getStatusCode() !== 301) {
-                    return new RedirectResponse('/purauser/alephnrentry/' . $barcodeEntry);
+                    return new RedirectResponse('/purauser/alephnrentry/' . $barcode);
                 }
-
             }
-            $error = 'Barcode not accepted.';
         }
 
         return new HtmlResponse(
@@ -88,4 +95,10 @@ class BarcodeEntryHandler implements MiddlewareInterface
             )
         );
     }
+
+    private function getBarcodeExistInDb($barcode)
+    {
+        return $this->puraUserRepository->getBarcodeExists($barcode);
+    }
+
 }

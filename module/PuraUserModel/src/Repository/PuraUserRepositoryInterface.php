@@ -18,6 +18,13 @@ interface PuraUserRepositoryInterface
     public function getListOfAllUsers();
 
     /**
+     * Check whether a barcode exits in the Database
+     *
+     * @return bool
+     */
+    public function getBarcodeExists($barcode);
+
+    /**
      * Get fitlered list of all PuraUsers
      *
      * @param String $filer
