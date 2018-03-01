@@ -59,7 +59,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         return $this->getFilteredListOfAllUsers('');
     }
 
-    private function createPuraUserEntity($puraUserArrayObject )
+    private function createPuraUserEntity($puraUserArrayObject)
     {
         $puraUserArray = (array)$puraUserArrayObject;
         $puraUserEntity = new PuraUserEntity();
@@ -68,39 +68,39 @@ class PuraUserDbStorage implements PuraUserStorageInterface
                 null : $puraUserArray['user_id']
         );
         $puraUserEntity->setEduId(
-            !in_array('edu_id', $puraUserArray) ?
+            !array_key_exists('edu_id', $puraUserArray) ?
                 null : $puraUserArray['edu_id']
         );
         $puraUserEntity->setBarcode(
-            !in_array('barcode', $puraUserArray) ?
+            !array_key_exists('barcode', $puraUserArray) ?
                 null : $puraUserArray['barcode']
         );
         $puraUserEntity->setAccessCreated(
-            !in_array('access_created', $puraUserArray) ?
+            !array_key_exists('access_created', $puraUserArray) ?
                 null : $puraUserArray['access_created']
         );
         $puraUserEntity->setDateExpiration(
-            !in_array('date_expiration', $puraUserArray) ?
+            !array_key_exists('date_expiration', $puraUserArray) ?
                 null : $puraUserArray['date_expiration']
         );
         $puraUserEntity->setRemarks(
-            !in_array('remarks', $puraUserArray) ?
+            !array_key_exists('remarks', $puraUserArray) ?
                 null : $puraUserArray['remarks']
         );
         $puraUserEntity->setLibrarySystemNumber(
-            !in_array('library_system_number', $puraUserArray) ?
+            !array_key_exists('library_system_number', $puraUserArray) ?
                 null : $puraUserArray['library_system_number']
         );
         $puraUserEntity->setFirstname(
-            !in_array('firstname', $puraUserArray) ?
+            !array_key_exists('firstname', $puraUserArray) ?
                 null : $puraUserArray['firstname']
         );
         $puraUserEntity->setLastname(
-            !in_array('lastname', $puraUserArray) ?
+            !array_key_exists('lastname', $puraUserArray) ?
                 null : $puraUserArray['lastname']
         );
         $puraUserEntity->setEmail(
-            !in_array('email', $puraUserArray) ?
+            !array_key_exists('email', $puraUserArray) ?
                 null : $puraUserArray['email']
         );
         return $puraUserEntity;
