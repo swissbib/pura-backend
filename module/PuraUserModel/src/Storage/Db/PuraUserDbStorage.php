@@ -40,6 +40,53 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         return $this->getFilteredListOfAllUsers('');
     }
 
+    private function createPuraUserEntity($puraUserArrayObject )
+    {
+        $puraUserArray = (array)$puraUserArrayObject;
+        $puraUserEntity = new PuraUserEntity();
+        $puraUserEntity->setUserId(
+            !in_array('user_id', $puraUserArray) ?
+                null : $puraUserArray['user_id']
+        );
+        $puraUserEntity->setEduId(
+            !in_array('edu_id', $puraUserArray) ?
+                null : $puraUserArray['edu_id']
+        );
+        $puraUserEntity->setBarcode(
+            !in_array('barcode', $puraUserArray) ?
+                null : $puraUserArray['barcode']
+        );
+        $puraUserEntity->setAccessCreated(
+            !in_array('access_created', $puraUserArray) ?
+                null : $puraUserArray['access_created']
+        );
+        $puraUserEntity->setDateExpiration(
+            !in_array('date_expiration', $puraUserArray) ?
+                null : $puraUserArray['date_expiration']
+        );
+        $puraUserEntity->setRemarks(
+            !in_array('remarks', $puraUserArray) ?
+                null : $puraUserArray['remarks']
+        );
+        $puraUserEntity->setLibrarySystemNumber(
+            !in_array('library_system_number', $puraUserArray) ?
+                null : $puraUserArray['library_system_number']
+        );
+        $puraUserEntity->setFirstname(
+            !in_array('firstname', $puraUserArray) ?
+                null : $puraUserArray['firstname']
+        );
+        $puraUserEntity->setLastname(
+            !in_array('lastname', $puraUserArray) ?
+                null : $puraUserArray['lastname']
+        );
+        $puraUserEntity->setEmail(
+            !in_array('email', $puraUserArray) ?
+                null : $puraUserArray['email']
+        );
+        return $puraUserEntity;
+    }
+
     /**
      * Get PuraUser by barcode
      *
@@ -56,19 +103,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
-        $puraUserArray = $resultSet->current();
-
-        $puraUserEntity = new PuraUserEntity();
-        $puraUserEntity->setUserId($puraUserArray['user_id']);
-        $puraUserEntity->setEduId($puraUserArray['edu_id']);
-        $puraUserEntity->setBarcode($puraUserArray['barcode']);
-        $puraUserEntity->setAccessCreated($puraUserArray['access_created']);
-        $puraUserEntity->setDateExpiration($puraUserArray['date_expiration']);
-        $puraUserEntity->setRemarks($puraUserArray['remarks']);
-        $puraUserEntity->setLibrarySystemNumber($puraUserArray['library_system_number']);
-        $puraUserEntity->setFirstname($puraUserArray['firstname']);
-        $puraUserEntity->setLastname($puraUserArray['lastname']);
-        $puraUserEntity->setEmail($puraUserArray['email']);
+        $puraUserEntity = $this->createPuraUserEntity($resultSet->current());
 
         return $puraUserEntity;
     }
@@ -89,19 +124,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
-        $puraUserArray = $resultSet->current();
-
-        $puraUserEntity = new PuraUserEntity();
-        $puraUserEntity->setUserId($puraUserArray['user_id']);
-        $puraUserEntity->setEduId($puraUserArray['edu_id']);
-        $puraUserEntity->setBarcode($puraUserArray['barcode']);
-        $puraUserEntity->setAccessCreated($puraUserArray['access_created']);
-        $puraUserEntity->setDateExpiration($puraUserArray['date_expiration']);
-        $puraUserEntity->setRemarks($puraUserArray['remarks']);
-        $puraUserEntity->setLibrarySystemNumber($puraUserArray['library_system_number']);
-        $puraUserEntity->setFirstname($puraUserArray['firstname']);
-        $puraUserEntity->setLastname($puraUserArray['lastname']);
-        $puraUserEntity->setEmail($puraUserArray['email']);
+        $puraUserEntity = $this->createPuraUserEntity($resultSet->current());
 
         return $puraUserEntity;
     }
@@ -127,17 +150,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         $puraUserEntity = new PuraUserEntity();
 
         foreach ($this->tableGateway->selectWith($select) as $row) {
-            $puraUserArray = $row;
-            $puraUserEntity->setUserId($puraUserArray['user_id']);
-            $puraUserEntity->setEduId($puraUserArray['edu_id']);
-            $puraUserEntity->setBarcode($puraUserArray['barcode']);
-            $puraUserEntity->setAccessCreated($puraUserArray['access_created']);
-            $puraUserEntity->setDateExpiration($puraUserArray['date_expiration']);
-            $puraUserEntity->setRemarks($puraUserArray['remarks']);
-            $puraUserEntity->setLibrarySystemNumber($puraUserArray['library_system_number']);
-            $puraUserEntity->setFirstname($puraUserArray['firstname']);
-            $puraUserEntity->setLastname($puraUserArray['lastname']);
-            $puraUserEntity->setEmail($puraUserArray['email']);
+            $puraUserEntity = $this->createPuraUserEntity($row);
             $puraUserEntityArray[] = $puraUserEntity;
         }
         return $puraUserEntityArray;
