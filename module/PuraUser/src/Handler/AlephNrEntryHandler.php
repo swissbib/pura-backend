@@ -88,7 +88,7 @@ class AlephNrEntryHandler implements MiddlewareInterface
                 $dbReturnCode = $this->puraUserRepository->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
             }
 
-            if ($dbReturnCode == 1) {
+            if ($dbReturnCode > 0) {
                 $response = $handler->handle($request);
                 return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getUserId());
             }

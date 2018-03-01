@@ -64,7 +64,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         $puraUserArray = (array)$puraUserArrayObject;
         $puraUserEntity = new PuraUserEntity();
         $puraUserEntity->setUserId(
-            !in_array('user_id', $puraUserArray) ?
+            !array_key_exists('user_id', $puraUserArray) ?
                 null : $puraUserArray['user_id']
         );
         $puraUserEntity->setEduId(
