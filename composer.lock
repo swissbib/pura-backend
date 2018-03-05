@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0899b89e76b5c7a55ea5fbd8e1fe400f",
+    "content-hash": "bbee9e17006c5954bcac49caf180a09b",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -506,21 +506,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swissbib/switchSharedAttributesAPIClient.git",
-                "reference": "07e1aa50f3e6514190f5b51c09edead97caf5bb0"
+                "reference": "8552c232fe378a7f9c557541a195a63329974e9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swissbib/switchSharedAttributesAPIClient/zipball/07e1aa50f3e6514190f5b51c09edead97caf5bb0",
-                "reference": "07e1aa50f3e6514190f5b51c09edead97caf5bb0",
+                "url": "https://api.github.com/repos/swissbib/switchSharedAttributesAPIClient/zipball/8552c232fe378a7f9c557541a195a63329974e9d",
+                "reference": "8552c232fe378a7f9c557541a195a63329974e9d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6",
-                "zendframework/zend-config": "2.6.0",
+                "zendframework/zend-config": "^2.6.0",
                 "zendframework/zend-filter": "^2.6",
-                "zendframework/zend-http": "2.6.0",
-                "zendframework/zend-hydrator": "^2.3.1",
-                "zendframework/zend-servicemanager": "^3.3.1"
+                "zendframework/zend-http": "^2.6.0",
+                "zendframework/zend-hydrator": "^1.1.0 || ^2.3.1",
+                "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "5.7.15"
@@ -545,7 +545,7 @@
                 "source": "https://github.com/swissbib/switchSharedAttributesAPIClient/tree/master",
                 "issues": "https://github.com/swissbib/switchSharedAttributesAPIClient/issues"
             },
-            "time": "2018-02-27T10:20:45+00:00"
+            "time": "2018-03-05T14:21:11+00:00"
         },
         {
             "name": "zendframework/zend-component-installer",
@@ -1008,16 +1008,16 @@
         },
         {
             "name": "zendframework/zend-expressive-authentication",
-            "version": "1.0.0alpha4",
+            "version": "1.0.0alpha3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-authentication.git",
-                "reference": "290e4d67fb9b5728755e3bf6082242578ceb51ad"
+                "reference": "0832c05658605ed290ad6b841180a52a81678ea7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-authentication/zipball/290e4d67fb9b5728755e3bf6082242578ceb51ad",
-                "reference": "290e4d67fb9b5728755e3bf6082242578ceb51ad",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-authentication/zipball/0832c05658605ed290ad6b841180a52a81678ea7",
+                "reference": "0832c05658605ed290ad6b841180a52a81678ea7",
                 "shasum": ""
             },
             "require": {
@@ -1030,9 +1030,10 @@
                 "container-interop/container-interop": "<1.2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.0.2",
+                "phpunit/phpunit": "^6.5.5",
                 "roave/security-advisories": "dev-master",
-                "zendframework/zend-coding-standard": "~1.0.0"
+                "zendframework/zend-coding-standard": "~1.0.0",
+                "zendframework/zend-diactoros": "^1.7"
             },
             "suggest": {
                 "ext-pdo": "*: for use with the PDO-backed UserRepositoryInterface implementation",
@@ -1070,7 +1071,7 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2018-02-27T14:48:50+00:00"
+            "time": "2018-02-24T09:11:44+00:00"
         },
         {
             "name": "zendframework/zend-expressive-authentication-session",
@@ -1194,16 +1195,16 @@
         },
         {
             "name": "zendframework/zend-expressive-router",
-            "version": "3.0.0alpha3",
+            "version": "3.0.0rc1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-router.git",
-                "reference": "737f79bffa8900388367d02e66dc0d0bcdba1eed"
+                "reference": "a131ab7f555e5a75458cae870f7bb44381eac7fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-router/zipball/737f79bffa8900388367d02e66dc0d0bcdba1eed",
-                "reference": "737f79bffa8900388367d02e66dc0d0bcdba1eed",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-router/zipball/a131ab7f555e5a75458cae870f7bb44381eac7fa",
+                "reference": "a131ab7f555e5a75458cae870f7bb44381eac7fa",
                 "shasum": ""
             },
             "require": {
@@ -1216,7 +1217,8 @@
             "require-dev": {
                 "malukenho/docheader": "^0.1.6",
                 "phpunit/phpunit": "^6.5.5",
-                "zendframework/zend-coding-standard": "~1.0.0"
+                "zendframework/zend-coding-standard": "~1.0.0",
+                "zendframework/zend-diactoros": "^1.7"
             },
             "suggest": {
                 "zendframework/zend-expressive-aurarouter": "^3.0 to use the Aura.Router routing adapter",
@@ -1254,7 +1256,7 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2018-02-21T18:39:37+00:00"
+            "time": "2018-03-05T14:14:24+00:00"
         },
         {
             "name": "zendframework/zend-expressive-session",
@@ -1696,35 +1698,35 @@
         },
         {
             "name": "zendframework/zend-http",
-            "version": "2.6.0",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-http.git",
-                "reference": "09f4d279f46d86be63171ff62ee0f79eca878678"
+                "reference": "78aa510c0ea64bfb2aa234f50c4f232c9531acfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-http/zipball/09f4d279f46d86be63171ff62ee0f79eca878678",
-                "reference": "09f4d279f46d86be63171ff62ee0f79eca878678",
+                "url": "https://api.github.com/repos/zendframework/zend-http/zipball/78aa510c0ea64bfb2aa234f50c4f232c9531acfa",
+                "reference": "78aa510c0ea64bfb2aa234f50c4f232c9531acfa",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5 || ^7.0",
-                "zendframework/zend-loader": "^2.5",
-                "zendframework/zend-stdlib": "^2.5 || ^3.0",
-                "zendframework/zend-uri": "^2.5",
-                "zendframework/zend-validator": "^2.5"
+                "php": "^5.6 || ^7.0",
+                "zendframework/zend-loader": "^2.5.1",
+                "zendframework/zend-stdlib": "^3.1 || ^2.7.7",
+                "zendframework/zend-uri": "^2.5.2",
+                "zendframework/zend-validator": "^2.10.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.0",
+                "phpunit/phpunit": "^6.4.1 || ^5.7.15",
                 "zendframework/zend-coding-standard": "~1.0.0",
-                "zendframework/zend-config": "^2.5"
+                "zendframework/zend-config": "^3.1 || ^2.6"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev",
-                    "dev-develop": "2.7-dev"
+                    "dev-master": "2.7-dev",
+                    "dev-develop": "2.8-dev"
                 }
             },
             "autoload": {
@@ -1739,10 +1741,13 @@
             "description": "provides an easy interface for performing Hyper-Text Transfer Protocol (HTTP) requests",
             "homepage": "https://github.com/zendframework/zend-http",
             "keywords": [
+                "ZendFramework",
                 "http",
-                "zf2"
+                "http client",
+                "zend",
+                "zf"
             ],
-            "time": "2017-01-31T14:41:02+00:00"
+            "time": "2017-10-13T12:06:24+00:00"
         },
         {
             "name": "zendframework/zend-httphandlerrunner",
@@ -2026,26 +2031,26 @@
         },
         {
             "name": "zendframework/zend-psr7bridge",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-psr7bridge.git",
-                "reference": "93494337a475135a457d86f6b150c67aa4f31aea"
+                "reference": "b79236866a1ebc819014049cbf3570931ca166c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-psr7bridge/zipball/93494337a475135a457d86f6b150c67aa4f31aea",
-                "reference": "93494337a475135a457d86f6b150c67aa4f31aea",
+                "url": "https://api.github.com/repos/zendframework/zend-psr7bridge/zipball/b79236866a1ebc819014049cbf3570931ca166c7",
+                "reference": "b79236866a1ebc819014049cbf3570931ca166c7",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0",
                 "psr/http-message": "^1.0",
-                "zendframework/zend-diactoros": "^1.1",
-                "zendframework/zend-http": "^2.6"
+                "zendframework/zend-diactoros": "^1.7",
+                "zendframework/zend-http": "^2.7"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.7.15 || ^6.0.8",
+                "phpunit/phpunit": "^5.7.15 || ^6.5.6",
                 "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
@@ -2064,16 +2069,16 @@
             "license": [
                 "BSD-3-Clause"
             ],
-            "description": "PSR-7 <-> Zend\\Http bridge",
-            "homepage": "https://github.com/zendframework/zend-psr7bridge",
+            "description": "PSR-7 &lt;-&gt; zend-http message conversions",
             "keywords": [
                 "ZendFramework",
                 "http",
                 "psr",
                 "psr-7",
-                "zend"
+                "zend",
+                "zf"
             ],
-            "time": "2017-12-18T11:59:51+00:00"
+            "time": "2018-02-14T04:27:50+00:00"
         },
         {
             "name": "zendframework/zend-router",
