@@ -2,8 +2,9 @@
 
 namespace Publisher;
 
+use Publisher\Handler\ActivatePublisherFactory;
 use Publisher\Handler\ActivatePublisherHandler;
-use Publisher\Handler\DectivatePublisherHandler;
+use Publisher\Handler\DeactivatePublisherHandler;
 use Publisher\Handler\PublisherFactory;
 use Publisher\Handler\PublisherHandler;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -39,7 +40,7 @@ class ConfigProvider
         return [
             'factories'  => [
                 PublisherHandler::class => PublisherFactory::class,
-                ActivatePublisherHandler::class => InvokableFactory::class,
+                ActivatePublisherHandler::class => ActivatePublisherFactory::class,
                 DeactivatePublisherHandler::class => InvokableFactory::class,
             ],
         ];
