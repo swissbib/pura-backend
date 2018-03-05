@@ -10,7 +10,7 @@ use PuraUserModel\Entity\PuraUserEntity;
 <?php foreach ($puraUserList as $puraUser): ?>
     <li>
         <a href="/purauser/edit/<?=$puraUser->getUserId()?>">
-                <?= $this->escapeHtml($puraUser->getFirstname()) ?> <?= $this->escapeHtml($puraUser->getLastname()) ?> (<?= $this->escapeHtml($puraUser->getEduId()) ?>)
+                <?= $this->escapeHtml($puraUser->getFirstname()) ?> <?= $this->escapeHtml($puraUser->getLastname()) ?>
         </a>
     </li>
 <?php endforeach; ?>

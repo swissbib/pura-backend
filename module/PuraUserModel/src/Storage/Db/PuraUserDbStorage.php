@@ -161,9 +161,14 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         $filter = '%' . $filter . '%';
         $select = $this->tableGateway->getSql()->select()
             ->columns(['user_id','edu_id','barcode']);
-        $select->where->like('edu_id', $filter)
-            ->where->or->like('user_id', $filter)
-            ->where->or->like('barcode', $filter);
+        $select->where->nest()
+            ->like('pura_user.barcode', $filter)
+            ->or->like('pura_user.library_system_number', $filter)
+            ->or->like('user.firstname', $filter)
+            ->or->like('user.lastname', $filter)
+            ->or->like('user.email', $filter)
+            ->unnest()
+            ->and->like('pura_user.library_code', 'Z01');
         $select->join('user', 'user.id = pura_user.user_id', ['firstname','lastname'], 'left');
 
         $puraUserEntityArray = [];
