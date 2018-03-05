@@ -4,6 +4,7 @@ namespace Publisher;
 
 use Publisher\Handler\ActivatePublisherFactory;
 use Publisher\Handler\ActivatePublisherHandler;
+use Publisher\Handler\DeactivatePublisherFactory;
 use Publisher\Handler\DeactivatePublisherHandler;
 use Publisher\Handler\PublisherFactory;
 use Publisher\Handler\PublisherHandler;
@@ -41,7 +42,7 @@ class ConfigProvider
             'factories'  => [
                 PublisherHandler::class => PublisherFactory::class,
                 ActivatePublisherHandler::class => ActivatePublisherFactory::class,
-                DeactivatePublisherHandler::class => InvokableFactory::class,
+                DeactivatePublisherHandler::class => DeactivatePublisherFactory::class,
             ],
         ];
     }

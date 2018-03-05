@@ -17,7 +17,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @link     http://vufind.org
  * @link     http://www.swissbib.ch
  */
-class ActivatePublisherFactory implements FactoryInterface
+class DeactivatePublisherFactory implements FactoryInterface
 {
 
     /**
@@ -31,6 +31,6 @@ class ActivatePublisherFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $switchConfig = $container->get('config')['switch_api'];
-        return new ActivatePublisherHandler($switchConfig);
+        return new DeactivatePublisherHandler($switchConfig);
     }
 }

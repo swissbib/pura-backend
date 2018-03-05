@@ -37,7 +37,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use SwitchSharedAttributesAPIClient\PublishersList;
 use SwitchSharedAttributesAPIClient\PuraSwitchClient;
-use SwitchSharedAttributesAPIClient\SwitchSharedAttributesAPIClient;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
@@ -51,20 +50,25 @@ use Zend\Diactoros\Response\JsonResponse;
  */
 class DeactivatePublisherHandler implements RequestHandlerInterface
 {
+    /**
+     * @var array $switchConfig
+     */
+    protected $switchConfig;
+
+    /**
+     * DeactivatePublisherHandler constructor.
+     *
+     */
+    public function __construct($switchConfig)
+    {
+        $this->switchConfig=$switchConfig;
+    }
 
     /**
      * Handle the request and return a response.
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $credentials['auth_user'] = "natlic";
-        $credentials['auth_password'] = "Amg6vZXo";
-        $switchApiConfg['national_licence_programme_group_id'] = '1d3baa7b-da70-440d-b777-5bb2d11f8718';
-        $switchApiConfg['base_endpoint_url'] = 'https://test.eduid.ch/sg/index.php';
-        $switchApiConfg['schema_patch'] = 'urn:ietf:params:scim:api:messages:2.0:PatchOp';
-        $switchApiConfg['operation_add'] = 'add';
-        $switchApiConfg['operation_remove'] = 'remove';
-        $switchApiConfg['path_member'] = 'members';
 
         $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
 
@@ -80,7 +84,7 @@ class DeactivatePublisherHandler implements RequestHandlerInterface
         $publishersList->loadPublishersFromJsonFile($publishersJsonData);
 
         /** @var  $SwitchClient PuraSwitchClient */
-        $puraSwitchClient = new PuraSwitchClient($credentials, $switchApiConfg, $publishersList);
+        $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
 
 
         $otherLibraries=[];

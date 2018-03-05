@@ -37,7 +37,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use SwitchSharedAttributesAPIClient\PublishersList;
 use SwitchSharedAttributesAPIClient\PuraSwitchClient;
-use SwitchSharedAttributesAPIClient\SwitchSharedAttributesAPIClient;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
