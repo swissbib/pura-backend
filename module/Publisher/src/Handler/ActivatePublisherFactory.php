@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Publisher\Handler;
 
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\Template\TemplateRendererInterface;
+use PuraUserModel\Repository\PuraUserRepositoryInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -29,9 +29,15 @@ class ActivatePublisherFactory implements FactoryInterface
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
-    {
+    public function __invoke(
+        ContainerInterface $container,
+        $requestedName,
+        array $options = null
+    ) {
         $switchConfig = $container->get('config')['switch_api'];
-        return new ActivatePublisherHandler($switchConfig);
+        /** @var PuraUserRepositoryInterface $puraUserRepository */
+        $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
+
+        return new ActivatePublisherHandler($switchConfig, $puraUserRepository);
     }
 }

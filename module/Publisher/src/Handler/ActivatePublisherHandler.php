@@ -35,9 +35,10 @@ namespace Publisher\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use PuraUserModel\Entity\PuraUserEntity;
+use PuraUserModel\Repository\PuraUserRepository;
 use SwitchSharedAttributesAPIClient\PublishersList;
 use SwitchSharedAttributesAPIClient\PuraSwitchClient;
-use SwitchSharedAttributesAPIClient\SwitchSharedAttributesAPIClient;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
@@ -56,12 +57,21 @@ class ActivatePublisherHandler implements RequestHandlerInterface
      */
     protected $switchConfig;
 
+    /** @var PuraUserRepository $puraUserRepository */
+    protected $puraUserRepository;
+
     /**
      * ActivatePublisherHandler constructor.
+     *
+     * @param array              $switchConfig       switchConfig
+     * @param PuraUserRepository $puraUserRepository puraUserRepository
      */
-    public function __construct($switchConfig)
-    {
-        $this->switchConfig=$switchConfig;
+    public function __construct(
+        $switchConfig,
+        PuraUserRepository $puraUserRepository
+    ) {
+        $this->switchConfig       = $switchConfig;
+        $this->puraUserRepository = $puraUserRepository;
     }
 
     /**
@@ -69,28 +79,33 @@ class ActivatePublisherHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
+        if ($request->getMethod() === 'POST') {
+            $barcode = $request->getParsedBody()['barcode'];
+            $libraryCode = $request->getParsedBody()['libraryCode'];
 
-        $publishersJsonData
-            = file_exists($filePath) ? file_get_contents($filePath) : '';
+            $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
+            $publishersJsonData
+                = file_exists($filePath) ? file_get_contents($filePath) : '';
 
-        /**
-         * @var PublishersList $publishersList
-         */
-        $publishersList = new PublishersList();
+            /**
+             * @var PublishersList $publishersList
+             */
+            $publishersList = new PublishersList();
+            $publishersList->loadPublishersFromJsonFile($publishersJsonData);
+            $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
 
-        $publishersList->loadPublishersFromJsonFile($publishersJsonData);
+            /** @var PuraUserEntity $puraUserEntity */
+            //$puraUserEntity = $this->puraUserRepository->getSinglePuraUserByBarcode($barcode);
+            $puraUserEntity = new PuraUserEntity();
+            $puraUserEntity->setBarcode($barcode);
+            $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));
+            $puraUserEntity->setHasAccess(true);
 
-        $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
+            $this->puraUserRepository->savePuraUser($puraUserEntity);
+            $result = $puraSwitchClient->activatePublishers($barcode, $libraryCode);
 
-        $result = $puraSwitchClient->activatePublishers('169330697816@test.eduid.ch', 'Z01');
-
-        //Here Needs to Store in the DB the date of activation and set "has_access" to true
-        /** @var PuraUserEntity $puraUserEntity */
-        //$puraUserEntity = $this->puraUserRepository->getSinglePuraUserByBarcode($barcode);
-        //$puraUserEntity->setAccessCreated(...);
-        //$puraUserEntity->setHasAccess(true);
-
-        return new JsonResponse(['success : ' . $result['success'] => $result['message']]);
+            return new JsonResponse(['success : ' . $result['success'] => $result['message']]);
+        }
+        return false;
     }
 }
