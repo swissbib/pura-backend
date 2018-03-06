@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ActivatePublisherHandler
+ * PublisherHandler
  *
  * PHP version 5
  *
@@ -24,34 +24,29 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @category Swissbib_VuFind2
- * @package  Handler
- * @author   Lionel Walter <lionel.walter@unibas.ch>
+ * @package  BusinessLogicHelper
+ * @author   Matthias Edel <matthias.edel@unibas.ch>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://www.swissbib.org
  */
 
-namespace Publisher\Handler;
+namespace Publisher\BusinessLogicHelper;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use Publisher\BusinessLogicHelper\Publisher;
 use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Repository\PuraUserRepository;
 use SwitchSharedAttributesAPIClient\PublishersList;
 use SwitchSharedAttributesAPIClient\PuraSwitchClient;
-use Zend\Diactoros\Response\JsonResponse;
 
 /**
- * ActivatePublisherHandler
+ * ActivatePublisher
  *
  * @category Swissbib_VuFind2
- * @package  Handler
- * @author   Lionel Walter <lionel.walter@unibas.ch>
+ * @package  BusinessLogicHelper
+ * @author   Matthias Edel <matthias.edel@unibas.ch>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org
  */
-class ActivatePublisherHandler implements RequestHandlerInterface
+class Publisher
 {
     /**
      * @var array $switchConfig
@@ -62,7 +57,7 @@ class ActivatePublisherHandler implements RequestHandlerInterface
     protected $puraUserRepository;
 
     /**
-     * ActivatePublisherHandler constructor.
+     * Publisher constructor.
      *
      * @param array              $switchConfig       switchConfig
      * @param PuraUserRepository $puraUserRepository puraUserRepository
@@ -76,17 +71,30 @@ class ActivatePublisherHandler implements RequestHandlerInterface
     }
 
     /**
-     * Handle the request and return a response.
+     * activate publisher
      */
-    public function handle(ServerRequestInterface $request): ResponseInterface
+    public function activatePublisher($barcode, $libraryCode)
     {
-        if ($request->getMethod() === 'POST') {
-            $barcode = $request->getParsedBody()['barcode'];
-            $libraryCode = $request->getParsedBody()['libraryCode'];
+            $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
+            $publishersJsonData
+                = file_exists($filePath) ? file_get_contents($filePath) : '';
 
-            $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
-            return new JsonResponse($publisherHelper->activatePublisher($barcode, $libraryCode));
-        }
-        return false;
+            /**
+             * @var PublishersList $publishersList
+             */
+            $publishersList = new PublishersList();
+            $publishersList->loadPublishersFromJsonFile($publishersJsonData);
+            $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
+
+            /** @var PuraUserEntity $puraUserEntity */
+            $puraUserEntity = new PuraUserEntity();
+            $puraUserEntity->setBarcode($barcode);
+            $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));
+            $puraUserEntity->setHasAccess(true);
+
+            $this->puraUserRepository->savePuraUser($puraUserEntity);
+            $result = $puraSwitchClient->activatePublishers($barcode, $libraryCode);
+
+            return json_encode(['success : ' . $result['success'] => $result['message']]);
     }
 }
