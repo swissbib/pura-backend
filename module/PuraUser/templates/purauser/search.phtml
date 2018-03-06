@@ -9,7 +9,7 @@ use PuraUserModel\Entity\PuraUserEntity;
 ?>
 <?php foreach ($puraUserList as $puraUser): ?>
     <li>
-        <a href="/purauser/edit/<?=$puraUser->getUserId()?>">
+        <a href="/purauser/edit/<?=$puraUser->getBarcode()?>">
                 <?= $this->escapeHtml($puraUser->getFirstname()) ?> <?= $this->escapeHtml($puraUser->getLastname()) ?>
         </a>
     </li>

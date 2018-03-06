@@ -122,7 +122,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
-        if ($resultSet->count() < 1) return false;
+        if ($resultSet->count() < 1) return new PuraUserEntity();
         $puraUserEntity = $this->createPuraUserEntity($resultSet->current());
 
         return $puraUserEntity;
