@@ -69,10 +69,10 @@ class EditHandler implements MiddlewareInterface
     ): ResponseInterface
     {
         $error = '';
-        $userId = $request->getAttribute('user_id');
+        $barcode = $request->getAttribute('barcode');
         /** @var PuraUserEntity $puraUserEntity */
         $puraUserEntity
-            = $this->puraUserRepository->getSinglePuraUserByUserId($userId);
+            = $this->puraUserRepository->getSinglePuraUser($barcode);
 
         if ($request->getMethod() === 'POST') {
             $userId  = $request->getParsedBody()['edit-userId'];

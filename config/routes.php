@@ -75,7 +75,7 @@ return function (
         'purauser.edit.emptyuser'
     );
     $app->route(
-        '/purauser/edit/:user_id',
+        '/purauser/edit/:barcode',
         PuraUser\Handler\EditHandler::class,
         ['GET', 'POST'],
         'purauser.edit'

@@ -34,29 +34,20 @@ interface PuraUserRepositoryInterface
     public function getFilteredListOfAllUsers($filter);
 
     /**
-     * Get single PuraUser by user_id
-     *
-     * @param integer $userId
-     *
-     * @return PuraUserEntity
-     */
-    public function getSinglePuraUserByUserId($userId);
-
-    /**
      * Get single PuraUser by barcode
      *
-     * @param integer $barcode
+     * @param string $barcode
      *
      * @return PuraUserEntity
      */
-    public function getSinglePuraUserByBarcode($barcode);
+    public function getSinglePuraUser($barcode);
 
     /**
      * @param $alephNr aleph number
      * @param $barcode barcode of purauser
      * @return the number of records affected
      */
-    public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
+    public function savePuraUserAlephNr($alephNr, $barcode);
 
     /**
      * @param $puraUser PuraUserEntity

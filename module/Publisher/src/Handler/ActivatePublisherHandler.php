@@ -95,7 +95,7 @@ class ActivatePublisherHandler implements RequestHandlerInterface
             $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
 
             /** @var PuraUserEntity $puraUserEntity */
-            //$puraUserEntity = $this->puraUserRepository->getSinglePuraUserByBarcode($barcode);
+            //$puraUserEntity = $this->puraUserRepository->getSinglePuraUser($barcode);
             $puraUserEntity = new PuraUserEntity();
             $puraUserEntity->setBarcode($barcode);
             $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));

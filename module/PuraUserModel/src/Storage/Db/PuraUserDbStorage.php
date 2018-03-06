@@ -113,7 +113,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      *
      * @return array
      */
-    public function getSinglePuraUserByBarcode($barcode)
+    public function getSinglePuraUser($barcode)
     {
         $select = $this->tableGateway->getSql()->select();
         $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number']);
@@ -123,27 +123,6 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
         if ($resultSet->count() < 1) return false;
-        $puraUserEntity = $this->createPuraUserEntity($resultSet->current());
-
-        return $puraUserEntity;
-    }
-
-    /**
-     * Get PuraUser by user_id
-     *
-     * @param integer $userId
-     *
-     * @return PuraUserEntity
-     */
-    public function getSinglePuraUserByUserId($userId)
-    {
-        $select = $this->tableGateway->getSql()->select();
-        $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number']);
-        $select->where->equalTo('user_id', $userId);
-        $select->join('user', 'user.id = pura_user.user_id', ['firstname', 'lastname', 'email'], 'left');
-
-        /** @var ResultSet $resultSet */
-        $resultSet = $this->tableGateway->selectWith($select);
         $puraUserEntity = $this->createPuraUserEntity($resultSet->current());
 
         return $puraUserEntity;
@@ -181,7 +160,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         return $puraUserEntityArray;
     }
 
-    public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode)
+    public function savePuraUserAlephNr($alephNr, $barcode)
     {
         $update = $this->tableGateway->getSql()->update();
         $update->set(
@@ -200,11 +179,11 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      */
     public function savePuraUser($puraUser)
     {
-        // read entity and use userId as primary. use non-empty fields OR all fields to update record (check if using only nonempty fields in good practice first!)
+        // read entity and use barcode as primary. use non-empty fields OR all fields to update record (check if using only nonempty fields in good practice first!)
         // 1. check if user already exists. if so, do update, else do insert
         $select = $this->tableGateway->getSql()->select()
             ->columns(['user_id']);
-        $select->where->equalTo('user_id', $puraUser->getUserId());
+        $select->where->equalTo('barcode', $puraUser->getBarcode());
         $foundPuraUser = $this->tableGateway->selectWith($select)->current();
 
         if (count($foundPuraUser) == 0) {
@@ -219,9 +198,9 @@ class PuraUserDbStorage implements PuraUserStorageInterface
                 $fieldForPuraUserTable['library_system_number']
                     = $puraUser->getLibrarySystemNumber();
             }
-            if (!is_null($puraUser->getBarcode())) {
-                $fieldForPuraUserTable['barcode']
-                    = $puraUser->getBarcode();
+            if (!is_null($puraUser->getUserId())) {
+                $fieldForPuraUserTable['user_id']
+                    = $puraUser->getUserId();
             }
             if (!is_null($puraUser->getEmail())) {
                 $fieldForUserTable['email']
@@ -285,14 +264,14 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             }
 
             $update->set($fieldForPuraUserTable);
-            $update->where->equalTo('user_id', $puraUser->getUserId());
+            $update->where->equalTo('barcode', $puraUser->getBarcode());
             $dbRetVal = $this->tableGateway->updateWith($update);
 
             //todo: consider updating values from table 'user' as well - or don't.
 
             return $dbRetVal;
         } else {
-            throw new Exception('More than one record with the same primary key found in table "pura_user".');
+            throw new Exception('More than one record with the same unique key found in table "pura_user".');
         }
 
         return -1;

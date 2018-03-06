@@ -72,7 +72,7 @@ class AlephNrEntryHandler implements MiddlewareInterface
         $barcode = $request->getAttribute('barcode');
 
         /** @var PuraUserEntity $puraUserEntity */
-        $puraUserEntity = $this->puraUserRepository->getSinglePuraUserByBarcode($barcode);
+        $puraUserEntity = $this->puraUserRepository->getSinglePuraUser($barcode);
 
         if ($request->getMethod() === 'POST') {
             $alephNr = $request->getParsedBody()['alephNrEntry'];
@@ -85,12 +85,12 @@ class AlephNrEntryHandler implements MiddlewareInterface
 
             $dbReturnCode = 1;
             if ($puraUserEntity->getLibrarySystemNumber() !== $alephNr) {
-                $dbReturnCode = $this->puraUserRepository->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
+                $dbReturnCode = $this->puraUserRepository->savePuraUserAlephNr($alephNr, $barcode);
             }
 
             if ($dbReturnCode > 0) {
                 $response = $handler->handle($request);
-                return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getUserId());
+                return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
             }
             $error = 'There was an error saving the aleph number to the database.';
         }

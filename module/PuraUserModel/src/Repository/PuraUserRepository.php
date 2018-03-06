@@ -71,27 +71,9 @@ class PuraUserRepository implements PuraUserRepositoryInterface
      *
      * @return array
      */
-    public function getSinglePuraUserByBarcode($barcode)
+    public function getSinglePuraUser($barcode)
     {
-        $puraUser = $this->puraUserStorage->getSinglePuraUserByBarcode($barcode);
-
-        if (!$puraUser) {
-            return false;
-        }
-
-        return $puraUser;
-    }
-
-    /**
-     * Get single PuraUser by user_id
-     *
-     * @param integer $userId
-     *
-     * @return PuraUserEntity
-     */
-    public function getSinglePuraUserByUserId($userId)
-    {
-        $puraUser = $this->puraUserStorage->getSinglePuraUserByUserId($userId);
+        $puraUser = $this->puraUserStorage->getSinglePuraUser($barcode);
 
         if (!$puraUser) {
             return false;
@@ -105,9 +87,9 @@ class PuraUserRepository implements PuraUserRepositoryInterface
      * @param $barcode barcode of purauser
      * @return the user_id
      */
-    public function savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode)
+    public function savePuraUserAlephNr($alephNr, $barcode)
     {
-        return $this->puraUserStorage->savePuraUserAlephNrIdentifiedByBarcode($alephNr, $barcode);
+        return $this->puraUserStorage->savePuraUserAlephNr($alephNr, $barcode);
     }
 
     /**
