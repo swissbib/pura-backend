@@ -350,12 +350,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "ec43dc1b86eb2a634eff2bb581e518cf0f798507"
+                "reference": "0a373baba09d0d125d69f0e7a27a8dae2d068796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ec43dc1b86eb2a634eff2bb581e518cf0f798507",
-                "reference": "ec43dc1b86eb2a634eff2bb581e518cf0f798507",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0a373baba09d0d125d69f0e7a27a8dae2d068796",
+                "reference": "0a373baba09d0d125d69f0e7a27a8dae2d068796",
                 "shasum": ""
             },
             "conflict": {
@@ -386,7 +386,7 @@
                 "doctrine/orm": ">=2,<2.4.8|>=2.5,<2.5.1",
                 "dompdf/dompdf": ">=0.6,<0.6.2",
                 "drupal/core": ">=8,<8.4.5",
-                "drupal/drupal": ">=8,<8.3.7",
+                "drupal/drupal": ">=8,<8.4.5",
                 "erusev/parsedown": "<1.7",
                 "ezsystems/ezpublish-legacy": ">=5.3,<5.3.12.3|>=5.4,<5.4.11.3|>=2017.8,<2017.8.1.1|>=2017.12,<2017.12.2.1",
                 "firebase/php-jwt": "<2",
@@ -498,7 +498,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2018-03-04T21:39:48+00:00"
+            "time": "2018-03-05T15:57:14+00:00"
         },
         {
             "name": "swissbib/switchSharedAttributesAPIClient",
@@ -506,12 +506,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swissbib/switchSharedAttributesAPIClient.git",
-                "reference": "8552c232fe378a7f9c557541a195a63329974e9d"
+                "reference": "6c03b8f7322c1ffd6ff6373ff917d5ce82f6feaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swissbib/switchSharedAttributesAPIClient/zipball/8552c232fe378a7f9c557541a195a63329974e9d",
-                "reference": "8552c232fe378a7f9c557541a195a63329974e9d",
+                "url": "https://api.github.com/repos/swissbib/switchSharedAttributesAPIClient/zipball/6c03b8f7322c1ffd6ff6373ff917d5ce82f6feaa",
+                "reference": "6c03b8f7322c1ffd6ff6373ff917d5ce82f6feaa",
                 "shasum": ""
             },
             "require": {
@@ -545,7 +545,7 @@
                 "source": "https://github.com/swissbib/switchSharedAttributesAPIClient/tree/master",
                 "issues": "https://github.com/swissbib/switchSharedAttributesAPIClient/issues"
             },
-            "time": "2018-03-05T14:21:11+00:00"
+            "time": "2018-03-05T14:39:37+00:00"
         },
         {
             "name": "zendframework/zend-component-installer",
@@ -1434,29 +1434,29 @@
         },
         {
             "name": "zendframework/zend-expressive-zendrouter",
-            "version": "3.0.0alpha2",
+            "version": "3.0.0rc1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-zendrouter.git",
-                "reference": "d957f0889ca189474ce1bf3b8c8d2a5e831d9b5d"
+                "reference": "92099c9b90f830577bb3cdfdc45878625120967c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-zendrouter/zipball/d957f0889ca189474ce1bf3b8c8d2a5e831d9b5d",
-                "reference": "d957f0889ca189474ce1bf3b8c8d2a5e831d9b5d",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-zendrouter/zipball/92099c9b90f830577bb3cdfdc45878625120967c",
+                "reference": "92099c9b90f830577bb3cdfdc45878625120967c",
                 "shasum": ""
             },
             "require": {
                 "fig/http-message-util": "^1.1.2",
                 "php": "^7.1",
                 "psr/http-message": "^1.0.1",
-                "zendframework/zend-expressive-router": "^3.0.0alpha1 || ^3.0",
+                "zendframework/zend-expressive-router": "^3.0.0rc1",
                 "zendframework/zend-psr7bridge": "^0.2.2 || ^1.0.0",
                 "zendframework/zend-router": "^3.0.2"
             },
             "require-dev": {
                 "malukenho/docheader": "^0.1.6",
-                "phpunit/phpunit": "^6.5.3",
+                "phpunit/phpunit": "^7.0.2",
                 "zendframework/zend-coding-standard": "~1.0.0",
                 "zendframework/zend-i18n": "^2.7.4"
             },
@@ -1491,7 +1491,7 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2018-02-07T11:01:42+00:00"
+            "time": "2018-03-05T14:50:29+00:00"
         },
         {
             "name": "zendframework/zend-expressive-zendviewrenderer",
@@ -4129,7 +4129,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.0.5",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
