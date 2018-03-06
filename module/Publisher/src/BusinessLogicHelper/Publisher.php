@@ -72,6 +72,12 @@ class Publisher
 
     /**
      * activate publisher
+     *
+     * @param $barcode
+     * @param $libraryCode
+     *
+     * @return string
+     * @throws \Exception
      */
     public function activatePublisher($barcode, $libraryCode)
     {

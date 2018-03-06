@@ -6,12 +6,11 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Publisher\BusinessLogicHelper\Publisher;
 use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Expressive\Authentication\UserInterface;
-use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\Form;
 
@@ -35,6 +34,8 @@ class AlephNrEntryHandler implements MiddlewareInterface
      */
     private $alephNrEntryForm;
 
+    private $switchConfig;
+
     private $puraUserRepository;
 
     private $puraUserList;
@@ -42,16 +43,21 @@ class AlephNrEntryHandler implements MiddlewareInterface
     /**
      * BarcodeEntryHandler constructor.
      * @param TemplateRendererInterface $template
-     * @param Form $barcodeEntryForm
+     * @param Form $alephNrEntryForm
+     * @param array $switchConfig
+     * @param PuraUserRepository $puraUserRepository
+     * @param array $puraUserList
      */
     public function __construct(
         TemplateRendererInterface $template,
         Form                      $alephNrEntryForm,
+        array                     $switchConfig,
         PuraUserRepository        $puraUserRepository,
         array                     $puraUserList
     ) {
         $this->template             = $template;
         $this->alephNrEntryForm     = $alephNrEntryForm;
+        $this->switchConfig         = $switchConfig;
         $this->puraUserRepository   = $puraUserRepository;
         $this->puraUserList         = $puraUserList;
     }
@@ -73,6 +79,7 @@ class AlephNrEntryHandler implements MiddlewareInterface
 
         /** @var PuraUserEntity $puraUserEntity */
         $puraUserEntity = $this->puraUserRepository->getSinglePuraUser($barcode);
+        $libraryCode = $puraUserEntity->getLibraryCode();
 
         if ($request->getMethod() === 'POST') {
             $alephNr = $request->getParsedBody()['alephNrEntry'];
@@ -83,16 +90,23 @@ class AlephNrEntryHandler implements MiddlewareInterface
                 $alephNr
             );
 
-            $dbReturnCode = 1;
+            $retVal = 1;
             if ($puraUserEntity->getLibrarySystemNumber() !== $alephNr) {
-                $dbReturnCode = $this->puraUserRepository->savePuraUserAlephNr($alephNr, $barcode);
+                $retVal = $this->puraUserRepository->savePuraUserAlephNr($alephNr, $barcode);
             }
 
-            if ($dbReturnCode > 0) {
-                $response = $handler->handle($request);
-                return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
+            if ($retVal > 0) {
+                $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
+                $retVal = $publisherHelper->activatePublisher($barcode, $libraryCode);
+                if ($retVal['success']) {
+                    $response = $handler->handle($request);
+                    return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
+                } else {
+                    $error = 'There was an error activating the publishers.';
+                }
+            } else {
+                $error = 'There was an error saving the aleph number to the database.';
             }
-            $error = 'There was an error saving the aleph number to the database.';
         }
 
         return new HtmlResponse(
