@@ -65,16 +65,16 @@ class BarcodeEntryHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        $error = '';
+        $message = '';
         if ($request->getMethod() === 'POST') {
             $barcode = $request->getParsedBody()['barcodeEntry'];
 
             // allow only capital letters and/or numbers, but multiple of them:
             $barcodeEntryValidator = new \Zend\Validator\Regex(['pattern' => '/^[A-Z0-9]+$/']);
             $isValid = $barcodeEntryValidator->isValid($barcode);
-            $error = 'Barcode is in an invalid format.';
+            $message = 'Barcode is in an invalid format.';
             $isValid = $this->getBarcodeExistInDb($barcode);
-            if (!$isValid) $error = 'Barcode does not exist in the database.';
+            if (!$isValid) $message = 'Barcode does not exist in the database.';
 
             if ($isValid) {
                 // consider using striptags'n'trim-filter here an then add it as a derived request attibute!
@@ -90,7 +90,7 @@ class BarcodeEntryHandler implements MiddlewareInterface
                 'purauser::barcodeentry-page', [
                       'barcodeEntryForm'  => $this->barcodeEntryForm,
                       'puraUserList' => $this->puraUserList,
-                      'error' => $error,
+                      'message' => $message,
                 ]
             )
         );

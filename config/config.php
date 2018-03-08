@@ -31,6 +31,7 @@ $aggregator = new ConfigAggregator([
     \Zend\HttpHandlerRunner\ConfigProvider::class,
     \Zend\Expressive\Helper\ConfigProvider::class,
     \Zend\Expressive\ConfigProvider::class,
+    \Zend\Expressive\Flash\ConfigProvider::class,
 
     // Include cache configuration
     new ArrayProvider($cacheConfig),

@@ -63,7 +63,7 @@ class LoginHandler implements MiddlewareInterface
             return new RedirectResponse('/login');
         }
 
-        $error = '';
+        $message = '';
         if ($request->getMethod() === 'POST') {
             $inputFilter = $this->loginForm->getInputFilter();
 
@@ -78,14 +78,14 @@ class LoginHandler implements MiddlewareInterface
                     return new RedirectResponse('/purauser/barcodeentry');
                 }
 
-                $error = 'Login Failure, please try again';
+                $message = 'Login Failure, please try again';
             }
         }
 
         return new HtmlResponse(
             $this->template->render('user::login-page', [
                 'loginForm'  => $this->loginForm,
-                'error' => $error,
+                'message' => $message,
             ])
         );
     }

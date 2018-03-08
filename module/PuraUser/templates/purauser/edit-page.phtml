@@ -29,8 +29,6 @@
  * @link     http://www.swissbib.org
  */
 
-echo $error;
-
 //$this->barcodeEntryForm->prepare();
 ?>
 
@@ -45,7 +43,7 @@ echo $error;
 		<?= $this->render('purauser::edit-content', [
 		    'editForm' => $this->editForm,
             'puraUserEntity' => $puraUserEntity,
-            'error' => $error
+            'message' => $message
         ]); ?>
 	</div>
 </div>

@@ -9,9 +9,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Expressive\Authentication\UserInterface;
-use Zend\Expressive\Session\SessionMiddleware;
+use Zend\Expressive\Flash\FlashMessageMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\Form;
 
@@ -68,11 +66,14 @@ class EditHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        $error = '';
+        $message = '';
         $barcode = $request->getAttribute('barcode');
         /** @var PuraUserEntity $puraUserEntity */
         $puraUserEntity
             = $this->puraUserRepository->getSinglePuraUser($barcode);
+
+        $flashMessages = $request->getAttribute(FlashMessageMiddleware  ::FLASH_ATTRIBUTE);
+        $message = $flashMessages->getFlash('message');
 
         if ($request->getMethod() === 'POST') {
             $userId  = $request->getParsedBody()['edit-userId'];
@@ -95,7 +96,7 @@ class EditHandler implements MiddlewareInterface
             $puraUserEntity->setRemarks($remark);
             $dbReturnCode = $this->puraUserRepository->savePuraUser($puraUserEntity);
 
-            if ($dbReturnCode < 0) $error = 'There was an error saving the aleph number to the database.';
+            if ($dbReturnCode < 0) $message = 'There was an error saving the aleph number to the database.';
         }
 
         return new HtmlResponse(
@@ -104,7 +105,7 @@ class EditHandler implements MiddlewareInterface
                       'editForm'  => $this->editForm,
                       'puraUserList' => $this->puraUserList,
                       'puraUserEntity' => $puraUserEntity,
-                      'error' => $error,
+                      'message' => $message
                 ]
             )
         );

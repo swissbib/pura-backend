@@ -11,6 +11,7 @@ use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
+use Zend\Expressive\Flash\FlashMessageMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\Form;
 
@@ -74,7 +75,7 @@ class AlephNrEntryHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        $error = '';
+        $message = '';
         $barcode = $request->getAttribute('barcode');
 
         /** @var PuraUserEntity $puraUserEntity */
@@ -98,14 +99,16 @@ class AlephNrEntryHandler implements MiddlewareInterface
             if ($retVal > 0) {
                 $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
                 $retVal = $publisherHelper->activatePublisher($puraUserEntity->getUserId(), $barcode, $libraryCode);
+                $message = $retVal['message'];
                 if ($retVal['success']) {
+                    $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
+                    $flashMessages->flash('message', $retVal['message']);
                     $response = $handler->handle($request);
                     return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
                 } else {
-                    $error = $retVal['message'];
                 }
             } else {
-                $error = 'There was an error saving the aleph number to the database.';
+                $message = 'There was an error saving the aleph number to the database.';
             }
         }
 
@@ -115,7 +118,7 @@ class AlephNrEntryHandler implements MiddlewareInterface
                       'alephNrEntryForm'  => $this->alephNrEntryForm,
                       'puraUserList' => $this->puraUserList,
                       'puraUserEntity' => $puraUserEntity,
-                      'error' => $error
+                      'message' => $message
                 ]
             )
         );

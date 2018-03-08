@@ -14,6 +14,7 @@ use Zend\Expressive\Middleware\NotFoundMiddleware;
 use Zend\Expressive\Middleware\RouteMiddleware;
 use Zend\Stratigility\Middleware\ErrorHandler;
 use Zend\Expressive\Session\SessionMiddleware;
+use Zend\Expressive\Flash\FlashMessageMiddleware;
 
 /**
  * Setup middleware pipeline:
@@ -43,6 +44,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     // Register the routing middleware in the middleware pipeline
     $app->pipe(SessionMiddleware::class);
+    $app->pipe(FlashMessageMiddleware::class);
     $app->pipe(RouteMiddleware::class);
     $app->pipe(ImplicitHeadMiddleware::class);
     $app->pipe(ImplicitOptionsMiddleware::class);

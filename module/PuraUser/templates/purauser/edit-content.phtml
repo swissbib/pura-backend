@@ -35,11 +35,13 @@ use PuraUserModel\Entity\PuraUserEntity;
 /**
  * @var PuraUserEntity $puraUserEntity
  */
-echo $error;
 $this->editForm->prepare();
 ?>
 
-<span>The user has been succesfully activated.</span>
+<div class="message">
+    <?= $message ?>
+</div>
+
 <br/><br/>
 
 <form action="" method="POST" name="edit-form" id="edit-form" class="form-horizontal">
