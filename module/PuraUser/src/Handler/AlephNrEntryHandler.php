@@ -98,7 +98,7 @@ class AlephNrEntryHandler implements MiddlewareInterface
 
             if ($retVal > 0) {
                 $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
-                $retVal = $publisherHelper->activatePublisher($puraUserEntity->getUserId(), $barcode, $libraryCode);
+                $retVal = $publisherHelper->activatePublisher($puraUserEntity->getEduId(), $barcode, $libraryCode);
                 $message = $retVal['message'];
                 if ($retVal['success']) {
                     $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);

@@ -38,9 +38,10 @@ use PuraUserModel\Entity\PuraUserEntity;
 $this->editForm->prepare();
 ?>
 
-<div class="message">
+<div class="alert alert-success" role="alert">
     <?= $message ?>
 </div>
+<br/>
 
 <br/><br/>
 
@@ -60,11 +61,10 @@ $this->editForm->prepare();
 </form>
 
 <form action="/publisher/deactivate" method="POST" name="edit-blockFromLib-form" id="edit-blockAllLibs-form">
-    <input type="submit" name="save" value="Block this user from library">
+    <input type="submit" name="save" value="Block this user from my library">
 </form>
 <br/>
 
-<form action="mailto:swissbib-ub@unibas.ch" method="POST" name="edit-blockAllLibs-form" id="edit-blockAllLibs-form">
-    <input type="hidden" name="user" value="put user IDs here">
-    <input type="submit" name="save" value="Block this user from all libraries">
-</form>
+<a href="mailto:swissbib-ub@unibas.ch?subject=Pura : Block this user for all libraries&body=Hello !%0D%0APlease block user :%0D%0A<?= $puraUserEntity->getLastname() ?> <?= $puraUserEntity->getFirstname() ?>%0D%0A<?= $puraUserEntity->getEmail() ?>%0D%0A<?= $puraUserEntity->getEduId() ?>%0D%0A%0D%0A for all Pura Libraries.%0D%0A%0D%0AThank you !">
+    <input type="submit" name="save" value="Block this user from all Pura libraries">
+</a>
