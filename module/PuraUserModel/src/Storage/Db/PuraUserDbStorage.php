@@ -103,6 +103,10 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             !array_key_exists('email', $puraUserArray) ?
                 null : $puraUserArray['email']
         );
+        $puraUserEntity->setLibraryCode(
+            !array_key_exists('library_code', $puraUserArray) ?
+                null : $puraUserArray['library_code']
+        );
         return $puraUserEntity;
     }
 
@@ -116,7 +120,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     public function getSinglePuraUser($barcode)
     {
         $select = $this->tableGateway->getSql()->select();
-        $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number']);
+        $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number', 'library_code']);
         $select->where->equalTo('barcode', $barcode);
         $select->join('user', 'user.id = pura_user.user_id', ['firstname', 'lastname', 'email'], 'left');
 

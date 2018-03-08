@@ -97,7 +97,7 @@ class AlephNrEntryHandler implements MiddlewareInterface
 
             if ($retVal > 0) {
                 $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
-                $retVal = $publisherHelper->activatePublisher($puraUserEntity->getUserId(), $barcode, $libraryCode);
+                $retVal = $publisherHelper->activatePublisher($puraUserEntity->getEduId(), $barcode, $libraryCode);
                 if ($retVal['success']) {
                     $response = $handler->handle($request);
                     return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
