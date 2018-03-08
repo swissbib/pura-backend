@@ -97,12 +97,12 @@ class AlephNrEntryHandler implements MiddlewareInterface
 
             if ($retVal > 0) {
                 $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
-                $retVal = $publisherHelper->activatePublisher($barcode, $libraryCode);
+                $retVal = $publisherHelper->activatePublisher($puraUserEntity->getUserId(), $barcode, $libraryCode);
                 if ($retVal['success']) {
                     $response = $handler->handle($request);
                     return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
                 } else {
-                    $error = 'There was an error activating the publishers.';
+                    $error = $retVal['message'];
                 }
             } else {
                 $error = 'There was an error saving the aleph number to the database.';

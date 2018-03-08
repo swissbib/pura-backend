@@ -79,7 +79,7 @@ class Publisher
      * @return string
      * @throws \Exception
      */
-    public function activatePublisher($barcode, $libraryCode)
+    public function activatePublisher($userId, $barcode, $libraryCode)
     {
             $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
             $publishersJsonData
@@ -99,8 +99,8 @@ class Publisher
             $puraUserEntity->setHasAccess(true);
 
             $this->puraUserRepository->savePuraUser($puraUserEntity);
-            $result = $puraSwitchClient->activatePublishers($barcode, $libraryCode);
+            $result = $puraSwitchClient->activatePublishers($userId, $libraryCode);
 
-            return json_encode(['success : ' . $result['success'] => $result['message']]);
+            return $result;
     }
 }
