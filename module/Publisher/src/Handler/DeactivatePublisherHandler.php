@@ -93,7 +93,7 @@ class DeactivatePublisherHandler implements RequestHandlerInterface
 
 
         $result = $puraSwitchClient->deactivatePublishers(
-            '169330697816@test.eduid.ch',
+            '811548979020@test.eduid.ch',
             'Z01',
             $otherLibraries
         );

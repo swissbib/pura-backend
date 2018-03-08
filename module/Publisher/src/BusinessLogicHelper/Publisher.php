@@ -95,8 +95,15 @@ class Publisher
             /** @var PuraUserEntity $puraUserEntity */
             $puraUserEntity = new PuraUserEntity();
             $puraUserEntity->setBarcode($barcode);
-            $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));
+
+            if (!$puraUserEntity->getHasAccess()) {
+                //we record the first date where the account was created, not the renewals
+                $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));
+            }
             $puraUserEntity->setHasAccess(true);
+
+            $dateExpiration = date('Y-m-d H:i:s', strtotime('+1 year'));
+            $puraUserEntity->setDateExpiration($dateExpiration);
 
             $this->puraUserRepository->savePuraUser($puraUserEntity);
             $result = $puraSwitchClient->activatePublishers($userId, $libraryCode);

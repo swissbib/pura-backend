@@ -92,4 +92,5 @@ return function (
     $app->get('/publisher', Publisher\Handler\PublisherHandler::class, 'publisher');
     $app->post('/publisher/activate', Publisher\Handler\ActivatePublisherHandler::class, 'publisher.activate');
     $app->get('/publisher/deactivate', Publisher\Handler\DeactivatePublisherHandler::class, 'publisher.deactivate');
+    $app->post('/publisher/deactivate', Publisher\Handler\DeactivatePublisherHandler::class, 'publisher.deactivate');
 };
