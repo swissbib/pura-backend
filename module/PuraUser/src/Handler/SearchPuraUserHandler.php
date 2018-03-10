@@ -27,11 +27,6 @@ class SearchPuraUserHandler implements MiddlewareInterface
      */
     private $template;
 
-    /**
-     * @var Form
-     */
-    private $barcodeEntryForm;
-
     private $puraUserList;
 
     /** @var PuraUserRepository $puraUserRepository */
@@ -40,19 +35,14 @@ class SearchPuraUserHandler implements MiddlewareInterface
     /**
      * SearchPuraUserHandler constructor.
      * @param TemplateRendererInterface $template
-     * @param Form $barcodeEntryForm
      */
     public function __construct(
         TemplateRendererInterface $template,
-        Form                      $barcodeEntryForm,
         PuraUserRepository        $puraUserRepository
-        //array                     $puraUserList
     )
     {
         $this->template = $template;
-        $this->barcodeEntryForm = $barcodeEntryForm;
         $this->puraUserRepository = $puraUserRepository;
-        //$this->puraUserList = $puraUserList;
     }
 
     /**

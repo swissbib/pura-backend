@@ -33,8 +33,6 @@ use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use PuraUserModel\Repository\PuraUserRepositoryInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\Form\Form;
-use Zend\InputFilter\InputFilterPluginManager;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -70,18 +68,9 @@ class SearchPuraUserHandlerFactory implements FactoryInterface
     )
     {
         $template  = $container->get(TemplateRendererInterface::class);
-        $inputFilterManager = $container->get(InputFilterPluginManager::class);
-        $alephNrEntryInputFilter = $inputFilterManager->get(AlephNrEntryInputFilter::class);
-        $alephNrEntryForm = new Form();
-        $alephNrEntryForm->setInputFilter($alephNrEntryInputFilter);
-
         /** @var PuraUserRepositoryInterface $puraUserRepository */
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
-        //$puraUserList = $puraUserRepository->getListOfAllUsers();
 
-        $searchPuraUserForm = new Form();
-
-        //return new SearchPuraUserHandler($puraUserList, $searchPuraUserForm , $puraUserRepository);
-        return new SearchPuraUserHandler($template, $searchPuraUserForm , $puraUserRepository);
+        return new SearchPuraUserHandler($template, $puraUserRepository);
     }
 }
