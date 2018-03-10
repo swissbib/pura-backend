@@ -17,7 +17,6 @@ $aggregator = new ConfigAggregator([
     \Zend\Db\ConfigProvider::class,
     \Zend\I18n\ConfigProvider::class,
     \Zend\Form\ConfigProvider::class,
-    \Zend\InputFilter\ConfigProvider::class,
     \Zend\Filter\ConfigProvider::class,
     \Zend\Hydrator\ConfigProvider::class,
     \Zend\Expressive\Session\Ext\ConfigProvider::class,

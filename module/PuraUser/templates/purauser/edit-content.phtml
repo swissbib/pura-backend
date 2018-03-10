@@ -57,7 +57,6 @@ $this->editForm->prepare();
         <tr><td>Remark:</td>          <td><textarea name="edit-remark" rows="5" cols=""><?= $puraUserEntity->getRemarks() ?></textarea></td></tr>
         <tr><td><input type="submit" name="save" value="Save"></td><td></td></tr>
     </tbody></table>
-    <input type="hidden" name="edit-userId" value="<?= $puraUserEntity->getUserId() ?>">
 </form>
 
 <form action="/publisher/deactivate" method="POST" name="edit-blockFromLib-form" id="edit-blockAllLibs-form">

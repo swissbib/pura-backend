@@ -4,7 +4,6 @@ namespace User;
 use User\Handler\LoginFactory;
 use User\Handler\LoginHandler;
 use User\Handler\LogoutHandler;
-use User\InputFilter\LoginInputFilter;
 use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -74,7 +73,6 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                LoginInputFilter::class => InvokableFactory::class,
             ]
         ];
     }

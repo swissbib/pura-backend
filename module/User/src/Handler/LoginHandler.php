@@ -11,6 +11,7 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\Filter\StaticFilter;
 use Zend\Form\Form;
 
 /**
@@ -65,21 +66,23 @@ class LoginHandler implements MiddlewareInterface
 
         $message = '';
         if ($request->getMethod() === 'POST') {
-            $inputFilter = $this->loginForm->getInputFilter();
+            $username = $request->getParsedBody()['username'];
+            $password = $request->getParsedBody()['password'];
 
+            // filter:
+            $username = StaticFilter::execute($username, 'StringTrim');
+            $username = StaticFilter::execute($username, 'StripTags');
+            $password = StaticFilter::execute($password, 'StringTrim');
+            $password = StaticFilter::execute($password, 'StripTags');
 
-            $inputFilter->setData($request->getParsedBody());
-            if ($inputFilter->isValid()) {
-                $request = $request->withAttribute('username', $inputFilter->getValue('username'));
-                $request = $request->withAttribute('password', $inputFilter->getValue('password'));
+            $request = $request->withAttribute('username', $username);
+            $request = $request->withAttribute('password', $password);
 
-                $response = $handler->handle($request);
-                if ($response->getStatusCode() !== 301) {
-                    return new RedirectResponse('/purauser/barcodeentry');
-                }
-
-                $message = 'Login Failure, please try again';
+            $response = $handler->handle($request);
+            if ($response->getStatusCode() !== 301) {
+                return new RedirectResponse('/purauser/barcodeentry');
             }
+            $message = 'Login Failure, please try again';
         }
 
         return new HtmlResponse(

@@ -9,8 +9,6 @@ use PuraUser\Handler\EditFactory;
 use PuraUser\Handler\EditHandler;
 use PuraUser\Handler\SearchPuraUserHandler;
 use PuraUser\Handler\SearchPuraUserHandlerFactory;
-use PuraUser\InputFilter\AlephNrEntryInputFilter;
-use PuraUser\InputFilter\BarcodeEntryInputFilter;
 use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
 use Zend\Expressive\Authentication\AuthenticationInterface;
@@ -80,8 +78,6 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                BarcodeEntryInputFilter::class => InvokableFactory::class,
-                AlephNrEntryInputFilter::class => InvokableFactory::class,
             ]
         ];
     }

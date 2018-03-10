@@ -11,6 +11,7 @@ use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Flash\FlashMessageMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\Filter\StaticFilter;
 use Zend\Form\Form;
 
 /**
@@ -68,6 +69,7 @@ class EditHandler implements MiddlewareInterface
     {
         $message = '';
         $barcode = $request->getAttribute('barcode');
+
         /** @var PuraUserEntity $puraUserEntity */
         $puraUserEntity
             = $this->puraUserRepository->getSinglePuraUser($barcode);
@@ -76,10 +78,13 @@ class EditHandler implements MiddlewareInterface
         $message = $flashMessages->getFlash('message');
 
         if ($request->getMethod() === 'POST') {
-            $userId  = $request->getParsedBody()['edit-userId'];
             $alephNr = $request->getParsedBody()['edit-alephNr'];
             $remark  = $request->getParsedBody()['edit-remark'];
-            // todo: filter (strip spaces) of values here!
+
+            // filter:
+            $alephNr = StaticFilter::execute($alephNr, 'StringTrim');
+            $alephNr = StaticFilter::execute($alephNr, 'StripTags');
+            $remark = StaticFilter::execute($remark, 'StripTags');
 
             $request = $request->withAttribute(
                 'alephNr',

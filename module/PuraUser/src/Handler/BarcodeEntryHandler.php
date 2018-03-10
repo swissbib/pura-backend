@@ -10,6 +10,7 @@ use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\Filter\StaticFilter;
 use Zend\Form\Form;
 
 /**
@@ -69,15 +70,21 @@ class BarcodeEntryHandler implements MiddlewareInterface
         if ($request->getMethod() === 'POST') {
             $barcode = $request->getParsedBody()['barcodeEntry'];
 
-            // allow only capital letters and/or numbers, but multiple of them:
+            // filter input:
+            $barcode = StaticFilter::execute($barcode, 'StripTags');
+            $barcode = StaticFilter::execute($barcode, 'StringTrim');
+
+            // validate input: (allow only capital letters and/or numbers, but multiple of them)
             $barcodeEntryValidator = new \Zend\Validator\Regex(['pattern' => '/^[A-Z0-9]+$/']);
             $isValid = $barcodeEntryValidator->isValid($barcode);
             $message = 'Barcode is in an invalid format.';
+
+            // validate against DB:
             $isValid = $this->getBarcodeExistInDb($barcode);
             if (!$isValid) $message = 'Barcode does not exist in the database.';
 
             if ($isValid) {
-                // consider using striptags'n'trim-filter here an then add it as a derived request attibute!
+                $request = $request->withAttribute('barcodeEntry', $barcode);
                 $response = $handler->handle($request);
                 if ($response->getStatusCode() !== 301) {
                     return new RedirectResponse('/purauser/alephnrentry/' . $barcode);

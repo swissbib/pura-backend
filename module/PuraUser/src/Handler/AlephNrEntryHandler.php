@@ -13,6 +13,7 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Flash\FlashMessageMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\Filter\StaticFilter;
 use Zend\Form\Form;
 
 /**
@@ -84,7 +85,8 @@ class AlephNrEntryHandler implements MiddlewareInterface
 
         if ($request->getMethod() === 'POST') {
             $alephNr = $request->getParsedBody()['alephNrEntry'];
-            // todo: filter (strip spaces) $alephNr here!
+            $alephNr = StaticFilter::execute($alephNr, 'StringTrim');
+            $alephNr = StaticFilter::execute($alephNr, 'StripTags');
 
             $request = $request->withAttribute(
                 'alephNrEntry',
