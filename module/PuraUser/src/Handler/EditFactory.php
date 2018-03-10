@@ -69,15 +69,11 @@ class EditFactory implements FactoryInterface
     )
     {
         $template  = $container->get(TemplateRendererInterface::class);
-        //$inputFilterManager = $container->get(InputFilterPluginManager::class);
-        //$alephNrEntryInputFilter = $inputFilterManager->get(AlephNrEntryInputFilter::class);
-        $editForm = new Form();
-        //$alephNrEntryForm->setInputFilter($alephNrEntryInputFilter);
 
         /** @var PuraUserRepositoryInterface $puraUserRepository */
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
         $puraUserList = $puraUserRepository->getListOfAllUsers();
 
-        return new EditHandler($template, $editForm, $puraUserRepository, $puraUserList);
+        return new EditHandler($template, $puraUserRepository, $puraUserList);
     }
 }

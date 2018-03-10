@@ -12,7 +12,6 @@ use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Filter\StaticFilter;
-use Zend\Form\Form;
 
 /**
  * LoginHandler
@@ -29,22 +28,15 @@ class LoginHandler implements MiddlewareInterface
      * @var TemplateRendererInterface
      */
     private $template;
-    /**
-     * @var Form
-     */
-    private $loginForm;
 
     /**
      * LoginHandler constructor.
      * @param TemplateRendererInterface $template
-     * @param Form $loginForm
      */
     public function __construct(
-        TemplateRendererInterface $template,
-        Form                      $loginForm
+        TemplateRendererInterface $template
     ) {
         $this->template  = $template;
-        $this->loginForm = $loginForm;
     }
 
     /**
@@ -87,7 +79,6 @@ class LoginHandler implements MiddlewareInterface
 
         return new HtmlResponse(
             $this->template->render('user::login-page', [
-                'loginForm'  => $this->loginForm,
                 'message' => $message,
             ])
         );

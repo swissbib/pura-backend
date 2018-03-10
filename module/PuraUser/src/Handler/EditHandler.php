@@ -29,10 +29,6 @@ class EditHandler implements MiddlewareInterface
      * @var TemplateRendererInterface
      */
     private $template;
-    /**
-     * @var Form
-     */
-    private $editForm;
 
     private $puraUserRepository;
 
@@ -45,12 +41,10 @@ class EditHandler implements MiddlewareInterface
      */
     public function __construct(
         TemplateRendererInterface $template,
-        Form                      $editForm,
         PuraUserRepository        $puraUserRepository,
         array                     $puraUserList
     ) {
         $this->template           = $template;
-        $this->editForm           = $editForm;
         $this->puraUserRepository = $puraUserRepository;
         $this->puraUserList       = $puraUserList;
     }
@@ -107,7 +101,6 @@ class EditHandler implements MiddlewareInterface
         return new HtmlResponse(
             $this->template->render(
                 'purauser::edit-page', [
-                      'editForm'  => $this->editForm,
                       'puraUserList' => $this->puraUserList,
                       'puraUserEntity' => $puraUserEntity,
                       'message' => $message

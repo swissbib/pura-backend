@@ -31,10 +31,6 @@ class AlephNrEntryHandler implements MiddlewareInterface
      * @var TemplateRendererInterface
      */
     private $template;
-    /**
-     * @var Form
-     */
-    private $alephNrEntryForm;
 
     private $switchConfig;
 
@@ -45,20 +41,17 @@ class AlephNrEntryHandler implements MiddlewareInterface
     /**
      * BarcodeEntryHandler constructor.
      * @param TemplateRendererInterface $template
-     * @param Form $alephNrEntryForm
      * @param array $switchConfig
      * @param PuraUserRepository $puraUserRepository
      * @param array $puraUserList
      */
     public function __construct(
         TemplateRendererInterface $template,
-        Form                      $alephNrEntryForm,
         array                     $switchConfig,
         PuraUserRepository        $puraUserRepository,
         array                     $puraUserList
     ) {
         $this->template             = $template;
-        $this->alephNrEntryForm     = $alephNrEntryForm;
         $this->switchConfig         = $switchConfig;
         $this->puraUserRepository   = $puraUserRepository;
         $this->puraUserList         = $puraUserList;
@@ -117,7 +110,6 @@ class AlephNrEntryHandler implements MiddlewareInterface
         return new HtmlResponse(
             $this->template->render(
                 'purauser::alephnrentry-page', [
-                      'alephNrEntryForm'  => $this->alephNrEntryForm,
                       'puraUserList' => $this->puraUserList,
                       'puraUserEntity' => $puraUserEntity,
                       'message' => $message

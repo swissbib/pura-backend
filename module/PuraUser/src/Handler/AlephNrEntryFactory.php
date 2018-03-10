@@ -69,7 +69,6 @@ class AlephNrEntryFactory implements FactoryInterface
     )
     {
         $template  = $container->get(TemplateRendererInterface::class);
-        $alephNrEntryForm = new Form();
 
         /** @var PuraUserRepositoryInterface $puraUserRepository */
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
@@ -78,6 +77,6 @@ class AlephNrEntryFactory implements FactoryInterface
         /** @var SwitchConfig $switchConfig */
         $switchConfig = $container->get('config')['switch_api'];
 
-        return new AlephNrEntryHandler($template, $alephNrEntryForm, $switchConfig, $puraUserRepository, $puraUserList);
+        return new AlephNrEntryHandler($template, $switchConfig, $puraUserRepository, $puraUserList);
     }
 }

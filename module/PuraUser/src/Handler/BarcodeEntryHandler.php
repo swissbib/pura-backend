@@ -28,10 +28,6 @@ class BarcodeEntryHandler implements MiddlewareInterface
      * @var TemplateRendererInterface
      */
     private $template;
-    /**
-     * @var Form
-     */
-    private $barcodeEntryForm;
 
     private $puraUserList;
 
@@ -40,16 +36,13 @@ class BarcodeEntryHandler implements MiddlewareInterface
     /**
      * BarcodeEntryHandler constructor.
      * @param TemplateRendererInterface $template
-     * @param Form $barcodeEntryForm
      */
     public function __construct(
         TemplateRendererInterface $template,
-        Form                      $barcodeEntryForm,
         array                     $puraUserList,
         PuraUserRepository        $puraUserRepository
     ) {
         $this->template           = $template;
-        $this->barcodeEntryForm   = $barcodeEntryForm;
         $this->puraUserList       = $puraUserList;
         $this->puraUserRepository = $puraUserRepository;
     }
@@ -95,7 +88,6 @@ class BarcodeEntryHandler implements MiddlewareInterface
         return new HtmlResponse(
             $this->template->render(
                 'purauser::barcodeentry-page', [
-                      'barcodeEntryForm'  => $this->barcodeEntryForm,
                       'puraUserList' => $this->puraUserList,
                       'message' => $message,
                 ]

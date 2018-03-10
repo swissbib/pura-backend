@@ -64,7 +64,6 @@ class LoginFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $template  = $container->get(TemplateRendererInterface::class);
-        $form = new Form();
-        return new LoginHandler($template, $form);
+        return new LoginHandler($template);
     }
 }
