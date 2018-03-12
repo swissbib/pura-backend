@@ -38,7 +38,6 @@ $aggregator = new ConfigAggregator([
 
     // Default App module config
     App\ConfigProvider::class,
-    Publisher\ConfigProvider::class,
     User\ConfigProvider::class,
     PuraUser\ConfigProvider::class,
     PuraUserModel\ConfigProvider::class,

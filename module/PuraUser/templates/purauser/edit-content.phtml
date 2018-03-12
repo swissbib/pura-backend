@@ -37,32 +37,40 @@ use PuraUserModel\Entity\PuraUserEntity;
  */
 ?>
 
-<div class="alert alert-success" role="alert">
-    <?= $message ?>
-</div>
-<br/>
+<?php if ($puraUserEntity->getBarcode()): ?>
 
-<br/><br/>
+    <div class="alert alert-success" role="alert">
+        <?= $message ?>
+    </div>
+    <br/>
 
-<form action="" method="POST" name="edit-form" id="edit-form" class="form-horizontal">
-    <table class="table"><tbody>
-        <tr><td>Last Name:</td>       <td><?= $puraUserEntity->getLastname() ?></td><tr>
-        <tr><td>First Name:</td>      <td><?= $puraUserEntity->getFirstname() ?></td><tr>
-        <tr><td>SWITCH edu-id:</td>   <td><?= $puraUserEntity->getEduId() ?></td><tr>
-        <tr><td>email:</td>           <td><?= $puraUserEntity->getEmail() ?></td><tr>
-        <tr><td>activation date:</td> <td><?= $puraUserEntity->getAccessCreated() ?></td><tr>
-        <tr><td>valid until:</td>     <td><?= $puraUserEntity->getDateExpiration() ?></td><tr>
-        <tr><td>Aleph Number:</td>    <td><input type="text" name="edit-alephNr" value="<?= $puraUserEntity->getLibrarySystemNumber() ?>"></td></tr>
-        <tr><td>Remark:</td>          <td><textarea name="edit-remark" rows="5" cols=""><?= $puraUserEntity->getRemarks() ?></textarea></td></tr>
-        <tr><td><input type="submit" name="save" value="Save"></td><td></td></tr>
-    </tbody></table>
-</form>
+    <br/><br/>
 
-<form action="/publisher/deactivate" method="POST" name="edit-blockFromLib-form" id="edit-blockAllLibs-form">
-    <input type="submit" name="save" value="Block this user from my library">
-</form>
-<br/>
+    <form action="" method="POST" name="edit-form" id="edit-form" class="form-horizontal">
+        <table class="table"><tbody>
+            <tr><td>Last Name:</td>       <td><?= $puraUserEntity->getLastname() ?></td><tr>
+            <tr><td>First Name:</td>      <td><?= $puraUserEntity->getFirstname() ?></td><tr>
+            <tr><td>SWITCH edu-id:</td>   <td><?= $puraUserEntity->getEduId() ?></td><tr>
+            <tr><td>Email:</td>           <td><?= $puraUserEntity->getEmail() ?></td><tr>
+            <tr><td>Active:</td>          <td><?= $puraUserEntity->getHasAccess() ? 'yes' : 'no' ?></td><tr>
+            <tr><td>Activation date:</td> <td><?= $puraUserEntity->getAccessCreated() ?></td><tr>
+            <tr><td>Valid until:</td>     <td><?= $puraUserEntity->getDateExpiration() ?></td><tr>
+            <tr><td>Blocked:</td>         <td><?= $puraUserEntity->getBlocked() ? 'yes' : 'no' ?></td><tr>
+            <tr><td>Blocking date:</td>   <td><?= $puraUserEntity->getBlockedCreated() ?></td><tr>
+            <tr><td>Aleph Number:</td>    <td><input type="text" name="edit-alephNr" value="<?= $puraUserEntity->getLibrarySystemNumber() ?>"></td></tr>
+            <tr><td>Remark:</td>          <td><textarea name="edit-remark" rows="5" cols=""><?= $puraUserEntity->getRemarks() ?></textarea></td></tr>
+            <tr><td><input type="submit" name="save" value="Save"></td><td></td></tr>
+        </tbody></table>
+    </form>
 
-<a href="mailto:swissbib-ub@unibas.ch?subject=Pura : Block this user for all libraries&body=Hello !%0D%0APlease block user :%0D%0A<?= $puraUserEntity->getLastname() ?> <?= $puraUserEntity->getFirstname() ?>%0D%0A<?= $puraUserEntity->getEmail() ?>%0D%0A<?= $puraUserEntity->getEduId() ?>%0D%0A%0D%0A for all Pura Libraries.%0D%0A%0D%0AThank you !">
-    <input type="submit" name="save" value="Block this user from all Pura libraries">
-</a>
+    <a href="<?= $this->url('purauser.block', ['barcode' => $puraUserEntity->getBarcode()]) ?>" name="edit-blockFromLib-form" id="edit-blockAllLibs-form">
+        <input type="submit" name="block" value="Block this user from my library">
+    </a>
+    <br/>
+
+    <a href="mailto:swissbib-ub@unibas.ch?subject=Pura : Block this user for all libraries&body=Hello !%0D%0APlease block user :%0D%0A<?= $puraUserEntity->getLastname() ?> <?= $puraUserEntity->getFirstname() ?>%0D%0A<?= $puraUserEntity->getEmail() ?>%0D%0A<?= $puraUserEntity->getEduId() ?>%0D%0A%0D%0A for all Pura Libraries.%0D%0A%0D%0AThank you !">
+        <input type="submit" name="block-all" value="Block this user from all Pura libraries">
+    </a>
+<?php else:; ?>
+    <span>Select a user on the left.</span>
+<?php endif; ?>

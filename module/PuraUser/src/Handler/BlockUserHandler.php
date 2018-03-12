@@ -25,7 +25,7 @@ use Zend\Form\Form;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org
  */
-class AlephNrEntryHandler implements MiddlewareInterface
+class BlockUserHandler implements MiddlewareInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -76,45 +76,18 @@ class AlephNrEntryHandler implements MiddlewareInterface
         $puraUserEntity = $this->puraUserRepository->getSinglePuraUser($barcode);
         $libraryCode = $puraUserEntity->getLibraryCode();
 
-        if ($request->getMethod() === 'POST') {
-            $alephNr = $request->getParsedBody()['alephNrEntry'];
-            $alephNr = StaticFilter::execute($alephNr, 'StringTrim');
-            $alephNr = StaticFilter::execute($alephNr, 'StripTags');
 
-            $request = $request->withAttribute(
-                'alephNrEntry',
-                $alephNr
-            );
 
-            $retVal = 1;
-            if ($puraUserEntity->getLibrarySystemNumber() !== $alephNr) {
-                $retVal = $this->puraUserRepository->savePuraUserAlephNr($alephNr, $barcode);
-            }
-
-            if ($retVal > 0) {
-                $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
-                $retVal = $publisherHelper->activatePublishers($puraUserEntity->getEduId(), $barcode, $libraryCode);
-                $message = $retVal['message'];
-                if ($retVal['success']) {
-                    $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
-                    $flashMessages->flash('message', $retVal['message']);
-                    $response = $handler->handle($request);
-                    return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
-                } else {
-                }
-            } else {
-                $message = 'There was an error saving the aleph number to the database.';
-            }
+        $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
+        $retVal = $publisherHelper->deactivatePublishers($puraUserEntity->getEduId(), $barcode, $libraryCode);
+        $message = $retVal['message'];
+        if ($retVal['success']) {
+            $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
+            $flashMessages->flash('message', $retVal['message']);
+            $response = $handler->handle($request);
+            return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
+        } else {
+            $message = 'There was an error blocking the user.';
         }
-
-        return new HtmlResponse(
-            $this->template->render(
-                'purauser::alephnrentry-page', [
-                      'puraUserList' => $this->puraUserList,
-                      'puraUserEntity' => $puraUserEntity,
-                      'message' => $message
-                ]
-            )
-        );
     }
 }

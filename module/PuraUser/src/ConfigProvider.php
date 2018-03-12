@@ -5,6 +5,8 @@ use PuraUser\Handler\AlephNrEntryFactory;
 use PuraUser\Handler\AlephNrEntryHandler;
 use PuraUser\Handler\BarcodeEntryHandler;
 use PuraUser\Handler\BarcodeEntryFactory;
+use PuraUser\Handler\BlockUserFactory;
+use PuraUser\Handler\BlockUserHandler;
 use PuraUser\Handler\EditFactory;
 use PuraUser\Handler\EditHandler;
 use PuraUser\Handler\SearchPuraUserHandler;
@@ -54,6 +56,7 @@ class ConfigProvider
                 AlephNrEntryHandler::class => AlephNrEntryFactory::class,
                 BarcodeEntryHandler::class => BarcodeEntryFactory::class,
                 AuthenticationInterface::class => PhpSessionFactory::class,
+                BlockUserHandler::class => BlockUserFactory::class,
             ],
             'aliases' => [
             ],

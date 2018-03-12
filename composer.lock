@@ -506,12 +506,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swissbib/switchSharedAttributesAPIClient.git",
-                "reference": "6c03b8f7322c1ffd6ff6373ff917d5ce82f6feaa"
+                "reference": "455fd5efc654e32367157956433b826130b6f04b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swissbib/switchSharedAttributesAPIClient/zipball/6c03b8f7322c1ffd6ff6373ff917d5ce82f6feaa",
-                "reference": "6c03b8f7322c1ffd6ff6373ff917d5ce82f6feaa",
+                "url": "https://api.github.com/repos/swissbib/switchSharedAttributesAPIClient/zipball/455fd5efc654e32367157956433b826130b6f04b",
+                "reference": "455fd5efc654e32367157956433b826130b6f04b",
                 "shasum": ""
             },
             "require": {
@@ -545,7 +545,7 @@
                 "source": "https://github.com/swissbib/switchSharedAttributesAPIClient/tree/master",
                 "issues": "https://github.com/swissbib/switchSharedAttributesAPIClient/issues"
             },
-            "time": "2018-03-05T14:39:37+00:00"
+            "time": "2018-03-12T12:04:17+00:00"
         },
         {
             "name": "zendframework/zend-component-installer",

@@ -86,6 +86,12 @@ return function (
         ['GET', 'POST'],
         'purauser.search'
     );
+    $app->route(
+        '/purauser/block/:barcode',
+        PuraUser\Handler\BlockUserHandler::class,
+        ['GET', 'POST'],
+        'purauser.block'
+    );
 
 
     /* Module 'Publisher' */

@@ -79,7 +79,7 @@ class Publisher
      * @return string
      * @throws \Exception
      */
-    public function activatePublisher($userId, $barcode, $libraryCode)
+    public function activatePublishers($userId, $barcode, $libraryCode)
     {
             $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
             $publishersJsonData
@@ -109,5 +109,35 @@ class Publisher
             $result = $puraSwitchClient->activatePublishers($userId, $libraryCode);
 
             return $result;
+    }
+
+    public function deactivatePublishers($userId, $barcode, $libraryCode)
+    {
+        $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
+        $publishersJsonData
+            = file_exists($filePath) ? file_get_contents($filePath) : '';
+
+        /**
+         * @var PublishersList $publishersList
+         */
+        $publishersList = new PublishersList();
+        $publishersList->loadPublishersFromJsonFile($publishersJsonData);
+        $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
+
+        $otherLibraries=[];
+        //todo check if the user is registered with other libraries
+
+        /** @var PuraUserEntity $puraUserEntity */
+        $puraUserEntity = new PuraUserEntity();
+        $puraUserEntity->setBarcode($barcode);
+
+
+        /* will set the activation and expiration date back
+        to null, which is not possible with setter methods */
+        $this->puraUserRepository->blockUser($barcode);
+
+        $result = $puraSwitchClient->deactivatePublishers($userId, $libraryCode, $otherLibraries);
+
+        return $result;
     }
 }

@@ -100,4 +100,16 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     {
         return $this->puraUserStorage->savePuraUser($puraUser);
     }
+
+    /**
+     * Block a user
+     *
+     * @param string $barcode barcode
+     *
+     * @return mixed
+     */
+    public function blockUser($barcode)
+    {
+        return $this->puraUserStorage->blockUser($barcode);
+    }
 }

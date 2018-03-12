@@ -54,4 +54,13 @@ interface PuraUserRepositoryInterface
      * @return boolean
      */
     public function savePuraUser($puraUser);
+
+    /**
+     * Block a user
+     *
+     * @param string $barcode barcode
+     *
+     * @return mixed
+     */
+    public function blockUser($barcode);
 }

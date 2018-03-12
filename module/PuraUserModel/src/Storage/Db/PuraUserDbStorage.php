@@ -107,6 +107,18 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             !array_key_exists('library_code', $puraUserArray) ?
                 null : $puraUserArray['library_code']
         );
+        $puraUserEntity->setHasAccess(
+            !array_key_exists('has_access', $puraUserArray) ?
+                null : $puraUserArray['has_access']
+        );
+        $puraUserEntity->setBlocked(
+            !array_key_exists('blocked', $puraUserArray) ?
+                null : $puraUserArray['blocked']
+        );
+        $puraUserEntity->setBlockedCreated(
+            !array_key_exists('blocked_created', $puraUserArray) ?
+                null : $puraUserArray['blocked_created']
+        );
         return $puraUserEntity;
     }
 
@@ -120,7 +132,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     public function getSinglePuraUser($barcode)
     {
         $select = $this->tableGateway->getSql()->select();
-        $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number', 'library_code']);
+        $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number', 'library_code', 'has_access', 'blocked', 'blocked_created']);
         $select->where->equalTo('barcode', $barcode);
         $select->join('user', 'user.id = pura_user.user_id', ['firstname', 'lastname', 'email'], 'left');
 
@@ -172,6 +184,25 @@ class PuraUserDbStorage implements PuraUserStorageInterface
                 'library_system_number' => $alephNr,
             ]
         );
+        $update->where->equalTo('barcode', $barcode);
+        $dbRetVal = $this->tableGateway->updateWith($update);
+
+        return $dbRetVal;
+    }
+
+    public function blockUser($barcode)
+    {
+        $update = $this->tableGateway->getSql()->update();
+        $update->set(
+            [
+                'access_created' => null,
+                'has_access' => 0,
+                'blocked' => 1,
+                'blocked_created' => date("Y-m-d H:i:s"),
+                'date_expiration' => null,
+            ]
+        );
+
         $update->where->equalTo('barcode', $barcode);
         $dbRetVal = $this->tableGateway->updateWith($update);
 
@@ -230,10 +261,10 @@ class PuraUserDbStorage implements PuraUserStorageInterface
                 $fieldForPuraUserTable['date_expiration']
                     = $puraUser->getDateExpiration();
             }
-            if (!is_null($puraUser->getAccessCreated())) {
+            //if ($puraUser->getAccessCreated()) {
                 $fieldForPuraUserTable['access_created']
                     = $puraUser->getAccessCreated();
-            }
+            //}
             if (!is_null($puraUser->getLanguage())) {
                 $fieldForUserTable['language']
                     = $puraUser->getLanguage();
