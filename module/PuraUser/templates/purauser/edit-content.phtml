@@ -39,9 +39,12 @@ use PuraUserModel\Entity\PuraUserEntity;
 
 <?php if ($puraUserEntity->getBarcode()): ?>
 
-    <div class="alert alert-success" role="alert">
-        <?= $message ?>
-    </div>
+    <?php if (!empty($message)): ?>
+        <div class="alert alert-success" role="alert">
+            <?= $message ?>
+        </div>
+    <?php endif; ?>
+
     <br/>
 
     <br/><br/>

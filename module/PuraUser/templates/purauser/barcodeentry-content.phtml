@@ -28,9 +28,13 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://www.swissbib.org
  */
-
-echo '<p>' . $message . '</p>';
 ?>
+
+<?php if (!empty($message)): ?>
+    <div class="alert alert-danger" role="alert">
+        <?= $message ?>
+    </div>
+<?php endif; ?>
 
 <form action="" method="POST" name="barcodeEntry-form" id="barcodeEntry-form">
 

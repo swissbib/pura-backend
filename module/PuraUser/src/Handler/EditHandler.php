@@ -95,7 +95,11 @@ class EditHandler implements MiddlewareInterface
             $puraUserEntity->setRemarks($remark);
             $dbReturnCode = $this->puraUserRepository->savePuraUser($puraUserEntity);
 
-            if ($dbReturnCode < 0) $message = 'There was an error saving the aleph number to the database.';
+            if ($dbReturnCode < 0) {
+                $message = 'There was an error saving the aleph number to the database.';
+            } else {
+                $message = 'User saved.';
+            }
         }
 
         return new HtmlResponse(
