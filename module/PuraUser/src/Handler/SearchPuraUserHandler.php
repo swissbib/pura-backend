@@ -7,9 +7,11 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use PuraUserModel\Repository\PuraUserRepository;
+use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\Form\Form;
 use Zend\View\Model\ViewModel;
+use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Resolver\TemplateMapResolver;
 
 /**
  * SearchPuraUserHandler
@@ -57,13 +59,18 @@ class SearchPuraUserHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        $searchTerm = $request->getAttribute('sidebarSearchbox');
+        $searchTerm = $request->getQueryParams()['sidebarSearchbox'];
         $filteredPuraUserList = $this->puraUserRepository->getFilteredListOfAllUsers($searchTerm);
 
-        $viewModel = new ViewModel([ 'puraUserList' => $filteredPuraUserList]);
-        $viewModel->setTerminal(true);
-        $viewModel->setTemplate('purauser::sidebar');
+        $renderer = new PhpRenderer();
+        $model = new ViewModel(['puraUserList' => $filteredPuraUserList]);
+        $resolver = new TemplateMapResolver([
+            'search' => __DIR__ . '/../../templates/purauser/search.phtml',
+        ]);
+        $renderer->setResolver($resolver);
+        $model->setTemplate('search');
+        $response = $renderer->render($model);
 
-        return $viewModel;
+        return new HtmlResponse($response);
     }
 }

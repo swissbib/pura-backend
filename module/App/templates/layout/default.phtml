@@ -6,6 +6,7 @@ $this->headLink()
 
 $this->inlineScript()
     ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
+    ->prependFile('/js/jquery.form.min.js')
     ->prependFile('https://code.jquery.com/jquery-3.3.1.min.js')
     ->prependFile('https://use.fontawesome.com/releases/v5.0.6/js/all.js');
 ?>
@@ -62,5 +63,24 @@ $this->inlineScript()
     </div>
 
     <?=$this->inlineScript()?>
+    <script language="JavaScript">
+        function putContentInSidebar(response)
+        {
+            $('ul#search-results-list').html(response);
+        }
+
+        $( document ).ready(function() {
+            if (document.location.pathname.indexOf('/purauser/edit') !== -1)
+            {
+                $('#search-form').ajaxForm(
+                    {
+                        url: '/purauser/search',
+                        type: 'post',
+                        success: putContentInSidebar
+                    }
+                );
+            }
+        });
+    </script>
 </body>
 </html>
