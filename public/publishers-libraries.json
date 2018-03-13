@@ -15,9 +15,9 @@
       "url" : "https://www.munzinger.de",
       "wayfless_url" : "",
       "description" : "a collection of journals",
-      "switch_group_id" : "",
+      "switch_group_id" : "12833a8b-7486-4adf-87be-5b47fcc90d8f",
       "libraries_with_contract" : [
-        "E02"
+        "E02", "Z01"
       ]
     },
     {
