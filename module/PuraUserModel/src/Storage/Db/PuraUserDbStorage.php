@@ -261,10 +261,10 @@ class PuraUserDbStorage implements PuraUserStorageInterface
                 $fieldForPuraUserTable['date_expiration']
                     = $puraUser->getDateExpiration();
             }
-            //if ($puraUser->getAccessCreated()) {
+            if ($puraUser->getAccessCreated()) {
                 $fieldForPuraUserTable['access_created']
                     = $puraUser->getAccessCreated();
-            //}
+            }
             if (!is_null($puraUser->getLanguage())) {
                 $fieldForUserTable['language']
                     = $puraUser->getLanguage();
