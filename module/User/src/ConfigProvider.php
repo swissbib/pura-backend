@@ -81,7 +81,6 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                //LoginForm::class => LoginFormFactory::class,
             ]
         ];
     }
