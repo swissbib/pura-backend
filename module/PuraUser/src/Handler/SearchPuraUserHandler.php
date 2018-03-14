@@ -59,7 +59,7 @@ class SearchPuraUserHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        $searchTerm = $request->getQueryParams()['sidebarSearchbox'];
+        $searchTerm = $request->getParsedBody()['sidebarSearchbox'];
         $filteredPuraUserList = $this->puraUserRepository->getFilteredListOfAllUsers($searchTerm);
 
         $renderer = new PhpRenderer();
