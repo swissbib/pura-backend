@@ -26,4 +26,27 @@ return [
             'template_error' => 'error::error',
         ],
     ],
+
+    'authorization' => [
+        'roles' => [
+            'default'  => [],
+            'Z01'  => ['default'],
+        ],
+        'resources' => [
+            'logout',
+            'login',
+            'barcodeEntry',
+            'alephNrEntry',
+            'edit',
+        ],
+        'allow' => [
+            'default' => [
+                'logout',
+                'login',
+            ],
+            'Z01' => [
+                'barcodeEntry',
+            ],
+        ],
+    ],
 ];

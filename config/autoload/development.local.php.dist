@@ -43,6 +43,7 @@ return [
                 'identity' => 'username',
                 'password' => 'password',
             ],
+            'sql_get_roles' => 'SELECT library_code FROM users WHERE username = :identity'
         ],
         'username' => 'username',
         'password' => 'password',
