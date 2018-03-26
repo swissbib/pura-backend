@@ -51,9 +51,10 @@ class LoginHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        if ($session->has(UserInterface::class)) {
-            return new RedirectResponse('/login');
+        //$session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
+        //if ($session->has(UserInterface::class)) {
+        if ($request->getAttribute(UserInterface::class)) {
+            $x = $request->getAttribute(UserInterface::class);
         }
 
         $message = '';
@@ -72,6 +73,7 @@ class LoginHandler implements MiddlewareInterface
 
             $response = $handler->handle($request);
             if ($response->getStatusCode() !== 301) {
+                //var_dump($session->get(UserInterface::class)); exit();
                 return new RedirectResponse('/purauser/barcodeentry');
             }
             $message = 'Login Failure, please try again';

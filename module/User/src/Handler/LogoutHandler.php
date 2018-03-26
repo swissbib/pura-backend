@@ -53,7 +53,8 @@ class LogoutHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        if ($session->has(UserInterface::class)) {
+        //if ($session->has(UserInterface::class)) {
+        if ($request->getAttribute(UserInterface::class)) {
             $session->clear();
         }
         return new RedirectResponse('/');

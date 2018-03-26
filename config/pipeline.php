@@ -46,66 +46,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(SessionMiddleware::class);
     $app->pipe(FlashMessageMiddleware::class);
     $app->pipe(RouteMiddleware::class);
-
-    /*
-    $app->pipe(new class implements Psr\Http\Server\MiddlewareInterface{
-
-        use Zend\Expressive\Authentication\UserRepository\UserTrait;
-
-        public function process(
-            Psr\Http\Message\ServerRequestInterface $request,
-            Psr\Http\Server\RequestHandlerInterface $handler
-        ) : Psr\Http\Message\ResponseInterface {
-            $session = $request->getAttribute(
-                Zend\Expressive\Session\SessionMiddleware::SESSION_ATTRIBUTE
-            );
-
-            // no session
-            // - set roles as "guest"
-            // - when status code !== 403 or page = /login, return response
-            // - otherwise, redirect to login page
-            if (! $session->has(UserInterface::class)) {
-                $user = '';
-                $roles = ['default'];
-
-                $request = $request->withAttribute(
-                    UserInterface::class,
-                    $this->generateUser(
-                        $user,
-                        $roles
-                    )
-                );
-
-                $response = $handler->handle($request);
-                if ($request->getUri()->getPath() === '/login' ||
-                    $request->getUri()->getPath() === '/logout' ||
-                    $response->getStatusCode() !== 403
-                ) {
-                    return $response;
-                }
-                return new \Zend\Diactoros\Response\RedirectResponse('/login');
-            }
-
-            // has session but at /login page, redirect to authenticated page
-            if ($request->getUri()->getPath() === '/login') {
-                return new Zend\Diactoros\Response\RedirectResponse('/');
-            }
-
-            // define roles from DB
-            $sessionData = $session->get(Zend\Expressive\Authentication\UserInterface::class);
-            $request = $request->withAttribute(
-                Zend\Expressive\Authentication\UserInterface::class,
-                $this->generateUser(
-                    $sessionData['username'],
-                    $sessionData['library_code']
-                )
-            );
-            return $handler->handle($request);
-        }
-    });
+    $app->pipe(\PuraUser\AuthorizationMiddleware::class);
     $app->pipe(\Zend\Expressive\Authorization\AuthorizationMiddleware::class);
-    */
-
     $app->pipe(ImplicitHeadMiddleware::class);
     $app->pipe(ImplicitOptionsMiddleware::class);
     $app->pipe(UrlHelperMiddleware::class);
