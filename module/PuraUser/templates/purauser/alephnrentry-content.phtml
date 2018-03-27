@@ -41,13 +41,28 @@ echo '<p>' . $message . '</p>';
 <h2>Add Aleph Number</h2>
 <h4>User</h4>
 
-<table class="table"><tbody>
-    <tr><td>First Name:</td>    <td><?= $puraUserEntity->getFirstname() ?></td><tr>
-    <tr><td>Last Name:</td>     <td><?= $puraUserEntity->getLastname() ?></td><tr>
-    <tr><td>SWITCH edu-id:</td> <td><?= $puraUserEntity->getEduId() ?></td><tr>
-    <tr><td>email:</td>         <td><?= $puraUserEntity->getEmail() ?></td><tr>
-</tbody></table>
+<form class="form-horizontal">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">First Name:</label>
+        <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getFirstname() ?>">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Last Name:</label>
+        <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getLastname()  ?>">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Email:</label>
+        <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getEmail()  ?>">
+        </div>
+    </div>
+</form>
 
+<h4>Verification</h4>
 <ul>
     <li>ID checked?</li>
     <li>Address and account in Aleph verified?</li>
