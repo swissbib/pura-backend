@@ -16,7 +16,7 @@ $this->inlineScript()
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <?=$this->headTitle('PURA-backend')?>
+    <?=$this->headTitle('PURA User management')?>
     <?=$this->headMeta()?>
     <?=$this->headLink()?>
     <link rel="icon" href="">
@@ -29,58 +29,63 @@ $this->inlineScript()
 </head>
 <body class="app">
 
-    <header class="app-header">
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" role="navigation">
-            <h3 style="color: white">PURA User Management</h3>
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a href="<?= $this->url('purauser.barcodeentry') ?>" class="nav-link">
-                                <i class="fa fa-book"></i> Activation
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $this->url('purauser.edit.emptyuser') ?>" class="nav-link">
-                                <i class="fa fa-book"></i> Control / Block
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<header class="app-header">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" role="navigation">
+        <h3 style="color: white">PURA User Management</h3>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-        </nav>
-    </header>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="<?= $this->url('purauser.barcodeentry') ?>" class="nav-link">
+                            <i class="fa fa-check"></i> Activation
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= $this->url('purauser.edit.emptyuser') ?>" class="nav-link">
+                            <i class="fa fa-list-alt"></i> Control / Block
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= $this->url('user.logout') ?>" class="nav-link">
+                            <i class="fa fa-sign-out-alt"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 
-    <div class="app-content">
-        <main class="container">
-            <?=$this->content?>
-        </main>
-    </div>
+<div class="app-content">
+    <main class="container">
+        <?=$this->content?>
+    </main>
+</div>
 
-    <?=$this->inlineScript()?>
-    <script language="JavaScript">
-        function putContentInSidebar(response)
+<?=$this->inlineScript()?>
+<script language="JavaScript">
+    function putContentInSidebar(response)
+    {
+        $('ul#search-results-list').html(response);
+    }
+
+    $( document ).ready(function() {
+        if (document.location.pathname.indexOf('/purauser/edit') !== -1)
         {
-            $('ul#search-results-list').html(response);
+            $('#search-form').ajaxForm(
+                {
+                    url: '/purauser/search',
+                    type: 'post',
+                    success: putContentInSidebar
+                }
+            );
         }
-
-        $( document ).ready(function() {
-            if (document.location.pathname.indexOf('/purauser/edit') !== -1)
-            {
-                $('#search-form').ajaxForm(
-                    {
-                        url: '/purauser/search',
-                        type: 'post',
-                        success: putContentInSidebar
-                    }
-                );
-            }
-        });
-    </script>
+    });
+</script>
 </body>
 </html>

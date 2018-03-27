@@ -45,35 +45,108 @@ use PuraUserModel\Entity\PuraUserEntity;
         </div>
     <?php endif; ?>
 
-    <br/>
+    <h4>User</h4>
 
-    <br/><br/>
-
-    <form action="" method="POST" name="edit-form" id="edit-form" class="form-horizontal">
-        <table class="table"><tbody>
-            <tr><td>Last Name:</td>       <td><?= $puraUserEntity->getLastname() ?></td><tr>
-            <tr><td>First Name:</td>      <td><?= $puraUserEntity->getFirstname() ?></td><tr>
-            <tr><td>SWITCH edu-id:</td>   <td><?= $puraUserEntity->getEduId() ?></td><tr>
-            <tr><td>Email:</td>           <td><?= $puraUserEntity->getEmail() ?></td><tr>
-            <tr><td>Active:</td>          <td><?= $puraUserEntity->getHasAccess() ? 'yes' : 'no' ?></td><tr>
-            <tr><td>Activation date:</td> <td><?= $puraUserEntity->getAccessCreated() ?></td><tr>
-            <tr><td>Valid until:</td>     <td><?= $puraUserEntity->getDateExpiration() ?></td><tr>
-            <tr><td>Blocked:</td>         <td><?= $puraUserEntity->getBlocked() ? 'yes' : 'no' ?></td><tr>
-            <tr><td>Blocking date:</td>   <td><?= $puraUserEntity->getBlockedCreated() ?></td><tr>
-            <tr><td>Aleph Number:</td>    <td><input type="text" name="edit-alephNr" value="<?= $puraUserEntity->getLibrarySystemNumber() ?>"></td></tr>
-            <tr><td>Remark:</td>          <td><textarea name="edit-remark" rows="5" cols=""><?= $puraUserEntity->getRemarks() ?></textarea></td></tr>
-            <tr><td><input type="submit" name="save" value="Save"></td><td></td></tr>
-        </tbody></table>
+    <form class="form-horizontal">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">First Name:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getFirstname() ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Last Name:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getLastname()  ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Email:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getEmail()  ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Barcode:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getBarcode()  ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">SWITCH edu-id:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getEduId()  ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Active:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getHasAccess() ? 'yes' : 'no'  ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Activation date:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getAccessCreated()  ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Valid until:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getDateExpiration()  ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Blocked:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getBlocked() ? 'yes' : 'no'  ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Blocking date:</label>
+            <div class="mx-sm-6 mb-2">
+            <input type="text" readonly class="form-control" value="<?= $puraUserEntity->getBlockedCreated()  ?>">
+            </div>
+        </div>
     </form>
 
-    <a href="<?= $this->url('purauser.block', ['barcode' => $puraUserEntity->getBarcode()]) ?>" name="edit-blockFromLib-form" id="edit-blockAllLibs-form">
-        <input type="submit" name="block" value="Block this user from my library">
-    </a>
-    <br/>
+    <h4>Edit User Information</h4>
 
-    <a href="mailto:swissbib-ub@unibas.ch?subject=Pura : Block this user for all libraries&body=Hello !%0D%0APlease block user :%0D%0A<?= $puraUserEntity->getLastname() ?> <?= $puraUserEntity->getFirstname() ?>%0D%0A<?= $puraUserEntity->getEmail() ?>%0D%0A<?= $puraUserEntity->getEduId() ?>%0D%0A%0D%0A for all Pura Libraries.%0D%0A%0D%0AThank you !">
-        <input type="submit" name="block-all" value="Block this user from all Pura libraries">
+    <form action="" method="POST" name="edit-form" id="edit-form" class="form-horizontal">
+        <div class="form-group row">
+            <label for="AlephNumber" class="col-sm-2 col-form-label">Aleph Number</label>
+            <div class="mx-sm-6 mb-2">
+                <input type="text" class="form-control" id="AlephNumber" name="edit-alephNr" value="<?= $puraUserEntity->getLibrarySystemNumber() ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Remark" class="col-sm-2 col-form-label">Remark</label>
+            <div class="mx-sm-6 mb-2">
+                <textarea name="edit-remark" class="form-control" id="Remark" rows="5" cols=""><?= $puraUserEntity->getRemarks() ?></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label"></label>
+            <div class="mx-sm-6 mb-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+
+    <h4>Special Actions</h4>
+
+    <div>
+    <a href="<?= $this->url('purauser.block', ['barcode' => $puraUserEntity->getBarcode()]) ?>" name="edit-blockFromLib-form" id="edit-blockAllLibs-form">
+        <input type="submit" name="block" class="btn btn-outline-danger" value="Block this user for my library">
     </a>
+    </div>
+
+    <div>
+        <br>
+    <a href="mailto:swissbib-ub@unibas.ch?subject=Pura : Block this user for all libraries&body=Hello !%0D%0APlease block user :%0D%0A<?= $puraUserEntity->getLastname() ?> <?= $puraUserEntity->getFirstname() ?>%0D%0A<?= $puraUserEntity->getEmail() ?>%0D%0A<?= $puraUserEntity->getEduId() ?>%0D%0A%0D%0A for all Pura Libraries.%0D%0A%0D%0AThank you !" value="Block this user from all Pura libraries">
+        Send an email to block this user for all Pura libraries
+    </a>
+    </div>
 <?php else:; ?>
     <span>Select a user on the left.</span>
 <?php endif; ?>

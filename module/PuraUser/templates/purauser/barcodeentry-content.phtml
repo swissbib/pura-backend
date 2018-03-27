@@ -36,15 +36,14 @@
     </div>
 <?php endif; ?>
 
-<form action="" method="POST" name="barcodeEntry-form" id="barcodeEntry-form">
-
-    <div class="form-group">
-        <label>
-            <span>Read the barcode of the registration</span>
-            <input type="text" name="barcodeEntry" value="">
-            <input type="submit" name="validate" value="Ok">
-        </label>
+<h2>Activation of a User</h2>
+<form class="form-inline" action="" method="POST" name="barcodeEntry-form" id="barcodeEntry-form">
+    <div class="form-group mb-2">
+        Read the barcode of the registration :
     </div>
-
-    <span>(alternatively you can copy the number below the barcode)</span>
+    <div class="form-group mx-sm-3 mb-2">
+        <input class="form-control" name="barcodeEntry" placeholder="barcode" type="text">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Ok</button>
 </form>
+<small class="text-muted">Alternatively you can copy the number below the barcode.</small>

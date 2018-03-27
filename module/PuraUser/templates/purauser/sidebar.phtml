@@ -1,9 +1,14 @@
-<form id="search-form" class="searchForm form-search">
-    <div class="input-append">
-        <input id="sidebarSearchbox" name="sidebarSearchbox" type="text" class="search-query" placeholder="Search">
-        <button type="submit" class="btn">search user</button>
+<form id="search-form" class="form-inline">
+    <div class="form-group mb-2 mr-sm-3">
+        <input id="sidebarSearchbox" name="sidebarSearchbox" type="text" class="form-control" placeholder="Search">
     </div>
+    <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i></button>
+
 </form>
 <ul id="search-results-list" class="puraUserList">
     <?= $this->render('purauser::search'); ?>
 </ul>
+
+
+
+
