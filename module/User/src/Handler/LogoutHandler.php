@@ -54,7 +54,8 @@ class LogoutHandler implements RequestHandlerInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         //if ($session->has(UserInterface::class)) {
-        if ($request->getAttribute(UserInterface::class)) {
+        //if ($request->getAttribute(UserInterface::class)) {
+        if (array_key_exists('Zend\Expressive\Authentication\UserInterface',$session->toArray())) {
             $session->clear();
         }
         return new RedirectResponse('/');

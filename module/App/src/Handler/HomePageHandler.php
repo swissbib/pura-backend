@@ -45,7 +45,8 @@ class HomePageHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        if (! $session->has(UserInterface::class)) {
+        //if (! $session->has(UserInterface::class)) {
+        if (! array_key_exists('Zend\Expressive\Authentication\UserInterface',$session->toArray())) {
             return new RedirectResponse('/login');
         }
 

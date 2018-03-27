@@ -51,9 +51,11 @@ class LoginHandler implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
-        //$session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
+        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         //if ($session->has(UserInterface::class)) {
-        if ($request->getAttribute(UserInterface::class)) {
+        //if ($request->getAttribute(UserInterface::class)) {
+        if (array_key_exists('Zend\Expressive\Authentication\UserInterface',$session->toArray())) {
+            //var_dump($session->toArray());exit();
             $x = $request->getAttribute(UserInterface::class);
         }
 
