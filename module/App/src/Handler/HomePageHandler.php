@@ -50,8 +50,6 @@ class HomePageHandler implements RequestHandlerInterface
             return new RedirectResponse('/login');
         }
 
-        $data = [];
-
-        return new HtmlResponse($this->template->render('app::home-page', $data));
+        return new RedirectResponse('/purauser/barcodeentry');
     }
 }

@@ -33,13 +33,13 @@
 ?>
 
 <div class="row" id="main">
-	<div id="sidebar" class="span3">
+	<div id="sidebar" class="col-3">
 		<?=
 		$this->render('purauser::sidebar', array(
 			'puraUserList' => $puraUserList
 		));?>
 	</div>
-	<div id="content" class="span9">
+	<div id="content" class="col-9">
 		<?= $this->render('purauser::edit-content', [
 		    'editForm' => $this->editForm,
             'puraUserEntity' => $puraUserEntity,

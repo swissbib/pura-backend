@@ -1,4 +1,4 @@
-/***
+    /***
  * main page layout
  ***/
 
@@ -31,3 +31,16 @@ div#content {
     list-style: none;
     padding: 0;
 }
+
+/** maybe adapt to swissbib colors
+.btn-primary {
+        color: #ffffff;
+        background-color: #0D785B;
+        border-color: #0D785B;
+    }
+
+.btn-primary:hover {
+    background-color: #50BF9E;
+    border-color: #50BF9E;
+}
+**/

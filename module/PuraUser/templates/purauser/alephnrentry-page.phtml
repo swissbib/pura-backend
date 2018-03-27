@@ -34,13 +34,8 @@
 ?>
 
 <div class="row" id="main">
-	<!--div id="sidebar" class="span3">
-		< ?=
-		$this->render('purauser::sidebar', array(
-			'puraUserList' => $puraUserList
-		));?>
-	</div-->
-	<div id="content" class="span9">
+    <div class="col-3"></div>
+    <div id="content" class="col-9">
 		<?= $this->render('purauser::alephnrentry-content', [
 		    'alephNrEntryForm' => $this->alephNrEntryForm,
             'puraUserEntity' => $this->puraUserEntity,
