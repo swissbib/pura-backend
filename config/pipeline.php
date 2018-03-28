@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
+use Zend\Expressive\Authorization\AuthorizationMiddleware;
+use Zend\Expressive\Handler\NotFoundHandler;
 use Zend\Expressive\Helper\ServerUrlMiddleware;
 use Zend\Expressive\Helper\UrlHelperMiddleware;
 use Zend\Expressive\MiddlewareFactory;
-use Zend\Expressive\Middleware\DispatchMiddleware;
-use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
-use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
-use Zend\Expressive\Middleware\NotFoundMiddleware;
-use Zend\Expressive\Middleware\RouteMiddleware;
+use Zend\Expressive\Router\Middleware\ImplicitHeadMiddleware;
+use Zend\Expressive\Router\Middleware\ImplicitOptionsMiddleware;
+use Zend\Expressive\Router\Middleware\RouteMiddleware;
 use Zend\Stratigility\Middleware\ErrorHandler;
 use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Flash\FlashMessageMiddleware;
@@ -46,8 +46,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(SessionMiddleware::class);
     $app->pipe(FlashMessageMiddleware::class);
     $app->pipe(RouteMiddleware::class);
-    //$app->pipe(\PuraUser\AuthorizationMiddleware::class);
-    //$app->pipe(\Zend\Expressive\Authorization\AuthorizationMiddleware::class);
+    $app->pipe(\PuraUser\AuthorizationMiddleware::class);
+    $app->pipe(AuthorizationMiddleware::class);
     $app->pipe(ImplicitHeadMiddleware::class);
     $app->pipe(ImplicitOptionsMiddleware::class);
     $app->pipe(UrlHelperMiddleware::class);
@@ -60,10 +60,10 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - etc.
 
     // Register the dispatch middleware in the middleware pipeline
-    $app->pipe(DispatchMiddleware::class);
+    $app->pipe(\Zend\Expressive\Router\Middleware\DispatchMiddleware::class);
 
     // At this point, if no Response is returned by any middleware, the
     // NotFoundMiddleware kicks in; alternately, you can provide other fallback
     // middleware to execute.
-    $app->pipe(NotFoundMiddleware::class);
+    $app->pipe(NotFoundHandler::class);
 };
