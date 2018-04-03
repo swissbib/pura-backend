@@ -46,8 +46,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(SessionMiddleware::class);
     $app->pipe(FlashMessageMiddleware::class);
     $app->pipe(RouteMiddleware::class);
-    $app->pipe(\PuraUser\AuthorizationMiddleware::class);
-    $app->pipe(AuthorizationMiddleware::class);
+    //$app->pipe(\PuraUser\AuthorizationMiddleware::class);
+    //$app->pipe(AuthorizationMiddleware::class);
     $app->pipe(ImplicitHeadMiddleware::class);
     $app->pipe(ImplicitOptionsMiddleware::class);
     $app->pipe(UrlHelperMiddleware::class);
