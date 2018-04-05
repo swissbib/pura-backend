@@ -29,8 +29,8 @@ public function process(
         // - when status code !== 403 or page = /login, return response
         // - otherwise, redirect to login page
         //if (! $session->has(UserInterface::class)) {
-        //if (! $request->getAttribute('Zend\\Expressive\\Authentication\\UserInterface')) {
-        if (! array_key_exists('Zend\Expressive\Authentication\UserInterface',$session->toArray())) {
+        if (! $request->getAttribute(UserInterface::class)) {
+        //if (! array_key_exists('Zend\Expressive\Authentication\UserInterface',$session->toArray())) {
             $user = '';
             $roles = ['default'];
 
@@ -62,6 +62,9 @@ public function process(
         }
 
         // define roles from DB
+        $session = $request->getAttribute(
+            SessionMiddleware::SESSION_ATTRIBUTE
+        );
         //$sessionData = $session->get(UserInterface::class);
         //$sessionData = $request->getAttribute('Zend\\Expressive\\Authentication\\UserInterface');
         $sessionData = $session->toArray()['Zend\Expressive\Authentication\UserInterface'];
