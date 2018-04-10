@@ -15,6 +15,8 @@ use Zend\Expressive\Router\Middleware\RouteMiddleware;
 use Zend\Stratigility\Middleware\ErrorHandler;
 use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Flash\FlashMessageMiddleware;
+use Zend\Expressive\Router\Middleware\MethodNotAllowedMiddleware;
+use Zend\Expressive\Router\Middleware\DispatchMiddleware;
 
 /**
  * Setup middleware pipeline:
@@ -46,10 +48,11 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(SessionMiddleware::class);
     $app->pipe(FlashMessageMiddleware::class);
     $app->pipe(RouteMiddleware::class);
-    //$app->pipe(\PuraUser\AuthorizationMiddleware::class);
-    //$app->pipe(AuthorizationMiddleware::class);
+    $app->pipe(\PuraUser\AuthorizationMiddleware::class);
+    $app->pipe(AuthorizationMiddleware::class);
     $app->pipe(ImplicitHeadMiddleware::class);
     $app->pipe(ImplicitOptionsMiddleware::class);
+    $app->pipe(MethodNotAllowedMiddleware::class);
     $app->pipe(UrlHelperMiddleware::class);
 
     // Add more middleware here that needs to introspect the routing results; this
@@ -60,7 +63,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - etc.
 
     // Register the dispatch middleware in the middleware pipeline
-    $app->pipe(\Zend\Expressive\Router\Middleware\DispatchMiddleware::class);
+    $app->pipe(DispatchMiddleware::class);
 
     // At this point, if no Response is returned by any middleware, the
     // NotFoundMiddleware kicks in; alternately, you can provide other fallback

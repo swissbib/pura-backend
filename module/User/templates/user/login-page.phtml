@@ -31,6 +31,12 @@
 
 ?>
 
+<?php if (!empty($message)): ?>
+    <div class="alert alert-danger" role="alert">
+        <?= $message ?>
+    </div>
+<?php endif; ?>
+
 <form action="" method="POST" name="login-form" id="login-form">
 
     <div class="form-group">

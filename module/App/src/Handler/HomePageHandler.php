@@ -7,7 +7,6 @@ namespace App\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Session\SessionMiddleware;
@@ -45,11 +44,10 @@ class HomePageHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        //if (! $session->has(UserInterface::class)) {
-        if (! array_key_exists('Zend\Expressive\Authentication\UserInterface',$session->toArray())) {
+        if (! $session->has(UserInterface::class))
+        {
             return new RedirectResponse('/login');
         }
-
         return new RedirectResponse('/purauser/barcodeentry');
     }
 }

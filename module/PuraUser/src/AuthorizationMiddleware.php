@@ -19,21 +19,18 @@ use UserTrait;
 public function process(
     ServerRequestInterface $request,
     RequestHandlerInterface $handler
-    ) : ResponseInterface {
+    ) : ResponseInterface
+    {
         $session = $request->getAttribute(
         SessionMiddleware::SESSION_ATTRIBUTE
         );
-
         // no session
         // - set roles as "guest"
         // - when status code !== 403 or page = /login, return response
         // - otherwise, redirect to login page
-        //if (! $session->has(UserInterface::class)) {
-        if (! $request->getAttribute(UserInterface::class)) {
-        //if (! array_key_exists('Zend\Expressive\Authentication\UserInterface',$session->toArray())) {
+        if (! $session->has(UserInterface::class)) {
             $user = '';
             $roles = ['default'];
-
             $request = $request->withAttribute(
                 UserInterface::class,
                 $this->generateUser(
@@ -44,35 +41,26 @@ public function process(
 
             $response = $handler->handle($request);
             if ($request->getUri()->getPath() === '/login' ||
-                $request->getUri()->getPath() === '/logout' ||
-                $request->getUri()->getPath() === '/' ||
-                $response->getStatusCode() !== 401 &&
                 $response->getStatusCode() !== 403
             ) {
                 return $response;
             }
-            return new \Zend\Diactoros\Response\RedirectResponse('/login');
+
+            return new RedirectResponse('/login');
         }
 
-        // has session but at /login page, redirect to authenticated page
-        if ($request->getUri()->getPath() === '/login' ||
-            $request->getUri()->getPath() === '/'
-        ) {
-            return new RedirectResponse('/purauser/barcodeentry');
+        // has session but at /login page, redirect to home
+        if ($request->getUri()->getPath() === '/login') {
+            return RedirectResponse('/');
         }
 
         // define roles from DB
-        $session = $request->getAttribute(
-            SessionMiddleware::SESSION_ATTRIBUTE
-        );
-        //$sessionData = $session->get(UserInterface::class);
-        //$sessionData = $request->getAttribute('Zend\\Expressive\\Authentication\\UserInterface');
-        $sessionData = $session->toArray()['Zend\Expressive\Authentication\UserInterface'];
+        $sessionData = $session->get(UserInterface::class);
         $request = $request->withAttribute(
             UserInterface::class,
             $this->generateUser(
                 $sessionData['username'],
-                $sessionData['library_code']
+                $sessionData['roles']
             )
         );
         return $handler->handle($request);

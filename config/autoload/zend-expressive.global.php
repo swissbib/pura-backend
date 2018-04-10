@@ -40,16 +40,22 @@ return [
             'purauser.alephnrentry',
             'purauser.edit',
             'purauser.edit.emptyuser',
+            'purauser.search',
+            'purauser.block',
         ],
         'allow' => [
             'default' => [
                 'home',
                 'user.logout',
                 'user.login',
-                'purauser.alephnrentry',
             ],
             'Z01' => [
                 'purauser.barcodeentry',
+                'purauser.alephnrentry',
+                'purauser.edit',
+                'purauser.edit.emptyuser',
+                'purauser.search',
+                'purauser.block',
             ],
         ],
     ],
