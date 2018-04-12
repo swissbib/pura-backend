@@ -31,7 +31,11 @@
 namespace PuraUser\Handler;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
+use PuraUser\AuthorizationMiddleware;
 use PuraUserModel\Repository\PuraUserRepositoryInterface;
+use Zend\Expressive\Authentication\AuthenticationInterface;
+use Zend\Expressive\Authentication\UserInterface;
+use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\Form;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
@@ -72,8 +76,7 @@ class EditFactory implements FactoryInterface
 
         /** @var PuraUserRepositoryInterface $puraUserRepository */
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
-        $puraUserList = $puraUserRepository->getListOfAllUsers();
 
-        return new EditHandler($template, $puraUserRepository, $puraUserList);
+        return new EditHandler($template, $puraUserRepository);
     }
 }

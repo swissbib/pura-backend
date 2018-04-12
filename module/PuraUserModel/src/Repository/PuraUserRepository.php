@@ -33,21 +33,9 @@ class PuraUserRepository implements PuraUserRepositoryInterface
      *
      * @return bool
      */
-    public function getBarcodeExists($barcode)
+    public function getBarcodeExists($barcode, $libraryCode)
     {
-        return $this->puraUserStorage->getBarcodeExists($barcode);
-    }
-
-    /**
-     * Get list of all PuraUsers
-     *
-     * @return array
-     */
-    public function getListOfAllUsers()
-    {
-        $puraUsers = $this->puraUserStorage->getListOfAllUsers();
-
-        return $puraUsers;
+        return $this->puraUserStorage->getBarcodeExists($barcode, $libraryCode);
     }
 
     /**
@@ -60,6 +48,21 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     public function getFilteredListOfAllUsers($filter)
     {
         $puraUsers = $this->puraUserStorage->getFilteredListOfAllUsers($filter);
+
+        return $puraUsers;
+    }
+
+    /**
+     * Get a filtered list of all PuraUsers from a Specific Library
+     *
+     * @param string $filter      the filter string
+     * @param string $libraryCode the library code (for example Z01)
+     *
+     * @return array
+     */
+    public function getFilteredListOfAllUsersFromALibrary($filter, $libraryCode)
+    {
+        $puraUsers = $this->puraUserStorage->getFilteredListOfAllUsersFromALibrary($filter, $libraryCode);
 
         return $puraUsers;
     }

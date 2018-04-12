@@ -12,6 +12,8 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Resolver\TemplateMapResolver;
+use Zend\Expressive\Authentication\UserInterface;
+use Zend\Expressive\Session\SessionMiddleware;
 
 /**
  * SearchPuraUserHandler
@@ -60,7 +62,14 @@ class SearchPuraUserHandler implements MiddlewareInterface
     ): ResponseInterface
     {
         $searchTerm = $request->getParsedBody()['sidebarSearchbox'];
-        $filteredPuraUserList = $this->puraUserRepository->getFilteredListOfAllUsers($searchTerm);
+
+        $session = $request->getAttribute(
+            SessionMiddleware::SESSION_ATTRIBUTE
+        );
+        $sessionData = $session->get(UserInterface::class);
+        $libraryCode = $sessionData['roles'][0];
+
+        $filteredPuraUserList = $this->puraUserRepository->getFilteredListOfAllUsersFromALibrary($searchTerm, $libraryCode);
 
         $renderer = new PhpRenderer();
         $model = new ViewModel(['puraUserList' => $filteredPuraUserList]);

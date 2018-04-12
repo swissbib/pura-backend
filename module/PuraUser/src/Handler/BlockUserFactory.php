@@ -72,11 +72,10 @@ class BlockUserFactory implements FactoryInterface
 
         /** @var PuraUserRepositoryInterface $puraUserRepository */
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
-        $puraUserList = $puraUserRepository->getListOfAllUsers();
 
         /** @var SwitchConfig $switchConfig */
         $switchConfig = $container->get('config')['switch_api'];
 
-        return new BlockUserHandler($template, $switchConfig, $puraUserRepository, $puraUserList);
+        return new BlockUserHandler($template, $switchConfig, $puraUserRepository);
     }
 }

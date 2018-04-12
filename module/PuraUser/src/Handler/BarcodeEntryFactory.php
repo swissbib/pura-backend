@@ -71,8 +71,7 @@ class BarcodeEntryFactory implements FactoryInterface
         $template  = $container->get(TemplateRendererInterface::class);
         /** @var PuraUserRepositoryInterface $puraUserRepository */
         $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
-        $puraUserList = $puraUserRepository->getListOfAllUsers();
 
-        return new BarcodeEntryHandler($template, $puraUserList, $puraUserRepository);
+        return new BarcodeEntryHandler($template, $puraUserRepository);
     }
 }

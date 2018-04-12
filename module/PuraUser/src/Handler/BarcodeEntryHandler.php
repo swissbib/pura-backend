@@ -9,6 +9,8 @@ use Psr\Http\Server\RequestHandlerInterface;
 use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
+use Zend\Expressive\Authentication\UserInterface;
+use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Filter\StaticFilter;
 use Zend\Form\Form;
@@ -29,8 +31,6 @@ class BarcodeEntryHandler implements MiddlewareInterface
      */
     private $template;
 
-    private $puraUserList;
-
     private $puraUserRepository;
 
     /**
@@ -39,11 +39,9 @@ class BarcodeEntryHandler implements MiddlewareInterface
      */
     public function __construct(
         TemplateRendererInterface $template,
-        array                     $puraUserList,
         PuraUserRepository        $puraUserRepository
     ) {
         $this->template           = $template;
-        $this->puraUserList       = $puraUserList;
         $this->puraUserRepository = $puraUserRepository;
     }
 
@@ -61,6 +59,12 @@ class BarcodeEntryHandler implements MiddlewareInterface
     {
         $message = '';
         if ($request->getMethod() === 'POST') {
+            $session = $request->getAttribute(
+                SessionMiddleware::SESSION_ATTRIBUTE
+            );
+            $sessionData = $session->get(UserInterface::class);
+            $libraryCode = $sessionData['roles'][0];
+
             $barcode = $request->getParsedBody()['barcodeEntry'];
 
             // filter input:
@@ -73,8 +77,8 @@ class BarcodeEntryHandler implements MiddlewareInterface
             $message = 'Barcode is in an invalid format.';
 
             // validate against DB:
-            $isValid = $this->getBarcodeExistInDb($barcode);
-            if (!$isValid) $message = 'Barcode does not exist in the database.';
+            $isValid = $this->getBarcodeExistInDbForALibrary($barcode, $libraryCode);
+            if (!$isValid) $message = 'Barcode does not exist in the database for the library ' . $libraryCode .'.';
 
             if ($isValid) {
                 $request = $request->withAttribute('barcodeEntry', $barcode);
@@ -88,16 +92,15 @@ class BarcodeEntryHandler implements MiddlewareInterface
         return new HtmlResponse(
             $this->template->render(
                 'purauser::barcodeentry-page', [
-                      'puraUserList' => $this->puraUserList,
                       'message' => $message,
                 ]
             )
         );
     }
 
-    private function getBarcodeExistInDb($barcode)
+    private function getBarcodeExistInDbForALibrary($barcode, $libraryCode)
     {
-        return $this->puraUserRepository->getBarcodeExists($barcode);
+        return $this->puraUserRepository->getBarcodeExists($barcode, $libraryCode);
     }
 
 }

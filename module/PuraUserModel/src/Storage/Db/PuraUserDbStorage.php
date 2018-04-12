@@ -35,10 +35,13 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      *
      * @return bool
      */
-    public function getBarcodeExists($barcode)
+    public function getBarcodeExists($barcode, $libraryCode)
     {
         $select = $this->tableGateway->getSql()->select();
-        $select->where->equalTo('barcode', $barcode);
+        $select->where->equalTo('barcode', $barcode)
+            ->and->equalTo('library_code', $libraryCode);
+        //$select->where->(['barcode = ' .$barcode]);
+
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
@@ -47,16 +50,6 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         } else {
             return true;
         }
-    }
-
-    /**
-     * Get a list of all PuraUsers
-     *
-     * @return array
-     */
-    public function getListOfAllUsers()
-    {
-        return $this->getFilteredListOfAllUsers('');
     }
 
     private function createPuraUserEntity($puraUserArrayObject)
@@ -145,9 +138,9 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     }
 
     /**
-     * Get a filtered lsit of all PuraUsers
-
-     * @param $filter
+     * Get a filtered list of all PuraUsers
+     *
+     * @param string $filter the filter string
      *
      * @return array
      */
@@ -162,8 +155,40 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             ->or->like('user.firstname', $filter)
             ->or->like('user.lastname', $filter)
             ->or->like('user.email', $filter)
+            ->unnest();
+        $select->join('user', 'user.id = pura_user.user_id', ['firstname','lastname'], 'left');
+
+        $puraUserEntityArray = [];
+        $puraUserEntity = new PuraUserEntity();
+
+        foreach ($this->tableGateway->selectWith($select) as $row) {
+            $puraUserEntity = $this->createPuraUserEntity($row);
+            $puraUserEntityArray[] = $puraUserEntity;
+        }
+        return $puraUserEntityArray;
+    }
+
+    /**
+     * Get a filtered list of all PuraUsers from a Specific Library
+     *
+     * @param string $filter      the filter string
+     * @param string $libraryCode the library code (for example Z01)
+     *
+     * @return array
+     */
+    public function getFilteredListOfAllUsersFromALibrary($filter, $libraryCode)
+    {
+        $filter = '%' . $filter . '%';
+        $select = $this->tableGateway->getSql()->select()
+            ->columns(['user_id','edu_id','barcode']);
+        $select->where->nest()
+            ->like('pura_user.barcode', $filter)
+            ->or->like('pura_user.library_system_number', $filter)
+            ->or->like('user.firstname', $filter)
+            ->or->like('user.lastname', $filter)
+            ->or->like('user.email', $filter)
             ->unnest()
-            ->and->like('pura_user.library_code', 'Z01');
+            ->and->like('pura_user.library_code', $libraryCode);
         $select->join('user', 'user.id = pura_user.user_id', ['firstname','lastname'], 'left');
 
         $puraUserEntityArray = [];

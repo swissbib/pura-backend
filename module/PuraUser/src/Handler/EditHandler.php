@@ -9,7 +9,9 @@ use Psr\Http\Server\RequestHandlerInterface;
 use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Repository\PuraUserRepository;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Flash\FlashMessageMiddleware;
+use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Filter\StaticFilter;
 use Zend\Form\Form;
@@ -41,12 +43,12 @@ class EditHandler implements MiddlewareInterface
      */
     public function __construct(
         TemplateRendererInterface $template,
-        PuraUserRepository        $puraUserRepository,
-        array                     $puraUserList
+        PuraUserRepository        $puraUserRepository
     ) {
         $this->template           = $template;
         $this->puraUserRepository = $puraUserRepository;
-        $this->puraUserList       = $puraUserList;
+
+
     }
 
     /**
@@ -102,10 +104,18 @@ class EditHandler implements MiddlewareInterface
             }
         }
 
+        $session = $request->getAttribute(
+            SessionMiddleware::SESSION_ATTRIBUTE
+        );
+        $sessionData = $session->get(UserInterface::class);
+        $libraryCode = $sessionData['roles'][0];
+        $puraUserList = $this->puraUserRepository
+            ->getFilteredListOfAllUsersFromALibrary('', $libraryCode);
+
         return new HtmlResponse(
             $this->template->render(
                 'purauser::edit-page', [
-                      'puraUserList' => $this->puraUserList,
+                      'puraUserList' => $puraUserList,
                       'puraUserEntity' => $puraUserEntity,
                       'message' => $message
                 ]

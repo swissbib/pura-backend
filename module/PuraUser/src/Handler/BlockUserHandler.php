@@ -36,8 +36,6 @@ class BlockUserHandler implements MiddlewareInterface
 
     private $puraUserRepository;
 
-    private $puraUserList;
-
     /**
      * BarcodeEntryHandler constructor.
      * @param TemplateRendererInterface $template
@@ -48,13 +46,11 @@ class BlockUserHandler implements MiddlewareInterface
     public function __construct(
         TemplateRendererInterface $template,
         array                     $switchConfig,
-        PuraUserRepository        $puraUserRepository,
-        array                     $puraUserList
+        PuraUserRepository        $puraUserRepository
     ) {
         $this->template             = $template;
         $this->switchConfig         = $switchConfig;
         $this->puraUserRepository   = $puraUserRepository;
-        $this->puraUserList         = $puraUserList;
     }
 
     /**

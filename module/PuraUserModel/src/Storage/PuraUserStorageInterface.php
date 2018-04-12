@@ -10,9 +10,8 @@ namespace PuraUserModel\Storage;
 
 interface PuraUserStorageInterface
 {
-    public function getBarcodeExists($barcode);
-    public function getListOfAllUsers();
-    public function getFilteredListOfAllUsers($filter);
+    public function getBarcodeExists($barcode, $libraryCode);
+    public function getFilteredListOfAllUsersFromALibrary($filter, $libraryCode);
     public function getSinglePuraUser($barcode);
     public function savePuraUserAlephNr($alephNr, $barcode);
     public function savePuraUser($puraUser);

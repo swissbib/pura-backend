@@ -11,11 +11,8 @@ use PuraUser\Handler\EditFactory;
 use PuraUser\Handler\EditHandler;
 use PuraUser\Handler\SearchPuraUserHandler;
 use PuraUser\Handler\SearchPuraUserHandlerFactory;
-use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
-use Zend\Expressive\Authentication\UserRepositoryInterface;
 use Zend\Expressive\Authentication\AuthenticationInterface;
 use Zend\Expressive\Authentication\Session\PhpSessionFactory;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
  * The configuration provider for the User module
