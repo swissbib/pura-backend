@@ -36,23 +36,13 @@
         <?= $message ?>
     </div>
 <?php endif; ?>
-
-<form action="" method="POST" name="login-form" id="login-form">
-
-    <div class="form-group">
-        <label>
-            <span>Username</span>
-            <input type="text" name="username" value="" autofocus>
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label>
-            <span>Password</span>
-            <input type="password" name="password" value="">
-        </label>
-    </div>
-
-    <input type="submit" name="Login" value="Login">
-
+<div class="sign-in text-center">
+<form class="form-signin" action="" method="POST" name="login-form" id="login-form">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputUsername" class="sr-only">Username</label>
+    <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>
+</div>
