@@ -39,7 +39,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     {
         $select = $this->tableGateway->getSql()->select();
         $select->where->equalTo('barcode', $barcode)
-            ->and->equalTo('library_code', $libraryCode);
+            ->and->like('library_code', $libraryCode);
         //$select->where->(['barcode = ' .$barcode]);
 
 

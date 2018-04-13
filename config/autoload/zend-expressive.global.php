@@ -30,7 +30,9 @@ return [
     'authorization' => [
         'roles' => [
             'default'  => [],
-            'Z01'  => ['default'],
+            'librarian' => ['default'],
+            '%'  => ['librarian'], //can view users from all libraries
+            'Z01'  => ['librarian'],
         ],
         'resources' => [
             'home',
@@ -49,7 +51,7 @@ return [
                 'user.logout',
                 'user.login',
             ],
-            'Z01' => [
+            'librarian' => [
                 'purauser.barcodeentry',
                 'purauser.alephnrentry',
                 'purauser.edit',
