@@ -1,3 +1,4 @@
 *
 !.gitignore
-!puralogin.sql
+!puralogin.development.sql
+!puralogin.production.sql

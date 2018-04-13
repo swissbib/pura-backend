@@ -78,7 +78,7 @@ class BarcodeEntryHandler implements MiddlewareInterface
 
             // validate against DB:
             $isValid = $this->getBarcodeExistInDbForALibrary($barcode, $libraryCode);
-            if (!$isValid) $message = 'Barcode does not exist in the database for the library ' . $libraryCode .'.';
+            if (!$isValid) $message = 'Barcode ' . $barcode . ' does not exist in the database for the library ' . $libraryCode .'.';
 
             if ($isValid) {
                 $request = $request->withAttribute('barcodeEntry', $barcode);
