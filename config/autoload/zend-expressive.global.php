@@ -31,7 +31,7 @@ return [
         'roles' => [
             'default'  => [],
             'librarian' => ['default'],
-            '%'  => ['librarian'], //can view users from all pura libraries
+            'admin'  => ['librarian'], //can view users from all pura libraries
             'Z01'  => ['librarian'],
             'A100'  => ['librarian'],
         ],

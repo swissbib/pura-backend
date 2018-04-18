@@ -38,10 +38,14 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     public function getBarcodeExists($barcode, $libraryCode)
     {
         $select = $this->tableGateway->getSql()->select();
-        $select->where->equalTo('barcode', $barcode)
-            ->and->like('library_code', $libraryCode);
-        //$select->where->(['barcode = ' .$barcode]);
 
+        if($libraryCode == 'admin') {
+            $select->where->equalTo('barcode', $barcode)
+                ->and->like('library_code', '%');
+        } else {
+            $select->where->equalTo('barcode', $barcode)
+                ->and->like('library_code', $libraryCode);
+        }
 
         /** @var ResultSet $resultSet */
         $resultSet = $this->tableGateway->selectWith($select);
@@ -187,8 +191,13 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             ->or->like('user.firstname', $filter)
             ->or->like('user.lastname', $filter)
             ->or->like('user.email', $filter)
-            ->unnest()
-            ->and->like('pura_user.library_code', $libraryCode);
+            ->unnest();
+
+        if ($libraryCode == 'admin') {
+            $select->where->and->like('pura_user.library_code', '%');
+        } else {
+            $select->where->and->like('pura_user.library_code', $libraryCode);
+        }
         $select->join('user', 'user.id = pura_user.user_id', ['firstname','lastname'], 'left');
 
         $puraUserEntityArray = [];

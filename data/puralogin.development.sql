@@ -46,7 +46,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('puraAdmin','$2y$10$lVNwLpxbVYaj6SZ5dHR7/eG1njsP4dYaRC2MyP8ykmx01R3Wl0XMC','%');
+INSERT INTO `users` VALUES ('puraAdmin','$2y$10$lVNwLpxbVYaj6SZ5dHR7/eG1njsP4dYaRC2MyP8ykmx01R3Wl0XMC','admin');
 INSERT INTO `users` VALUES ('puraZ01','$2y$10$lVNwLpxbVYaj6SZ5dHR7/eG1njsP4dYaRC2MyP8ykmx01R3Wl0XMC','Z01');
 INSERT INTO `users` VALUES ('puraA100','$2y$10$lVNwLpxbVYaj6SZ5dHR7/eG1njsP4dYaRC2MyP8ykmx01R3Wl0XMC','A100');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
