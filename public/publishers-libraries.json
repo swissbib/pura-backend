@@ -1,20 +1,20 @@
 {
   "publishers" : [
     {
-      "name": "Cambridge University Press",
-      "url" : "https://www.cambridge.org/core/journals/",
-      "wayfless_url" : "https://www.cambridge.org/core/journals/",
-      "description" : "a collection of journals",
+      "name": "National Licences",
+      "url" : "https://www.swissbib.ch/Search/Results?filter%5B%5D=union%3A%22NATIONALLICENCE%22",
+      "info_url" : "http://nationallicences.ch/",
+      "description" : "More than 6 million journal articles from Springer, Oxford University Press, Cambridge University Press and De Gruyter",
       "switch_group_id" : "1d3baa7b-da70-440d-b777-5bb2d11f8718",
       "libraries_with_contract" : [
         "Z01"
       ]
     },
     {
-      "name": "Munzinger",
-      "url" : "https://www.munzinger.de",
-      "wayfless_url" : "",
-      "description" : "a collection of journals",
+      "name": "Munzinger Online: Personen, Länder, Literatur, Film, Musik und Chronik (ab 1986)",
+      "url" : "https://www.munzinger.de/munzinger-shibboleth/Shibboleth.sso/WAYF/CM?providerId=https://eduid.ch/idp/shibboleth&target=https://www.munzinger.de/search/shib/start.jsp",
+      "info_url" : "https://www.munzinger.de",
+      "description" : "Weltereignisse, Länderportraits, Biographien, Literatur- und Musikerlexika, Filmkritiken",
       "switch_group_id" : "b7b9d761-c6dc-4bc8-901e-a50467af6c71",
       "libraries_with_contract" : [
         "Z01"
@@ -23,12 +23,10 @@
     {
       "name": "Thieme",
       "url" : "https://www.thieme.de",
-      "wayfless_url" : "",
+      "info_url" : "",
       "description" : "a collection of journals",
       "switch_group_id" : "c626d45b-2bbd-44ef-846a-6ff3efe6e519",
-      "libraries_with_contract" : [
-
-      ]
+      "libraries_with_contract" : []
     }
   ]
 }

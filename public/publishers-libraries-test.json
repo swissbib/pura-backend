@@ -3,7 +3,7 @@
     {
       "name": "Cambridge University Press",
       "url" : "https://www.cambridge.org/core/journals/",
-      "wayfless_url" : "https://www.cambridge.org/core/journals/",
+      "info_url" : "https://www.cambridge.org/core/journals/",
       "description" : "a collection of journals",
       "switch_group_id" : "f4d40595-6d7d-41bc-9fa2-7139d2fcf892",
       "libraries_with_contract" : [
@@ -13,7 +13,7 @@
     {
       "name": "Munzinger",
       "url" : "https://www.munzinger.de",
-      "wayfless_url" : "",
+      "info_url" : "",
       "description" : "a collection of journals",
       "switch_group_id" : "12833a8b-7486-4adf-87be-5b47fcc90d8f",
       "libraries_with_contract" : [
@@ -23,7 +23,7 @@
     {
       "name": "Thieme",
       "url" : "https://www.thieme.de",
-      "wayfless_url" : "",
+      "info_url" : "",
       "description" : "a collection of journals",
       "switch_group_id" : "2c0ddd57-5172-412a-9a57-30e85d79ea40",
       "libraries_with_contract" : [
