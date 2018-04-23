@@ -99,10 +99,13 @@ class AlephNrEntryHandler implements MiddlewareInterface
                 } else {
                 }
             } else {
-                $message = 'There was an error saving the aleph number to the database.';
+                $message .= 'There was an error saving the aleph number to the database.';
             }
         }
 
+        if ($puraUserEntity->getBlocked()) {
+            $message .= 'This user is blocked, please make sure you want to activate this user again. ';
+        }
         return new HtmlResponse(
             $this->template->render(
                 'purauser::alephnrentry-page', [

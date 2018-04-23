@@ -66,4 +66,14 @@ interface PuraUserRepositoryInterface
      * @return mixed
      */
     public function blockUser($barcode);
+
+    /**
+     * Unblock a user
+     *
+     * @param string $barcode barcode
+     *
+     * @return mixed
+     */
+    public function unBlockUser($barcode);
+
 }

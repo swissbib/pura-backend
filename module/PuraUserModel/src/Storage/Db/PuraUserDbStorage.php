@@ -243,6 +243,22 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         return $dbRetVal;
     }
 
+    public function unBlockUser($barcode)
+    {
+        $update = $this->tableGateway->getSql()->update();
+        $update->set(
+            [
+                'blocked' => 0,
+                'blocked_created' => null,
+            ]
+        );
+
+        $update->where->equalTo('barcode', $barcode);
+        $dbRetVal = $this->tableGateway->updateWith($update);
+
+        return $dbRetVal;
+    }
+
     /**
      * @param $puraUser PuraUserEntity
      */

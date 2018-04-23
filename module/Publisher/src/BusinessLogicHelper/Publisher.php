@@ -105,6 +105,10 @@ class Publisher
             $dateExpiration = date('Y-m-d H:i:s', strtotime('+1 year'));
             $puraUserEntity->setDateExpiration($dateExpiration);
 
+            /* unblock user, will set the blocking date
+            to null, which is not possible with setter methods */
+            $this->puraUserRepository->unBlockUser($barcode);
+
             $this->puraUserRepository->savePuraUser($puraUserEntity);
             $result = $puraSwitchClient->activatePublishers($userId, $libraryCode);
 

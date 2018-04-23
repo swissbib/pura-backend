@@ -16,4 +16,5 @@ interface PuraUserStorageInterface
     public function savePuraUserAlephNr($alephNr, $barcode);
     public function savePuraUser($puraUser);
     public function blockUser($barcode);
+    public function unBlockUser($barcode);
 }

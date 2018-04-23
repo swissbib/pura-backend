@@ -32,7 +32,6 @@ use PuraUserModel\Entity\PuraUserEntity;
  * @link     http://www.swissbib.org
  */
 
-echo '<p>' . $message . '</p>';
 /**
  * @var PuraUserEntity $puraUserEntity
  */
@@ -40,6 +39,12 @@ echo '<p>' . $message . '</p>';
 
 <h2>Add Aleph Number</h2>
 <h4>User</h4>
+
+<?php if (!empty($message)): ?>
+    <div class="alert alert-danger" role="alert">
+        <?= $message ?>
+    </div>
+<?php endif; ?>
 
 <form class="form-horizontal">
     <div class="form-group row">
