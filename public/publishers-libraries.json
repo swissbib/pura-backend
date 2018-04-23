@@ -21,6 +21,16 @@
       ]
     },
     {
+      "name": "Musik in Geschichte und Gegenwart (MGG online)",
+      "url" : "https://www.mgg-online.com/",
+      "info_url" : "https://www.mgg-online.com/",
+      "description" : "Standardwerk der Musikwissenschaft",
+      "switch_group_id" : "e93fda4f-da5b-408d-b220-033f7b789678",
+      "libraries_with_contract" : [
+        "Z01"
+      ]
+    },
+    {
       "name": "Thieme",
       "url" : "https://www.thieme.de",
       "info_url" : "",

@@ -29,6 +29,16 @@
       "libraries_with_contract" : [
         "Z01"
       ]
-    }
+    },
+    {
+      "name": "Musik in Geschichte und Gegenwart (MGG online)",
+      "url" : "https://www.mgg-online.com/",
+      "info_url" : "https://www.mgg-online.com/",
+      "description" : "Standardwerk der Musikwissenschaft",
+      "switch_group_id" : "c2833505-4e8c-43d0-8402-cf83a1bcdb20",
+      "libraries_with_contract" : [
+        "Z01"
+      ]
+    },
   ]
 }
