@@ -111,6 +111,8 @@ class AlephNrEntryHandler implements MiddlewareInterface
 to null, which is not possible with setter methods */
                     $this->puraUserRepository->unBlockUser($barcode);
 
+                    $response = $handler->handle($request);
+
                     return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
                 } else {
                 }
