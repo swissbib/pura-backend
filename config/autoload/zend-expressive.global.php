@@ -47,6 +47,7 @@ return [
             'purauser.block',
             'publisher',
             'publisher.reload-all-users',
+            'publisher.remove-publisher',
         ],
         'allow' => [
             'default' => [
@@ -65,6 +66,7 @@ return [
             'admin' => [
                 'publisher',
                 'publisher.reload-all-users',
+                'publisher.remove-publisher',
             ],
         ],
     ],

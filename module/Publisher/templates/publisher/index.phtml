@@ -1,3 +1,16 @@
 <a href="<?= $this->url('publisher.reload-all-users') ?>"
     <button class="btn btn-primary">Reload all ZB users (takes a long time)</button>
 </a>
+<br>
+<br>
+
+<form class="form-inline" action="/publisher/remove-publisher" method="post">
+    <div class="form-group mb-2">
+        <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Remove this publisher for ZB">
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <label for="switch-group-id" class="sr-only">Publisher Switch Group Id</label>
+        <input type="text" class="form-control" name="switch-group-id" placeholder="Publisher Switch Group Id">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Remove</button>
+</form>

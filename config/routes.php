@@ -94,4 +94,6 @@ return function (
     /* Module 'Publisher' */
     $app->get('/publisher', Publisher\Handler\PublisherHandler::class, 'publisher');
     $app->get('/publisher/reload', Publisher\Handler\ReloadUsersHandler::class, 'publisher.reload-all-users');
+
+    $app->route('/publisher/remove-publisher', Publisher\Handler\RemovePublisherHandler::class, ['GET', 'POST'], 'publisher.remove-publisher');
 };

@@ -35,12 +35,9 @@ namespace Publisher\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Publisher\BusinessLogicHelper\Publisher;
 use PuraUserModel\Entity\PuraUserEntity;
 use PuraUserModel\Repository\PuraUserRepositoryInterface;
-use SwitchSharedAttributesAPIClient\PublishersList;
-use SwitchSharedAttributesAPIClient\PuraSwitchClient;
-use Zend\Diactoros\Response\JsonResponse;
+use SwitchSharedAttributesAPIClient\SwitchSharedAttributesAPIClient;
 
 /**
  * ActivatePublisherHandler
@@ -51,7 +48,7 @@ use Zend\Diactoros\Response\JsonResponse;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org
  */
-class ReloadUsersHandler implements RequestHandlerInterface
+class RemovePublisherHandler implements RequestHandlerInterface
 {
     /**
      * @var array $switchConfig
@@ -75,22 +72,27 @@ class ReloadUsersHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
+
 
         $libraryCode = 'Z01';
 
         $puraUserList = $this->puraUserRepository
             ->getAllActiveUsersFromALibrary($libraryCode);
 
+        $switchGroupId = $request->getParsedBody()['switch-group-id'];
+
+        $switchClient = new SwitchSharedAttributesAPIClient($this->switchConfig);
+
         /** @var PuraUserEntity $puraUser */
         foreach ($puraUserList as $puraUser) {
-            $retVal = $publisherHelper->activatePublishers($puraUser->getEduId(), $puraUser->getBarcode(), $libraryCode);
+            try {
+                $switchClient->removeUserFromGroupAndVerify($puraUser->getEduId(), $switchGroupId);
+            } catch (\Exception $e) {
+                echo 'Failure ' . $e->getMessage() . ' ' . $puraUser->getEduId() .'<br>';
+                continue;
+            }
 
-            echo $retVal['message'];
-
-            echo ' ';
-            echo $puraUser->getEduId();
-            echo '<br>';
+            echo 'Success ' . $puraUser->getEduId() .'<br>';
         }
     }
 }

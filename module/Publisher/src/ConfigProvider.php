@@ -8,6 +8,8 @@ use Publisher\Handler\DeactivatePublisherFactory;
 use Publisher\Handler\DeactivatePublisherHandler;
 use Publisher\Handler\PublisherFactory;
 use Publisher\Handler\PublisherHandler;
+use Publisher\Handler\RemovePublisherFactory;
+use Publisher\Handler\RemovePublisherHandler;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
@@ -42,7 +44,7 @@ class ConfigProvider
             'factories'  => [
                 PublisherHandler::class => PublisherFactory::class,
                 ReloadUsersHandler::class => ReloadUsersFactory::class,
-                DeactivatePublisherHandler::class => DeactivatePublisherFactory::class,
+                RemovePublisherHandler::class => RemovePublisherFactory::class,
             ],
         ];
     }
