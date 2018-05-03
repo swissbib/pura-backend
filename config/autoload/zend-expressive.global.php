@@ -45,6 +45,9 @@ return [
             'purauser.edit.emptyuser',
             'purauser.search',
             'purauser.block',
+            'publisher',
+            'publisher.activate',
+            'publisher.deactivate',
         ],
         'allow' => [
             'default' => [
@@ -59,6 +62,11 @@ return [
                 'purauser.edit.emptyuser',
                 'purauser.search',
                 'purauser.block',
+            ],
+            'admin' => [
+                'publisher',
+                'publisher.activate',
+                'publisher.deactivate',
             ],
         ],
     ],
