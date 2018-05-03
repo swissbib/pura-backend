@@ -210,6 +210,30 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         return $puraUserEntityArray;
     }
 
+    /**
+     * Get all active PuraUsers from a Specific Library
+     *
+     * @param string $libraryCode the library code (for example Z01)
+     *
+     * @return array
+     */
+    public function getAllActiveUsersFromALibrary($libraryCode)
+    {
+        $select = $this->tableGateway->getSql()->select();
+
+        $select->where->like('library_code', $libraryCode);
+        $select->where->and->like('has_access', true);
+
+        $puraUserEntityArray = [];
+        $puraUserEntity = new PuraUserEntity();
+
+        foreach ($this->tableGateway->selectWith($select) as $row) {
+            $puraUserEntity = $this->createPuraUserEntity($row);
+            $puraUserEntityArray[] = $puraUserEntity;
+        }
+        return $puraUserEntityArray;
+    }
+
     public function savePuraUserAlephNr($alephNr, $barcode)
     {
         $update = $this->tableGateway->getSql()->update();
@@ -351,8 +375,6 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             $update->set($fieldForPuraUserTable);
             $update->where->equalTo('barcode', $puraUser->getBarcode());
             $dbRetVal = $this->tableGateway->updateWith($update);
-
-            //todo: consider updating values from table 'user' as well - or don't.
 
             return $dbRetVal;
         } else {

@@ -68,6 +68,20 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     }
 
     /**
+     * Get all active PuraUsers from a Specific Library
+     *
+     * @param string $libraryCode the library code (for example Z01)
+     *
+     * @return array
+     */
+    public function getAllActiveUsersFromALibrary($libraryCode)
+    {
+        $puraUsers = $this->puraUserStorage->getAllActiveUsersFromALibrary($libraryCode);
+
+        return $puraUsers;
+    }
+
+    /**
      * Get single PuraUser by barcode
      *
      * @param integer $barcode

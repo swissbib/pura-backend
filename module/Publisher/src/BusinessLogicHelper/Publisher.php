@@ -92,28 +92,7 @@ class Publisher
         $publishersList->loadPublishersFromJsonFile($publishersJsonData);
         $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
 
-        /** @var PuraUserEntity $puraUserEntity */
-        $puraUserEntity = new PuraUserEntity();
-        $puraUserEntity->setBarcode($barcode);
-
-        if (!$puraUserEntity->getHasAccess()) {
-            //we record the first date where the account was created, not the renewals
-            $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));
-        }
-        $puraUserEntity->setHasAccess(true);
-
-        $dateExpiration = date('Y-m-d H:i:s', strtotime('+1 year'));
-        $puraUserEntity->setDateExpiration($dateExpiration);
-
-
         $result = $puraSwitchClient->activatePublishers($userId, $libraryCode);
-
-        if ($result['success']) {
-                /* unblock user, will set the blocking date
-            to null, which is not possible with setter methods */
-                $this->puraUserRepository->unBlockUser($barcode);
-                $this->puraUserRepository->savePuraUser($puraUserEntity);
-        }
 
         return $result;
     }

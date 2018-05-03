@@ -79,13 +79,9 @@ class ReloadUsersHandler implements RequestHandlerInterface
 
         $libraryCode = 'Z01';
 
-
-        //todo get all active users
         $puraUserList = $this->puraUserRepository
-            ->getFilteredListOfAllUsersFromALibrary('', $libraryCode);
+            ->getAllActiveUsersFromALibrary($libraryCode);
 
-
-        //todo do not reset expiration date
         /** @var PuraUserEntity $puraUser */
         foreach ($puraUserList as $puraUser) {
             $retVal = $publisherHelper->activatePublishers($puraUser->getEduId(), $puraUser->getBarcode(), $libraryCode);
@@ -99,8 +95,5 @@ class ReloadUsersHandler implements RequestHandlerInterface
             echo $puraUser->getEduId();
             echo '<br>';
         }
-        //$retVal = $publisherHelper->activatePublishers($puraUserEntity->getEduId(), $barcode, $libraryCode);
-
-
     }
 }

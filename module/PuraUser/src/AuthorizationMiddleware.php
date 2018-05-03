@@ -10,6 +10,7 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Authentication\UserRepository\UserTrait;
 use Zend\Expressive\Session\SessionMiddleware;
+use Zend\Stratigility\Middleware\ErrorHandler;
 
 class AuthorizationMiddleware implements MiddlewareInterface
 {
@@ -63,6 +64,10 @@ public function process(
                 $sessionData['roles']
             )
         );
-        return $handler->handle($request);
+        $response = $handler->handle($request);
+        if($response->getStatusCode() == 403) {
+            echo "Access to this page is restricted";
+        }
+        return $response;
     }
 }

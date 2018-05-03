@@ -80,10 +80,12 @@ class BlockUserHandler implements MiddlewareInterface
         if ($retVal['success']) {
             $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
             $flashMessages->flash('message', $retVal['message']);
-            $response = $handler->handle($request);
             return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
         } else {
             $message = 'There was an error blocking the user.';
+            $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
+            $flashMessages->flash('alert-message', $message);
+            return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
         }
     }
 }

@@ -37,6 +37,15 @@ interface PuraUserRepositoryInterface
     public function getFilteredListOfAllUsersFromALibrary($filter, $libraryCode);
 
     /**
+     * Get all active PuraUsers from a Specific Library
+     *
+     * @param string $libraryCode the library code (for example Z01)
+     *
+     * @return array
+     */
+    public function getAllActiveUsersFromALibrary($libraryCode);
+
+    /**
      * Get single PuraUser by barcode
      *
      * @param string $barcode
