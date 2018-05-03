@@ -76,43 +76,46 @@ class Publisher
      * @param $barcode
      * @param $libraryCode
      *
-     * @return string
+     * @return array result result['success'] and result['message']
      * @throws \Exception
      */
     public function activatePublishers($userId, $barcode, $libraryCode)
     {
-            $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
-            $publishersJsonData
-                = file_exists($filePath) ? file_get_contents($filePath) : '';
+        $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
+        $publishersJsonData
+            = file_exists($filePath) ? file_get_contents($filePath) : '';
 
-            /**
-             * @var PublishersList $publishersList
-             */
-            $publishersList = new PublishersList();
-            $publishersList->loadPublishersFromJsonFile($publishersJsonData);
-            $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
+        /**
+         * @var PublishersList $publishersList
+         */
+        $publishersList = new PublishersList();
+        $publishersList->loadPublishersFromJsonFile($publishersJsonData);
+        $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
 
-            /** @var PuraUserEntity $puraUserEntity */
-            $puraUserEntity = new PuraUserEntity();
-            $puraUserEntity->setBarcode($barcode);
+        /** @var PuraUserEntity $puraUserEntity */
+        $puraUserEntity = new PuraUserEntity();
+        $puraUserEntity->setBarcode($barcode);
 
-            if (!$puraUserEntity->getHasAccess()) {
-                //we record the first date where the account was created, not the renewals
-                $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));
-            }
-            $puraUserEntity->setHasAccess(true);
+        if (!$puraUserEntity->getHasAccess()) {
+            //we record the first date where the account was created, not the renewals
+            $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));
+        }
+        $puraUserEntity->setHasAccess(true);
 
-            $dateExpiration = date('Y-m-d H:i:s', strtotime('+1 year'));
-            $puraUserEntity->setDateExpiration($dateExpiration);
+        $dateExpiration = date('Y-m-d H:i:s', strtotime('+1 year'));
+        $puraUserEntity->setDateExpiration($dateExpiration);
 
-            /* unblock user, will set the blocking date
+
+        $result = $puraSwitchClient->activatePublishers($userId, $libraryCode);
+
+        if ($result['success']) {
+                /* unblock user, will set the blocking date
             to null, which is not possible with setter methods */
-            $this->puraUserRepository->unBlockUser($barcode);
+                $this->puraUserRepository->unBlockUser($barcode);
+                $this->puraUserRepository->savePuraUser($puraUserEntity);
+        }
 
-            $this->puraUserRepository->savePuraUser($puraUserEntity);
-            $result = $puraSwitchClient->activatePublishers($userId, $libraryCode);
-
-            return $result;
+        return $result;
     }
 
     public function deactivatePublishers($userId, $barcode, $libraryCode)

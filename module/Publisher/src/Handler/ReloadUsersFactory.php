@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Publisher\Handler;
 
 use Interop\Container\ContainerInterface;
+use PuraUserModel\Repository\PuraUserRepositoryInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -17,7 +18,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @link     http://vufind.org
  * @link     http://www.swissbib.ch
  */
-class DeactivatePublisherFactory implements FactoryInterface
+class ReloadUsersFactory implements FactoryInterface
 {
 
     /**
@@ -30,7 +31,11 @@ class DeactivatePublisherFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
+        /** @var PuraUserRepositoryInterface $puraUserRepository */
+        $puraUserRepository = $container->get(PuraUserRepositoryInterface::class);
+
+        /** @var SwitchConfig $switchConfig */
         $switchConfig = $container->get('config')['switch_api'];
-        return new DeactivatePublisherHandler($switchConfig);
+        return new ReloadUsersHandler($switchConfig, $puraUserRepository);
     }
 }

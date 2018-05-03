@@ -69,7 +69,7 @@ class PublisherHandler implements RequestHandlerInterface
         $data = [];
 
         return new HtmlResponse(
-            $this->template->render('publisher::activation', $data)
+            $this->template->render('publisher::index', $data)
         );
     }
 }

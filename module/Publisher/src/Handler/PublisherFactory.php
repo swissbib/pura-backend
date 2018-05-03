@@ -25,7 +25,7 @@ class PublisherFactory implements FactoryInterface
      * @param \Interop\Container\ContainerInterface $container
      * @param string $requestedName
      * @param array|null $options
-     * @return HomePageHandler|object
+     * @return PublisherHandler|object
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */

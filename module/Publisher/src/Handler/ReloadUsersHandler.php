@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DeactivatePublisherHandler
+ * ActivatePublisherHandler
  *
  * PHP version 5
  *
@@ -35,12 +35,15 @@ namespace Publisher\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Publisher\BusinessLogicHelper\Publisher;
+use PuraUserModel\Entity\PuraUserEntity;
+use PuraUserModel\Repository\PuraUserRepositoryInterface;
 use SwitchSharedAttributesAPIClient\PublishersList;
 use SwitchSharedAttributesAPIClient\PuraSwitchClient;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
- * DeactivatePublisherHandler
+ * ActivatePublisherHandler
  *
  * @category Swissbib_VuFind2
  * @package  Handler
@@ -48,20 +51,23 @@ use Zend\Diactoros\Response\JsonResponse;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org
  */
-class DeactivatePublisherHandler implements RequestHandlerInterface
+class ReloadUsersHandler implements RequestHandlerInterface
 {
     /**
      * @var array $switchConfig
      */
     protected $switchConfig;
 
+    /** @var PuraUserRepositoryInterface $puraUserRepository */
+    private $puraUserRepository;
+
     /**
-     * DeactivatePublisherHandler constructor.
-     *
+     * ActivatePublisherHandler constructor.
      */
-    public function __construct($switchConfig)
+    public function __construct($switchConfig, $puraUserRepository)
     {
         $this->switchConfig=$switchConfig;
+        $this->puraUserRepository=$puraUserRepository;
     }
 
     /**
@@ -69,38 +75,32 @@ class DeactivatePublisherHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
 
-        $filePath = __DIR__ . '/../../../../public/publishers-libraries.json';
-
-
-        $publishersJsonData
-            = file_exists($filePath) ? file_get_contents($filePath) : '';
-
-        /**
-         * @var PublishersList $publishersList
-         */
-        $publishersList = new PublishersList();
-
-        $publishersList->loadPublishersFromJsonFile($publishersJsonData);
-
-        /** @var  $SwitchClient PuraSwitchClient */
-        $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
+        $libraryCode = 'Z01';
 
 
-        $otherLibraries=[];
+        //todo get all active users
+        $puraUserList = $this->puraUserRepository
+            ->getFilteredListOfAllUsersFromALibrary('', $libraryCode);
 
-        //todo check if the user is registered with other libraries
+
+        //todo do not reset expiration date
+        /** @var PuraUserEntity $puraUser */
+        foreach ($puraUserList as $puraUser) {
+            $retVal = $publisherHelper->activatePublishers($puraUser->getEduId(), $puraUser->getBarcode(), $libraryCode);
+
+            echo $retVal['message'];
+
+            echo $puraUser->getFirstname();
+            echo ' ';
+            echo $puraUser->getLastname();
+            echo ' ';
+            echo $puraUser->getEduId();
+            echo '<br>';
+        }
+        //$retVal = $publisherHelper->activatePublishers($puraUserEntity->getEduId(), $barcode, $libraryCode);
 
 
-        $result = $puraSwitchClient->deactivatePublishers(
-            '169330697816@test.eduid.ch',
-            'Z01',
-            $otherLibraries
-        );
-
-        //Here Needs to Store in the DB the date of deactivation'
-        // and set "has_access" to false
-
-        return new JsonResponse(['success : ' . $result['success'] => $result['message']]);
     }
 }

@@ -12,6 +12,7 @@
     },
     {
       "name": "Munzinger Online: Personen, Länder, Literatur, Film, Musik und Chronik (ab 1986)",
+      "short_name": "Munzinger",
       "url" : "https://www.munzinger.de/munzinger-shibboleth/Shibboleth.sso/WAYF/CM?providerId=https://eduid.ch/idp/shibboleth&target=https://www.munzinger.de/search/shib/start.jsp",
       "info_url" : "https://www.munzinger.de",
       "description" : "Weltereignisse, Länderportraits, Biographien, Literatur- und Musikerlexika, Filmkritiken",
@@ -22,6 +23,7 @@
     },
     {
       "name": "Musik in Geschichte und Gegenwart (MGG online)",
+      "short_name": "MGG online",
       "url" : "https://www.mgg-online.com/mgg/saml/samlLogin?entityID=https://eduid.ch/idp/shibboleth",
       "info_url" : "https://www.mgg-online.com/",
       "description" : "Standardwerk der Musikwissenschaft",

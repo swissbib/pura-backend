@@ -44,6 +44,7 @@ $aggregator = new ConfigAggregator([
     User\ConfigProvider::class,
     PuraUser\ConfigProvider::class,
     PuraUserModel\ConfigProvider::class,
+    Publisher\ConfigProvider::class,
 
 
     // Load application config in a pre-defined order in such a way that local settings

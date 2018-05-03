@@ -93,6 +93,5 @@ return function (
     );
     /* Module 'Publisher' */
     $app->get('/publisher', Publisher\Handler\PublisherHandler::class, 'publisher');
-    $app->get('/publisher/activate', Publisher\Handler\ActivatePublisherHandler::class, 'publisher.activate');
-    $app->get('/publisher/deactivate', Publisher\Handler\DeactivatePublisherHandler::class, 'publisher.deactivate');
+    $app->get('/publisher/reload', Publisher\Handler\ReloadUsersHandler::class, 'publisher.reload-all-users');
 };
