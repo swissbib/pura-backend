@@ -65,8 +65,8 @@ public function process(
             )
         );
         $response = $handler->handle($request);
-        if($response->getStatusCode() == 403) {
-            echo "Access to this page is restricted";
+        if ($response->getStatusCode() == 403) {
+            return new RedirectResponse('/forbidden');
         }
         return $response;
     }

@@ -48,6 +48,7 @@ return [
             'publisher',
             'publisher.reload-all-users',
             'publisher.remove-publisher',
+            'forbidden',
         ],
         'allow' => [
             'default' => [
@@ -62,6 +63,7 @@ return [
                 'purauser.edit.emptyuser',
                 'purauser.search',
                 'purauser.block',
+                'forbidden',
             ],
             'admin' => [
                 'publisher',

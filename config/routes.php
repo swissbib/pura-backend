@@ -96,4 +96,6 @@ return function (
     $app->get('/publisher/reload', Publisher\Handler\ReloadUsersHandler::class, 'publisher.reload-all-users');
 
     $app->route('/publisher/remove-publisher', Publisher\Handler\RemovePublisherHandler::class, ['GET', 'POST'], 'publisher.remove-publisher');
+
+    $app->get('/forbidden', App\Handler\ForbiddenPageHandler::class, 'forbidden');
 };

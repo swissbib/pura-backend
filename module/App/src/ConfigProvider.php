@@ -37,7 +37,7 @@ class ConfigProvider
         return [
             'factories'  => [
                 Handler\HomePageHandler::class => Handler\HomePageFactory::class,
-                Handler\PingHandler::class => InvokableFactory::class,
+                Handler\ForbiddenPageHandler::class => Handler\ForbiddenPageFactory::class,
             ],
         ];
     }
