@@ -82,42 +82,46 @@ class AlephNrEntryHandler implements MiddlewareInterface
                 $alephNr
             );
 
-            $retVal = 1;
             if ($puraUserEntity->getLibrarySystemNumber() !== $alephNr) {
-                $retVal = $this->puraUserRepository->savePuraUserAlephNr($alephNr, $barcode);
+                $puraUserEntity->setLibrarySystemNumber($alephNr);
             }
 
-            if ($retVal > 0) {
-                $publisherHelper = new Publisher($this->switchConfig, $this->puraUserRepository);
-                $retVal = $publisherHelper->activatePublishers($puraUserEntity->getEduId(), $barcode, $libraryCode);
+            $publisherHelper = new Publisher(
+                $this->switchConfig,
+                $this->puraUserRepository
+            );
+            $retVal = $publisherHelper
+                ->activatePublishers(
+                    $puraUserEntity->getEduId(),
+                    $barcode,
+                    $libraryCode
+                );
 
-                $message = $retVal['message'];
-                if ($retVal['success']) {
-                    $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
-                    $flashMessages->flash('message', $retVal['message']);
+            $message = $retVal['message'];
+            if ($retVal['success']) {
+                $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
+                $flashMessages->flash('message', $retVal['message']);
 
-                    if (!$puraUserEntity->getHasAccess()) {
-                        //we record the first date where the account was created, not the renewals
-                        $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));
-                    }
-                    $puraUserEntity->setHasAccess(true);
-
-                    $dateExpiration = date('Y-m-d H:i:s', strtotime('+1 year'));
-                    $puraUserEntity->setDateExpiration($dateExpiration);
-
-                    $this->puraUserRepository->savePuraUser($puraUserEntity);
-
-                    /* unblock user, will set the blocking date
-to null, which is not possible with setter methods */
-                    $this->puraUserRepository->unBlockUser($barcode);
-
-                    $response = $handler->handle($request);
-
-                    return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
-                } else {
+                if (!$puraUserEntity->getHasAccess()) {
+                    //we record the first date where the account was created, not the renewals
+                    $puraUserEntity->setAccessCreated(date("Y-m-d H:i:s"));
                 }
+                $puraUserEntity->setHasAccess(true);
+
+                $dateExpiration = date('Y-m-d H:i:s', strtotime('+1 year'));
+                $puraUserEntity->setDateExpiration($dateExpiration);
+
+                $this->puraUserRepository->savePuraUser($puraUserEntity);
+
+                /* unblock user, will set the blocking date
+    to null, which is not possible with setter methods */
+                $this->puraUserRepository->unBlockUser($barcode);
+
+                $response = $handler->handle($request);
+
+                return new RedirectResponse('/purauser/edit/' . $puraUserEntity->getBarcode());
             } else {
-                $message .= 'There was an error saving the aleph number to the database.';
+                $this->puraUserRepository->savePuraUser($puraUserEntity);
             }
         }
 
