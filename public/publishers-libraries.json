@@ -8,7 +8,8 @@
       "switch_group_id" : "1d3baa7b-da70-440d-b777-5bb2d11f8718",
       "libraries_with_contract" : [
         "Z01"
-      ]
+      ],
+      "internal_note" : "This group delivers common-lib-terms. Can be used for all libraries."
     },
     {
       "name": "Munzinger Online: Personen, Länder, Literatur, Film, Musik und Chronik (ab 1986)",
@@ -19,7 +20,8 @@
       "switch_group_id" : "b7b9d761-c6dc-4bc8-901e-a50467af6c71",
       "libraries_with_contract" : [
         "Z01"
-      ]
+      ],
+      "internal_note" : "This group delivers common-lib-terms. Can be used for all libraries."
     },
     {
       "name": "Musik in Geschichte und Gegenwart (MGG online)",
@@ -29,8 +31,9 @@
       "description" : "Standardwerk der Musikwissenschaft",
       "switch_group_id" : "e93fda4f-da5b-408d-b220-033f7b789678",
       "libraries_with_contract" : [
-        
-      ]
+        "Z01"
+      ],
+      "internal_note" : "This group delivers the ISIL code of the ZB to the publisher. For other libraries, other groups need to be created."
     },
     {
       "name": "Thieme",
