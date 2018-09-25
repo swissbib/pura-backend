@@ -42,6 +42,17 @@
       "description" : "a collection of journals",
       "switch_group_id" : "c626d45b-2bbd-44ef-846a-6ff3efe6e519",
       "libraries_with_contract" : []
+    },
+    {
+      "name": "Various Databases, hosted by Proquest",
+      "short_name": "Proquest",
+      "url" : "https://search.proquest.com/shibboleth?accountid=14796",
+      "info_url" : "",
+      "description" : "ca. 20 databases on various subjects : <ul><li> Academic Video Online‎</li><li> ARTbibliographies Modern (ABM)‎  (1974 - aktuell)</li><li> Bibliografía de la Literatura Española‎</li><li> British Periodicals‎  (1681 - 2005)</li><li> ERIC‎  (1966 - aktuell)</li><li> Humanities Index‎  (1962 - aktuell)</li><li> Index Islamicus‎  (1906 - aktuell)</li><li> International Bibliography of Art (IBA)‎</li><li> International Bibliography of the Social Sciences (IBSS)‎</li><li> Library &amp; Information Science Abstracts (LISA)‎  (1969 - aktuell)</li><li> Linguistics and Language Behavior Abstracts (LLBA)‎  (1973 - aktuell)</li><li> MEDLINE®‎  (1946 - aktuell)</li><li> National Criminal Justice Reference Service (NCJRS) Abstracts Database‎  (1975 - aktuell)</li><li> Periodicals Archive Online‎</li><li> Periodicals Index Online‎</li><li> PILOTS: Published International Literature On Traumatic Stress‎  (1871 - aktuell</li><li> ProQuest Digitized Newspapers: The New York Times Recent</li><li> ProQuest Dissertations &amp; Theses A&amp;I‎</li><li> Social Services Abstracts‎  (1979 - aktuell)</li><li> Sociological Abstracts‎  (1952 - aktuell)</li></ul>",
+      "switch_group_id" : "5c86aa6b-f67d-47a9-b4dc-2298daa6b479",
+      "libraries_with_contract" : [
+        "Z01"
+      ]
     }
   ]
 }
