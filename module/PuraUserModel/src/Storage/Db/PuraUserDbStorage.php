@@ -116,6 +116,10 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             !array_key_exists('blocked_created', $puraUserArray) ?
                 null : $puraUserArray['blocked_created']
         );
+        $puraUserEntity->setIsMemberEducationInstitution(
+            !array_key_exists('is_member_education_institution', $puraUserArray) ?
+                null : $puraUserArray['is_member_education_institution']
+        );
         return $puraUserEntity;
     }
 
@@ -129,7 +133,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     public function getSinglePuraUser($barcode)
     {
         $select = $this->tableGateway->getSql()->select();
-        $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number', 'library_code', 'has_access', 'blocked', 'blocked_created']);
+        $select->columns(['user_id','edu_id','barcode', 'access_created', 'date_expiration', 'remarks', 'library_system_number', 'library_code', 'has_access', 'blocked', 'blocked_created', 'is_member_education_institution']);
         $select->where->equalTo('barcode', $barcode);
         $select->join('user', 'user.id = pura_user.user_id', ['firstname', 'lastname', 'email'], 'left');
 
@@ -301,7 +305,6 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             // update existing pura user with given, non-null, values
             $update = $this->tableGateway->getSql()->update();
             $fieldForPuraUserTable = [];
-            $fieldForUserTable = [];
 
             if (!is_null($puraUser->getLibrarySystemNumber())) {
                 $fieldForPuraUserTable['library_system_number']
@@ -311,21 +314,9 @@ class PuraUserDbStorage implements PuraUserStorageInterface
                 $fieldForPuraUserTable['user_id']
                     = $puraUser->getUserId();
             }
-            if (!is_null($puraUser->getEmail())) {
-                $fieldForUserTable['email']
-                    = $puraUser->getEmail();
-            }
             if (!is_null($puraUser->getEduId())) {
                 $fieldForPuraUserTable['edu_id']
                     = $puraUser->getEduId();
-            }
-            if (!is_null($puraUser->getFirstname())) {
-                $fieldForUserTable['firstname']
-                    = $puraUser->getFirstname();
-            }
-            if (!is_null($puraUser->getLastname())) {
-                $fieldForUserTable['lastname']
-                    = $puraUser->getLastname();
             }
             if (!is_null($puraUser->getRemarks())) {
                 $fieldForPuraUserTable['remarks']
@@ -338,10 +329,6 @@ class PuraUserDbStorage implements PuraUserStorageInterface
             if ($puraUser->getAccessCreated()) {
                 $fieldForPuraUserTable['access_created']
                     = $puraUser->getAccessCreated();
-            }
-            if (!is_null($puraUser->getLanguage())) {
-                $fieldForUserTable['language']
-                    = $puraUser->getLanguage();
             }
             if (!is_null($puraUser->getBlocked())) {
                 $fieldForPuraUserTable['blocked']
@@ -367,9 +354,9 @@ class PuraUserDbStorage implements PuraUserStorageInterface
                 $fieldForPuraUserTable['library_code']
                     = $puraUser->getLibraryCode();
             }
-            if (!is_null($puraUser->getUsername())) {
-                $fieldForUserTable['username']
-                    = $puraUser->getUsername();
+            if (!is_null($puraUser->getIsMemberEducationInstitution())) {
+                $fieldForPuraUserTable['is_member_education_institution']
+                    = $puraUser->getIsMemberEducationInstitution();
             }
 
             $update->set($fieldForPuraUserTable);

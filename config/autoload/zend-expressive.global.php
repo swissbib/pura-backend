@@ -34,6 +34,7 @@ return [
             'admin'  => ['librarian'], //can view users from all pura libraries
             'Z01'  => ['librarian'],
             'A100'  => ['librarian'],
+            'E65'  => ['librarian'],
         ],
         'resources' => [
             'home',

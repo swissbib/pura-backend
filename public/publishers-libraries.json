@@ -1,13 +1,24 @@
 {
   "publishers" : [
     {
+      "name": "MIZ Video Online (nanoo.tv)",
+      "short_name": "nanoo",
+      "url" : "https://recherche.nebis.ch/primo-explore/search?query=any,contains,E65o4&tab=default_tab&search_scope=default_scope&vid=NEBIS&offset=0",
+      "info_url" : "https://www.zhdk.ch/miz/miz-nanootv",
+      "description" : "MIZ Video online contains TV programs that the MIZ records using the web-based video recorder nanoo.tv.",
+      "switch_group_id" : "3e96c637-5de3-4b42-870c-f645e98d0a6b",
+      "libraries_with_contract" : [
+        "E65"
+      ]
+    },
+    {
       "name": "National Licences",
       "url" : "https://www.swissbib.ch/Search/Results?filter%5B%5D=union%3A%22NATIONALLICENCE%22",
       "info_url" : "http://nationallicences.ch/",
       "description" : "More than 6 million journal articles from Springer, Oxford University Press, Cambridge University Press and De Gruyter",
       "switch_group_id" : "1d3baa7b-da70-440d-b777-5bb2d11f8718",
       "libraries_with_contract" : [
-        "Z01"
+        "Z01","E65"
       ],
       "internal_note" : "This group delivers common-lib-terms. Can be used for all libraries."
     },

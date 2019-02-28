@@ -14,6 +14,7 @@ use Zend\Expressive\Flash\FlashMessageMiddleware;
 use Zend\Expressive\Session\SessionMiddleware;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Filter\StaticFilter;
+use Zend\Filter\Boolean;
 use Zend\Form\Form;
 
 /**
@@ -76,11 +77,17 @@ class EditHandler implements MiddlewareInterface
         if ($request->getMethod() === 'POST') {
             $alephNr = $request->getParsedBody()['edit-alephNr'];
             $remark  = $request->getParsedBody()['edit-remark'];
+            $isMemberEducationInstitution =
+                $request->getParsedBody()['edit-member-education-institution'];
 
             // filter:
             $alephNr = StaticFilter::execute($alephNr, 'StringTrim');
             $alephNr = StaticFilter::execute($alephNr, 'StripTags');
             $remark = StaticFilter::execute($remark, 'StripTags');
+
+            $booleanFilter = new Boolean();
+            $isMemberEducationInstitution =
+                $booleanFilter->filter($isMemberEducationInstitution);
 
             $request = $request->withAttribute(
                 'alephNr',
@@ -90,11 +97,17 @@ class EditHandler implements MiddlewareInterface
                 'remark',
                 $remark
             );
+            $request = $request->withAttribute(
+                'member_education_institution',
+                $isMemberEducationInstitution
+            );
 
             // save alephNr+remark with savePuraUser(entity)
             $dbReturnCode = -1;
             $puraUserEntity->setLibrarySystemNumber($alephNr);
             $puraUserEntity->setRemarks($remark);
+            $puraUserEntity
+                ->setIsMemberEducationInstitution($isMemberEducationInstitution);
             $dbReturnCode = $this->puraUserRepository->savePuraUser($puraUserEntity);
 
             if ($dbReturnCode < 0) {

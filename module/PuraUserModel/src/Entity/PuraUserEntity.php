@@ -24,6 +24,14 @@ class PuraUserEntity {
     private $language;
 
     /**
+     * IsMemberEducationInstitution
+     *
+     * @var boolean is_member_education_institution true if the user is a member of an education
+     *                                              institution (needed by nanoo.tv)
+     */
+    private $is_member_education_institution;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -325,5 +333,23 @@ class PuraUserEntity {
     public function setLanguage($language): void
     {
         $this->language = $language;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsMemberEducationInstitution(): bool
+    {
+        return $this->is_member_education_institution;
+    }
+
+    /**
+     * @param bool $is_member_education_institution
+     *
+     * @return bool
+     */
+    public function setIsMemberEducationInstitution($is_member_education_institution)
+    {
+        $this->is_member_education_institution = $is_member_education_institution;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 $this->headLink()
     ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
     ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
@@ -6,6 +7,7 @@ $this->headLink()
 
 $this->inlineScript()
     ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
+    ->prependFile('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js')
     ->prependFile('/js/jquery.form.min.js')
     ->prependFile('https://code.jquery.com/jquery-3.3.1.min.js')
     ->prependFile('https://use.fontawesome.com/releases/v5.0.6/js/all.js');
@@ -92,6 +94,11 @@ $this->inlineScript()
                 }
             );
         }
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
 </body>
