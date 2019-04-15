@@ -141,4 +141,16 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     {
         return $this->puraUserStorage->unBlockUser($barcode);
     }
+
+    /**
+     * Reset the date of the last reminder email
+     *
+     * @param string $barcode barcode
+     *
+     * @return mixed
+     */
+    public function resetReminderEmail($barcode)
+    {
+        return $this->puraUserStorage->resetReminderEmail($barcode);
+    }
 }

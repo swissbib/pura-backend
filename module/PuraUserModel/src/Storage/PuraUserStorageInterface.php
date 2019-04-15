@@ -18,4 +18,5 @@ interface PuraUserStorageInterface
     public function savePuraUser($puraUser);
     public function blockUser($barcode);
     public function unBlockUser($barcode);
+    public function resetReminderEmail($barcode);
 }

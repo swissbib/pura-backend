@@ -113,6 +113,10 @@ class AlephNrEntryHandler implements MiddlewareInterface
 
                 $this->puraUserRepository->savePuraUser($puraUserEntity);
 
+
+                /* reset reminder email date to null (not possible via save) */
+                $this->puraUserRepository->resetReminderEmail($barcode);
+
                 /* unblock user, will set the blocking date
     to null, which is not possible with setter methods */
                 $this->puraUserRepository->unBlockUser($barcode);

@@ -287,6 +287,22 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         return $dbRetVal;
     }
 
+    /* removes the date of the reminder email sent */
+    public function resetReminderEmail($barcode)
+    {
+        $update = $this->tableGateway->getSql()->update();
+        $update->set(
+            [
+                'last_account_extension_request' => null,
+            ]
+        );
+
+        $update->where->equalTo('barcode', $barcode);
+        $dbRetVal = $this->tableGateway->updateWith($update);
+
+        return $dbRetVal;
+    }
+
     /**
      * @param $puraUser PuraUserEntity
      */
