@@ -238,6 +238,31 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         return $puraUserEntityArray;
     }
 
+    /**
+     * Get all expired active PuraUsers
+     *
+     * @return array
+     */
+    public function getAllActiveExpiredUsers()
+    {
+        $select = $this->tableGateway->getSql()->select();
+
+
+        $select->where->lessThan('date_expiration', date('Y-m-d H:i:s'));
+        $select->where->and->like('has_access', true);
+
+        $select->join('user', 'user.id = pura_user.user_id', ['firstname','lastname', 'email'], 'left');
+
+        $puraUserEntityArray = [];
+        $puraUserEntity = new PuraUserEntity();
+
+        foreach ($this->tableGateway->selectWith($select) as $row) {
+            $puraUserEntity = $this->createPuraUserEntity($row);
+            $puraUserEntityArray[] = $puraUserEntity;
+        }
+        return $puraUserEntityArray;
+    }
+
     public function savePuraUserAlephNr($alephNr, $barcode)
     {
         $update = $this->tableGateway->getSql()->update();

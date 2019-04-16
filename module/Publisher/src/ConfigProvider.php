@@ -2,6 +2,8 @@
 
 namespace Publisher;
 
+use Publisher\Handler\DeactivateExpiredUsersFactory;
+use Publisher\Handler\DeactivateExpiredUsersHandler;
 use Publisher\Handler\ReloadUsersFactory;
 use Publisher\Handler\ReloadUsersHandler;
 use Publisher\Handler\DeactivatePublisherFactory;
@@ -45,6 +47,7 @@ class ConfigProvider
                 PublisherHandler::class => PublisherFactory::class,
                 ReloadUsersHandler::class => ReloadUsersFactory::class,
                 RemovePublisherHandler::class => RemovePublisherFactory::class,
+                DeactivateExpiredUsersHandler::class => DeactivateExpiredUsersFactory::class,
             ],
         ];
     }

@@ -82,6 +82,18 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     }
 
     /**
+     * Get all active expired users
+     *
+     * @return array
+     */
+    public function getAllActiveExpiredUsers()
+    {
+        $puraUsers = $this->puraUserStorage->getAllActiveExpiredUsers();
+
+        return $puraUsers;
+    }
+
+    /**
      * Get single PuraUser by barcode
      *
      * @param integer $barcode

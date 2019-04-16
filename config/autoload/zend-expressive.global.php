@@ -49,6 +49,7 @@ return [
             'publisher',
             'publisher.reload-all-users',
             'publisher.remove-publisher',
+            'publisher.deactivate-expired-users',
             'forbidden',
         ],
         'allow' => [
@@ -70,6 +71,7 @@ return [
                 'publisher',
                 'publisher.reload-all-users',
                 'publisher.remove-publisher',
+                'publisher.deactivate-expired-users',
             ],
         ],
     ],

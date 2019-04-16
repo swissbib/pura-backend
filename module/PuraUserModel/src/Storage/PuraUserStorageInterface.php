@@ -19,4 +19,5 @@ interface PuraUserStorageInterface
     public function blockUser($barcode);
     public function unBlockUser($barcode);
     public function resetReminderEmail($barcode);
+    public function getAllActiveExpiredUsers();
 }

@@ -93,5 +93,6 @@ interface PuraUserRepositoryInterface
      * @return mixed
      */
     public function resetReminderEmail($barcode);
+    public function getAllActiveExpiredUsers();
 
 }
