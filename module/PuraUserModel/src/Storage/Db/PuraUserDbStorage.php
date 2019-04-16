@@ -146,37 +146,6 @@ class PuraUserDbStorage implements PuraUserStorageInterface
     }
 
     /**
-     * Get a filtered list of all PuraUsers
-     *
-     * @param string $filter the filter string
-     *
-     * @return array
-     */
-    public function getFilteredListOfAllUsers($filter)
-    {
-        $filter = '%' . $filter . '%';
-        $select = $this->tableGateway->getSql()->select()
-            ->columns(['user_id','edu_id','barcode']);
-        $select->where->nest()
-            ->like('pura_user.barcode', $filter)
-            ->or->like('pura_user.library_system_number', $filter)
-            ->or->like('user.firstname', $filter)
-            ->or->like('user.lastname', $filter)
-            ->or->like('user.email', $filter)
-            ->unnest();
-        $select->join('user', 'user.id = pura_user.user_id', ['firstname','lastname'], 'left');
-
-        $puraUserEntityArray = [];
-        $puraUserEntity = new PuraUserEntity();
-
-        foreach ($this->tableGateway->selectWith($select) as $row) {
-            $puraUserEntity = $this->createPuraUserEntity($row);
-            $puraUserEntityArray[] = $puraUserEntity;
-        }
-        return $puraUserEntityArray;
-    }
-
-    /**
      * Get a filtered list of all PuraUsers from a Specific Library
      *
      * @param string $filter      the filter string

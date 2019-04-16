@@ -18,15 +18,6 @@ interface PuraUserRepositoryInterface
     public function getBarcodeExists($barcode, $libraryCode);
 
     /**
-     * Get filtered list of all PuraUsers
-     *
-     * @param String $filer
-     *
-     * @return array
-     */
-    public function getFilteredListOfAllUsers($filter);
-
-    /**
      * Get a filtered list of all PuraUsers from a Specific Library
      *
      * @param string $filter      the filter string
