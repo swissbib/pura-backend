@@ -85,5 +85,6 @@ interface PuraUserRepositoryInterface
      */
     public function resetReminderEmail($barcode);
     public function getAllActiveExpiredUsers();
+    public function getAllActiveLibrariesForUser($eduid);
 
 }

@@ -380,4 +380,31 @@ class PuraUserDbStorage implements PuraUserStorageInterface
 
         return -1;
     }
+
+
+    /**
+     * Get the library codes of all libraries where the user is registered and active
+     *
+     * @param string $eduid EduId number like 169330697816@eduid.ch
+     *
+     * @return array $libraryCodes An array of Library Codes
+     */
+    public function getAllActiveLibrariesForUser($eduid)
+    {
+        //SELECT library_code FROM `pura_user` WHERE `edu_id`
+        //LIKE '859735645906@eduid.ch' AND `has_access` = 1
+        $select = $this->tableGateway->getSql()->select();
+
+        $select->columns(['library_code']);
+
+        $select->where->equalTo('edu_id', $eduid);
+        $select->where->and->equalTo('has_access', true);
+
+        $libraries = [];
+        foreach ($this->tableGateway->selectWith($select) as $row) {
+            $libraries[] = $row->library_code;
+        }
+
+        return $libraries;
+    }
 }

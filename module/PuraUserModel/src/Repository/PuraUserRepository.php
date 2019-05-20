@@ -151,4 +151,16 @@ class PuraUserRepository implements PuraUserRepositoryInterface
     {
         return $this->puraUserStorage->resetReminderEmail($barcode);
     }
+
+    /**
+     * Get the library codes of all libraries where the user is registered and active
+     *
+     * @param string $eduid EduId number like 169330697816@eduid.ch
+     *
+     * @return array $libraryCodes An array of Library Codes
+     */
+    public function getAllActiveLibrariesForUser($eduid)
+    {
+        return $this->puraUserStorage->getAllActiveLibrariesForUser($eduid);
+    }
 }

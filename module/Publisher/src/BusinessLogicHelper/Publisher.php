@@ -110,13 +110,9 @@ class Publisher
         $publishersList->loadPublishersFromJsonFile($publishersJsonData);
         $puraSwitchClient = new PuraSwitchClient($this->switchConfig, $publishersList);
 
-        $otherLibraries=[];
-        //todo check if the user is registered with other libraries
+        $activeLibraries = $this->puraUserRepository->getAllActiveLibrariesForUser($userId);
 
-        /** @var PuraUserEntity $puraUserEntity */
-        $puraUserEntity = new PuraUserEntity();
-        $puraUserEntity->setBarcode($barcode);
-
+        $otherLibraries=array_diff($activeLibraries, [$libraryCode]);
 
         /* will set the activation and expiration date back
         to null, which is not possible with setter methods */
