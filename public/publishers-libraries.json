@@ -66,11 +66,11 @@
       ]
     },
     {
-      "name": "RBdigital",
-      "short_name": "RBdigital",
+      "name": "RBdigital Magazines",
+      "short_name": "RBdigital-ZB",
       "url" : "http://zhdk.rbdigitalglobal.com/",
       "info_url" : "",
-      "description" : "Magazines",
+      "description" : "Digital magazines to download and read on computers, tablet computers or smartphones",
       "switch_group_id" : "9313dff8-3350-4693-a989-e728e02558d8",
       "libraries_with_contract" : [
         "E65"
@@ -78,11 +78,11 @@
       "internal_note" : "This group delivers the ISIL code of the ZHdK to the publisher. For other libraries, other groups need to be created."
     },
     {
-      "name": "RBdigital",
-      "short_name": "RBdigital",
+      "name": "RBdigital Magazines",
+      "short_name": "RBdigital-ZHdK",
       "url" : "http://zentralbibliothek.rbdigitalglobal.com/",
       "info_url" : "",
-      "description" : "Magazines",
+      "description" : "Digital magazines to download and read on computers, tablet computers or smartphones",
       "switch_group_id" : "dc521a3c-b156-483d-8d34-9c1c6dc5fdc3",
       "libraries_with_contract" : [
         "Z01"
