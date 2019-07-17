@@ -88,6 +88,18 @@
         "Z01"
       ],
       "internal_note" : "This group delivers the ISIL code of the ZB to the publisher. For other libraries, other groups need to be created."
+    },
+    {
+      "name": "Beltz Juventa",
+      "short_name": "Beltz Juventa",
+      "url" : "https://content-select.com/de/",
+      "info_url" : "",
+      "description" : "Ebooks and Journals in Social Sciences",
+      "switch_group_id" : "b2aa9e85-9a83-4d66-a1fd-91fd6fedc2c7",
+      "libraries_with_contract" : [
+        "Z01"
+      ],
+      "internal_note" : "This group delivers common-lib-terms. Needs to login via UZH Pura."
     }
   ]
 }
