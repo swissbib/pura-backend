@@ -92,5 +92,21 @@ class ReloadUsersHandler implements RequestHandlerInterface
             echo $puraUser->getEduId();
             echo '<br>';
         }
+
+        $libraryCode = 'E65';
+
+        $puraUserList2 = $this->puraUserRepository
+            ->getAllActiveUsersFromALibrary($libraryCode);
+
+        /** @var PuraUserEntity $puraUser */
+        foreach ($puraUserList2 as $puraUser) {
+            $retVal = $publisherHelper->activatePublishers($puraUser->getEduId(), $puraUser->getBarcode(), $libraryCode);
+
+            echo $retVal['message'];
+
+            echo ' ';
+            echo $puraUser->getEduId();
+            echo '<br>';
+        }
     }
 }
