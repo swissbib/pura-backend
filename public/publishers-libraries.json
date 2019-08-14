@@ -67,7 +67,7 @@
     },
     {
       "name": "RBdigital Magazines",
-      "short_name": "RBdigital-ZB",
+      "short_name": "RBdigital-ZHdK",
       "url" : "http://zhdk.rbdigitalglobal.com/",
       "info_url" : "",
       "description" : "Digital magazines to download and read on computers, tablet computers or smartphones",
@@ -79,7 +79,7 @@
     },
     {
       "name": "RBdigital Magazines",
-      "short_name": "RBdigital-ZHdK",
+      "short_name": "RBdigital-ZB",
       "url" : "http://zentralbibliothek.rbdigitalglobal.com/",
       "info_url" : "",
       "description" : "Digital magazines to download and read on computers, tablet computers or smartphones",
