@@ -68,9 +68,9 @@
     {
       "name": "RBdigital Magazines",
       "short_name": "RBdigital-ZHdK",
-      "url" : "http://zhdk.rbdigitalglobal.com/",
+      "url" : "https://zhdk.ch/miz-rbdigital",
       "info_url" : "",
-      "description" : "Digital magazines to download and read on computers, tablet computers or smartphones",
+      "description" : "Digital magazines to download and read on tablet computers or smartphones",
       "switch_group_id" : "9313dff8-3350-4693-a989-e728e02558d8",
       "libraries_with_contract" : [
         "E65"
