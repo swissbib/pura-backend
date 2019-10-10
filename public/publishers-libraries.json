@@ -67,6 +67,18 @@
     },
     {
       "name": "RBdigital Magazines",
+      "short_name": "RBdigital-ZB",
+      "url" : "https://zbz.rbdigitalglobal.com/",
+      "info_url" : "https://www.zb.uzh.ch/de/recherche?keyword=rbdigital",
+      "description" : "Digital magazines to download and read on computers, tablet computers or smartphones. Download the App in the <a href='https://apps.apple.com/us/app/oneclickdigital/id515311743'>Apple Store</a> and in <a href='https://play.google.com/store/apps/details?id=com.ocd'>Google Play</a>",
+      "switch_group_id" : "dc521a3c-b156-483d-8d34-9c1c6dc5fdc3",
+      "libraries_with_contract" : [
+        "Z01"
+      ],
+      "internal_note" : "This group delivers the ISIL code of the ZB to the publisher. For other libraries, other groups need to be created."
+    },
+    {
+      "name": "RBdigital Magazines",
       "short_name": "RBdigital-ZHdK",
       "url" : "https://zhdk.ch/miz-rbdigital",
       "info_url" : "",
