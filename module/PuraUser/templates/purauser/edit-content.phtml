@@ -113,6 +113,30 @@ use PuraUserModel\Entity\PuraUserEntity;
         </div>
     </form>
 
+    <div class="form-group row">
+
+
+        <label class="col-sm-2 col-form-label"></label>
+        <div class="mx-sm-6 mb-2">
+        <form class="form-inline" action="<?= $this->url('purauser.barcodeentry') ?>" method="POST" name="barcodeEntry-form" id="barcodeEntry-form">
+
+                <input class="form-control" name="barcodeEntry" type="hidden" value="<?= $puraUserEntity->getBarcode() ?>">
+            <button type="submit" class="btn btn-primary mb-2">Activate / Extend this user</button>
+        </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
     <h4>Edit User Information</h4>
 
     <form action="" method="POST" name="edit-form" id="edit-form" class="form-horizontal">
