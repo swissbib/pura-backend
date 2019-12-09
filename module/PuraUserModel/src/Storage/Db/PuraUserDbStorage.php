@@ -155,6 +155,9 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      */
     public function getFilteredListOfAllUsersFromALibrary($filter, $libraryCode)
     {
+        if($filter===""){
+            return [];
+        }
         $filter = '%' . $filter . '%';
         $select = $this->tableGateway->getSql()->select()
             ->columns(['user_id','edu_id','barcode']);
