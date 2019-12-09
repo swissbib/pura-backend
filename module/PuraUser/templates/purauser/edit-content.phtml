@@ -185,14 +185,9 @@ use PuraUserModel\Entity\PuraUserEntity;
     <a href="<?= $this->url('purauser.block', ['barcode' => $puraUserEntity->getBarcode()]) ?>" name="edit-blockFromLib-form" id="edit-blockAllLibs-form">
         <input type="submit" name="block" class="btn btn-outline-danger" value="Block this user for my library">
     </a>
+    <br><br>
     </div>
 
-    <div>
-        <br>
-    <a href="mailto:swissbib-ub@unibas.ch?subject=Pura : Block this user for all libraries&body=Hello !%0D%0APlease block user :%0D%0A<?= $puraUserEntity->getLastname() ?> <?= $puraUserEntity->getFirstname() ?>%0D%0A<?= $puraUserEntity->getEmail() ?>%0D%0A<?= $puraUserEntity->getEduId() ?>%0D%0A%0D%0A for all Pura Libraries.%0D%0A%0D%0AThank you !" value="Block this user from all Pura libraries">
-        Send an email to block this user for all Pura libraries
-    </a>
-    </div>
 <?php else:; ?>
     <span>Select a user on the left.</span>
 <?php endif; ?>
