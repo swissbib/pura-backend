@@ -167,6 +167,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
         $select = $this->tableGateway->getSql()->select()
             ->columns(['user_id','edu_id','barcode']);
 
+        //if there is a space in the query, we only search the firstname and lastname
         if (strpos($rawFilter, " ")) {
             $firstWord = explode(" ", $rawFilter)[0];
             $secondWord = explode(" ", $rawFilter)[1];
@@ -182,7 +183,7 @@ class PuraUserDbStorage implements PuraUserStorageInterface
                 ->like('user.lastname', $firstWord)
                 ->and->like('user.firstname', $secondWord)
                 ->unnest();
-
+        //we search in all relevant fields
         } else {
             $select->where->nest()
                 ->like('pura_user.barcode', $filter)
