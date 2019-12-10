@@ -155,19 +155,43 @@ class PuraUserDbStorage implements PuraUserStorageInterface
      */
     public function getFilteredListOfAllUsersFromALibrary($filter, $libraryCode)
     {
+        $rawFilter=$filter;
         if($filter===""){
             return [];
+        }
+
+        if($filter==="*"){
+            $filter="";
         }
         $filter = '%' . $filter . '%';
         $select = $this->tableGateway->getSql()->select()
             ->columns(['user_id','edu_id','barcode']);
-        $select->where->nest()
-            ->like('pura_user.barcode', $filter)
-            ->or->like('pura_user.library_system_number', $filter)
-            ->or->like('user.firstname', $filter)
-            ->or->like('user.lastname', $filter)
-            ->or->like('user.email', $filter)
-            ->unnest();
+
+        if (strpos($rawFilter, " ")) {
+            $firstWord = explode(" ", $rawFilter)[0];
+            $secondWord = explode(" ", $rawFilter)[1];
+
+            $firstWord = '%' . $firstWord . '%';
+            $secondWord = '%' . $secondWord . '%';
+
+            //search Lionel Walter, or Walter Lionel
+            $select->where->or->nest()
+                ->like('user.firstname', $firstWord)
+                ->and->like('user.lastname', $secondWord)
+                ->unnest()->or->nest()
+                ->like('user.lastname', $firstWord)
+                ->and->like('user.firstname', $secondWord)
+                ->unnest();
+
+        } else {
+            $select->where->nest()
+                ->like('pura_user.barcode', $filter)
+                ->or->like('pura_user.library_system_number', $filter)
+                ->or->like('user.firstname', $filter)
+                ->or->like('user.lastname', $filter)
+                ->or->like('user.email', $filter)
+                ->unnest();
+        }
 
         if ($libraryCode == 'admin') {
             $select->where->and->like('pura_user.library_code', '%');
