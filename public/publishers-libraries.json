@@ -47,14 +47,6 @@
       "internal_note" : "This group delivers the ISIL code of the ZB to the publisher. For other libraries, other groups need to be created."
     },
     {
-      "name": "Thieme",
-      "url" : "https://www.thieme.de",
-      "info_url" : "",
-      "description" : "a collection of journals",
-      "switch_group_id" : "c626d45b-2bbd-44ef-846a-6ff3efe6e519",
-      "libraries_with_contract" : []
-    },
-    {
       "name": "Various Databases, hosted by Proquest",
       "short_name": "Proquest",
       "url" : "https://search.proquest.com/shibboleth?accountid=14796",
@@ -100,6 +92,18 @@
         "Z01"
       ],
       "internal_note" : "This group delivers common-lib-terms. Needs to login via UZH Pura."
+    },
+    {
+      "name": "medici.tv",
+      "short_name": "medici",
+      "url" : "https://edu.medici.tv",
+      "info_url" : "",
+      "description" : "Streaming platform for classical music videos",
+      "switch_group_id" : "b120fdd7-77ab-434e-8433-d8e01a5b1e98",
+      "libraries_with_contract" : [
+        "Z01"
+      ],
+      "internal_note" : "This group delivers common-lib-terms."
     }
   ]
 }
