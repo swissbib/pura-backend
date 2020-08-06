@@ -98,7 +98,7 @@
       "short_name": "medici",
       "url" : "https://connect.liblynx.com/wayfless/medicitv?entityID=https://eduid.ch/idp/shibboleth",
       "info_url" : "",
-      "description" : "Streaming platform for classical music videos",
+      "description" : "The world's leading classical music channel",
       "switch_group_id" : "b120fdd7-77ab-434e-8433-d8e01a5b1e98",
       "libraries_with_contract" : [
         "Z01"
