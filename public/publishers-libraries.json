@@ -2,13 +2,24 @@
   "publishers" : [
     {
       "name": "MIZ Video Online (nanoo.tv)",
-      "short_name": "nanoo",
+      "short_name": "nanoo-zhdk",
       "url" : "https://recherche.nebis.ch/primo-explore/search?query=any,contains,E65o4&tab=default_tab&search_scope=default_scope&vid=NEBIS&offset=0",
       "info_url" : "https://www.zhdk.ch/miz/miz-nanootv",
       "description" : "MIZ Video online contains TV programs that the MIZ records using the web-based video recorder nanoo.tv.",
       "switch_group_id" : "3e96c637-5de3-4b42-870c-f645e98d0a6b",
       "libraries_with_contract" : [
         "E65"
+      ]
+    },
+    {
+      "name": "MIZ Video Online (nanoo.tv)",
+      "short_name": "nanoo-zb",
+      "url" : "https://www.recherche-portal.ch/primo-explore/search?query=any,contains,E65o4&tab=default_tab&search_scope=default_scope&vid=ZAD&offset=0",
+      "info_url" : "https://www.zhdk.ch/miz/miz-nanootv",
+      "description" : "MIZ Video online contains TV programs that the MIZ records using the web-based video recorder nanoo.tv.",
+      "switch_group_id" : "1cd8aa0c-9cae-4d4e-945e-d5aa007853b8",
+      "libraries_with_contract" : [
+        "Z01"
       ]
     },
     {
