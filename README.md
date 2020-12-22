@@ -38,11 +38,9 @@ Pura-Back-End uses two mysql databases :
 
 You can see the schemas in the sql folder of this repository.
 
-
--   puralogin defined [here](https://github.com/swissbib/pura-backend/blob/master/config/autoload/development.local.php.dist#L38) and used for the authentication.
--   the [vufind](https://github.com/swissbib/pura-backend/blob/master/config/autoload/development.local.php.dist#L54) database. Only the tables user and pura-user are needed.
-
 ## Installation
+
+Here are the instructions to install the pura back-end. They have been tested on Ubuntu 18.04.
 
 Clone repo
 ``` {.bash}
@@ -61,7 +59,7 @@ In development.local.php, update :
 - databases info (multiple places)
 - credentials for the SWITCH API
 
-Update dependencies
+Install dependencies
 ``` {.bash}
 composer install
 ```
