@@ -51,8 +51,13 @@ return [
 
         'db' => [
             'driver'   => 'Pdo',
-            'dsn'      => 'mysql:host=localhost;dbname=vufind4',
+            'dsn'      => 'mysql:host=localhost;dbname=pura-db',
             'user'     => 'vfuser',
             'password' => 'vfpwd'
+        ],
+        'switch_api' => [
+                'base_endpoint_url' => 'https://eduid.ch/sg/index.php',
+                'auth_user' => 'XXXXXXXX',
+                'auth_password' => 'YYYYYYYYYYYYYYY',
         ],
 ];
